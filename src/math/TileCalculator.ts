@@ -24,5 +24,15 @@ export class TileCalculator {
     return new GeographicCoordinate( lat, lon );
   }
 
-  public static tileBounds ( x: number, y: number, zoom: number ) : BoundingBox {}
+  public static tileBounds ( x: number, y: number, zoom: number ) : BoundingBox {
+    const northWest = this.toLatLon( x, y, zoom );
+    const southEast = this.toLatLon( x + 1, y + 1, zoom );
+
+    return {
+      minLat: Math.min( northWest.latitude, southEast.latitude ),
+      maxLat: Math.max( northWest.latitude, southEast.latitude ),
+      minLon: Math.min( northWest.longitude, southEast.longitude ),
+      maxLon: Math.max( northWest.longitude, southEast.longitude )
+    };
+  }
 }
