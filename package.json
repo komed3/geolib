@@ -1,0 +1,11 @@
+{
+  "name": "geodetic",
+  "description": "TypeScript utility library for coordinate systems, geographic calculations, projection math, and conversion",
+  "license": "MIT",
+  "version": "0.1.0",
+  "author": {
+    "name": "komed3 (Paul Köhler)",
+    "email": "webmaster@komed3.de",
+    "url": "https://komed3.de"
+  }
+}
