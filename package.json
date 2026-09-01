@@ -7,5 +7,25 @@
     "name": "komed3 (Paul Köhler)",
     "email": "webmaster@komed3.de",
     "url": "https://komed3.de"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komed3/geolib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/komed3/geolib/issues"
+  },
+  "funding": {
+    "type": "ko-fi",
+    "url": "https://ko-fi.com/komed3"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
 }
