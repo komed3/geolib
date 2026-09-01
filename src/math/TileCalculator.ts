@@ -35,4 +35,8 @@ export class TileCalculator {
       maxLon: Math.max( northWest.longitude, southEast.longitude )
     };
   }
+
+  public static tileAt ( point: GeographicCoordinate, zoom: number ) : Tile {
+    return this.toTile( point.latitude, point.longitude, zoom );
+  }
 }
