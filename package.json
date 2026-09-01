@@ -8,6 +8,7 @@
     "email": "webmaster@komed3.de",
     "url": "https://komed3.de"
   },
+  "homepage": "https://github.com/komed3/geolib",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/komed3/geolib.git"
