@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ESNext",
     "moduleResolution": "bundler",
-    "types": [ "node" ],
     "declaration": false,
     "declarationMap": false,
     "sourceMap": false,
