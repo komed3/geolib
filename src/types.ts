@@ -3,3 +3,10 @@ export interface Tile {
   y: number;
   z: number;
 }
+
+export interface BoundingBox {
+  minLat: number;
+  maxLat: number;
+  minLon: number;
+  maxLon: number;
+}

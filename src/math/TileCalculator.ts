@@ -1,16 +1,10 @@
 import { GeographicCoordinate } from '../system/GeographicCoordinate';
+import type { BoundingBox, Tile } from '../types';
 import { GeodeticMath } from './GeodeticMath';
 
 
-export interface TileXY {
-  x: number;
-  y: number;
-  z: number;
-}
-
-
 export class TileCalculator {
-  public static toTile ( lat: number, lon: number, zoom: number ) : TileXY {
+  public static toTile ( lat: number, lon: number, zoom: number ) : Tile {
     const latitude = Math.min( Math.max( lat, -85.05112878 ), 85.05112878 );
     const sinLat = Math.sin( GeodeticMath.degToRad( latitude ) );
 
@@ -29,4 +23,6 @@ export class TileCalculator {
 
     return new GeographicCoordinate( lat, lon );
   }
+
+  public static tileBounds ( x: number, y: number, zoom: number ) : BoundingBox {}
 }
