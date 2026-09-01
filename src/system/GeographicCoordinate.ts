@@ -23,4 +23,8 @@ export class GeographicCoordinate extends Coordinate {
     this.longitude = longitude;
     this.altitude = altitude;
   }
+
+  public clone () : GeographicCoordinate {
+    return new GeographicCoordinate( this.latitude, this.longitude, this.altitude );
+  }
 }
