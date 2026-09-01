@@ -27,4 +27,8 @@ export class GeographicCoordinate extends Coordinate {
   public clone () : GeographicCoordinate {
     return new GeographicCoordinate( this.latitude, this.longitude, this.altitude );
   }
+
+  public toJSON () : Record< string, unknown > {
+    return { system: this.name, latitude: this.latitude, longitude: this.longitude, altitude: this.altitude };
+  }
 }
