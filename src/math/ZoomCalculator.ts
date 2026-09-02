@@ -9,7 +9,8 @@ export class ZoomCalculator {
     return Math.max( 0, Math.round( Math.log2( ( 156543.03392 * Math.cos( rad ) ) / meters ) ) );
   }
 
-  public static scale ( scale: number, lat: number) : number {
-    //
+  public static scale ( scale: number, lat: number ) : number {
+    if ( ! ( scale > 0 ) ) throw new RangeError( 'scale must be positive' );
+    return this.metersPerPixel( ( scale * 0.00028 ) / 256, lat );
   }
 }
