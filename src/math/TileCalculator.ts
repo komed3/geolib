@@ -1,4 +1,4 @@
-import { GeographicCoordinate } from '../system/GeographicCoordinate';
+import { GeographicCoordinate } from '../systems/GeographicCoordinate';
 import type { BoundingBox, Tile } from '../types';
 import { GeodeticMath } from './GeodeticMath';
 
