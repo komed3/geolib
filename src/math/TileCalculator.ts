@@ -18,10 +18,10 @@ export class TileCalculator {
   public static toLatLon ( x: number, y: number, zoom: number ) : GeographicCoordinate {
     const n = 2 ** zoom;
 
-    const lon = ( x / n ) * 360 - 180;
-    const lat = GeodeticMath.radToDeg( Math.atan( Math.sinh( Math.PI * ( 1 - ( 2 * y ) / n ) ) ) );
-
-    return new GeographicCoordinate( lat, lon );
+    return new GeographicCoordinate(
+      ( x / n ) * 360 - 180,
+      GeodeticMath.radToDeg( Math.atan( Math.sinh( Math.PI * ( 1 - ( 2 * y ) / n ) ) ) )
+    );
   }
 
   public static tileBounds ( x: number, y: number, zoom: number ) : BoundingBox {
@@ -29,14 +29,14 @@ export class TileCalculator {
     const southEast = this.toLatLon( x + 1, y + 1, zoom );
 
     return {
-      minLat: Math.min( northWest.latitude, southEast.latitude ),
-      maxLat: Math.max( northWest.latitude, southEast.latitude ),
-      minLon: Math.min( northWest.longitude, southEast.longitude ),
-      maxLon: Math.max( northWest.longitude, southEast.longitude )
+      minLat: Math.min( northWest.lat, southEast.lat ),
+      maxLat: Math.max( northWest.lat, southEast.lat ),
+      minLon: Math.min( northWest.lon, southEast.lon ),
+      maxLon: Math.max( northWest.lon, southEast.lon )
     };
   }
 
   public static tileAt ( point: GeographicCoordinate, zoom: number ) : Tile {
-    return this.toTile( point.latitude, point.longitude, zoom );
+    return this.toTile( point.lat, point.lon, zoom );
   }
 }

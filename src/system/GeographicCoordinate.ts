@@ -3,9 +3,9 @@ import { Coordinate } from '../abstract/Coordinate';
 
 export class GeographicCoordinate extends Coordinate {
   public override readonly name = 'geographic';
-  public readonly latitude: number;
-  public readonly longitude: number;
-  public readonly altitude: number;
+  public readonly lat: number;
+  public readonly lon: number;
+  public readonly alt: number;
 
   public constructor ( latitude: number, longitude: number, altitude: number = 0 ) {
     super( 'geographic', 3 );
@@ -19,16 +19,16 @@ export class GeographicCoordinate extends Coordinate {
     if ( longitude < -180 || longitude > 180 )
       throw new RangeError( 'longitude must be between -180 and 180 degrees' );
 
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.altitude = altitude;
+    this.lat = latitude;
+    this.lon = longitude;
+    this.alt = altitude;
   }
 
   public clone () : GeographicCoordinate {
-    return new GeographicCoordinate( this.latitude, this.longitude, this.altitude );
+    return new GeographicCoordinate( this.lat, this.lon, this.alt );
   }
 
   public toJSON () : Record< string, unknown > {
-    return { system: this.name, latitude: this.latitude, longitude: this.longitude, altitude: this.altitude };
+    return { system: this.name, latitude: this.lat, longitude: this.lon, altitude: this.alt };
   }
 }
