@@ -82,8 +82,8 @@ export class DMS {
       throw new RangeError( `Value must be between -${ max } and ${ max } degrees` );
 
     return new DMS(
-      Math.floor( abs ), Math.floor( ( abs % 1 ) * 60 ),
-      Math.round( ( ( abs % 1 ) * 60 % 1 ) * 60 ), direction
+      Math.floor( abs ), Math.floor( ( abs * 60 ) % 60 ),
+      ( abs * 3600 ) % 60, direction
     );
   }
 
