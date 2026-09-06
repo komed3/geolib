@@ -85,4 +85,18 @@ export class DMS {
       Math.round( ( ( abs % 1 ) * 60 % 1 ) * 60 ), direction
     );
   }
+
+  public static fromLatitude ( value: number ) : DMS {
+    if ( ! Number.isFinite( value ) )
+      throw new TypeError( 'Latitude must be a finite number' );
+
+    return DMS.fromDecimal( value, value < 0 ? 'S' : 'N' );
+  }
+
+  public static fromLongitude ( value: number ) : DMS {
+    if ( ! Number.isFinite( value ) )
+      throw new TypeError( 'Longitude must be a finite number' );
+
+    return DMS.fromDecimal( value, value < 0 ? 'W' : 'E' );
+  }
 }
