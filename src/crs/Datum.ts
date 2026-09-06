@@ -12,8 +12,8 @@ export class Datum {
     return new Datum( this.code, this.name, this.ellipsoid.clone() );
   }
 
-  public equals ( other: Datum ) : boolean {
-    return this.code === other.code && this.name === other.name &&
-      this.ellipsoid.equals( other.ellipsoid );
+  public equals ( { code, name, ellipsoid }: Datum ) : boolean {
+    return this.code === code && this.name === name &&
+      this.ellipsoid.equals( ellipsoid );
   }
 }
