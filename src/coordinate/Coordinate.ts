@@ -22,6 +22,15 @@ export class Coordinate {
     public readonly longitude: Longitude
   ) {}
 
+  public clone () : Coordinate {
+    return new Coordinate( this.latitude, this.longitude );
+  }
+
+  public equals ( other: Coordinate ) : boolean {
+    return this.latitude.value === other.latitude.value &&
+           this.longitude.value === other.longitude.value;
+  }
+
   public toTuple () : Tuple {
     return [ this.latitude.value, this.longitude.value ];
   }
