@@ -10,4 +10,8 @@ export class Longitude {
 
     this.value = value;
   }
+
+  public toRadians () : number {
+    return this.value * Math.PI / 180
+  }
 }
