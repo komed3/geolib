@@ -52,10 +52,10 @@ export class Coordinate {
     ];
   }
 
-  public toString ( { delimiter, ...options }: StringOptions = {} ) : string {
+  public toString ( { delimiter = ';', ...options }: StringOptions = {} ) : string {
     return [
       this.latitude.toString( options ),
       this.longitude.toString( options )
-    ].join( delimiter ?? ';' );
+    ].join( delimiter );
   }
 }
