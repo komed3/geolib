@@ -68,10 +68,10 @@ export class Coordinate {
   }
 
   public static fromDMS ( latitude: DMS, longitude: DMS ) : Coordinate {
-    if ( latitude.direction !== 'N' && latitude.direction !== 'S' )
+    if ( ! [ 'N', 'S' ].includes( latitude.direction ) )
       throw new TypeError( 'Latitude must use N or S direction' );
 
-    if ( longitude.direction !== 'E' && longitude.direction !== 'W' )
+    if ( ! [ 'E', 'W' ].includes( longitude.direction ) )
       throw new TypeError( 'Longitude must use E or W direction' );
 
     return Coordinate.fromDegrees( latitude.toDecimal(), longitude.toDecimal() );
