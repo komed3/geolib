@@ -1,6 +1,7 @@
 interface StringOptions {
   precision?: number;
   lang?: string;
+  showUnit?: boolean;
 }
 
 
@@ -11,10 +12,9 @@ export abstract class Value {
     return this.value * Math.PI / 180
   }
 
-  public toString ( { precision, lang }: StringOptions = {} ) : string {
+  public toString ( { precision, lang, showUnit }: StringOptions = {} ) : string {
     return this.value.toLocaleString( lang, {
-      minimumFractionDigits: precision,
-      maximumFractionDigits: precision
-    } ) + '°';
+      minimumFractionDigits: precision, maximumFractionDigits: precision
+    } ) + ( showUnit ? '°' : '' );
   }
 }
