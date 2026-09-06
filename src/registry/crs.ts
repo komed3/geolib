@@ -2,7 +2,7 @@ import { CoordinateSystem } from '../crs/CoordinateSystem';
 import { CRS } from '../crs/CRS';
 import { Projection } from '../crs/Projection';
 import { CRSRegistry } from './CRSRegistry';
-import { ETRS89 as ETRS89_D, WGS84 as WGS84_D } from './datum';
+import { ETRS89 as ETRS89_D, WGS84 as WGS84_D } from './datums';
 
 
 const geographic2D = new CoordinateSystem( 'ellipsoidal', [
