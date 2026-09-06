@@ -1,4 +1,4 @@
-interface RegistryEntry {
+export interface RegistryEntry {
   readonly code: string;
 }
 
@@ -6,7 +6,7 @@ interface RegistryEntry {
 export abstract class Registry< T extends RegistryEntry > {
   protected readonly entries = new Map< string, T >();
 
-  public values () : T[] {
+  public get values () : T[] {
     return [ ...this.entries.values() ];
   }
 
@@ -14,19 +14,23 @@ export abstract class Registry< T extends RegistryEntry > {
     return this.entries.size;
   }
 
+  protected normalize ( code: string ) : string {
+    return code;
+  }
+
   public register ( entry: T ) : void {
-    this.entries.set( entry.code, entry );
+    this.entries.set( this.normalize( entry.code ), entry );
   }
 
   public get ( code: string ) : T | undefined {
-    return this.entries.get( code );
+    return this.entries.get( this.normalize( code ) );
   }
 
   public has ( code: string ) : boolean {
-    return this.entries.has( code );
+    return this.entries.has( this.normalize( code ) );
   }
 
   public remove ( code: string ) : boolean {
-    return this.entries.delete( code );
+    return this.entries.delete( this.normalize( code ) );
   }
 }
