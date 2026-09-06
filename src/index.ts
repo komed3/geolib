@@ -30,8 +30,8 @@ export const geolib = {
   CRSRegistry, DatumRegistry, EllipsoidRegistry, Registry,
   registry: { crs, datums, ellipsoids },
   crs: { WGS84, ETRS89, WEB_MERCATOR, WGS84_UTM32N },
-  ellipsoids: { WGS84: WGS84_E, GRS80, CLARKE1866 },
-  datums: { WGS84: WGS84_D, ETRS89: ETRS89_D, NAD83 }
+  ellipsoid: { WGS84: WGS84_E, GRS80, CLARKE1866 },
+  datum: { WGS84: WGS84_D, ETRS89: ETRS89_D, NAD83 }
 };
 
 export default geolib;
