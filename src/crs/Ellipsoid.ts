@@ -36,4 +36,13 @@ export class Ellipsoid {
   public get secondEccentricity () : number {
     return Math.sqrt( this.secondEccentricitySquared );
   }
+
+  public clone () : Ellipsoid {
+    return new Ellipsoid( this.semiMajorAxis, this.inverseFlattening );
+  }
+
+  public equals ( other: Ellipsoid ) : boolean {
+    return this.semiMajorAxis === other.semiMajorAxis &&
+      this.inverseFlattening === other.inverseFlattening;
+  }
 }
