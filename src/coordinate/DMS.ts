@@ -9,6 +9,9 @@ interface StringOptions {
 }
 
 
+const DMS_REGEX = /^(\d+(?:\.\d+)?)\s*°?\s*(\d+(?:\.\d+)?)?\s*(?:′|')?\s*(\d+(?:\.\d+)?)?\s*(?:″|")?\s*([NSEW])$/i;
+
+
 export class DMS {
   public readonly degrees: number;
   public readonly minutes: number;
@@ -97,5 +100,17 @@ export class DMS {
 
   public static fromLongitude ( value: number ) : DMS {
     return DMS.fromDecimal( value, value < 0 ? 'W' : 'E' );
+  }
+
+  public static parse ( value: string ) : DMS {
+    const match = value.trim().match( DMS_REGEX );
+    if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
+
+    return new DMS(
+      Number( match[ 1 ] ),
+      match[ 2 ] === undefined ? 0 : Number( match[ 2 ] ),
+      match[ 3 ] === undefined ? 0 : Number( match[ 3 ] ),
+      match[ 4 ].toUpperCase() as DMSDirection
+    );
   }
 }
