@@ -5,6 +5,7 @@ import { Longitude } from './Longitude';
 interface StringOptions {
   precision?: number;
   lang?: string;
+  showUnit?: boolean;
   delimiter?: string;
 }
 
@@ -23,8 +24,8 @@ export class Coordinate {
     return [ this.latitude.toRadians(), this.longitude.toRadians() ];
   }
 
-  public toString ( { precision, lang, delimiter }: StringOptions = {} ) : string {
-    //
+  public toString ( { delimiter, ...o }: StringOptions = {} ) : string {
+    return [ this.latitude.toString( o ), this.longitude.toString( o ) ].join( delimiter ?? ';' );
   }
 
   public static fromDegrees ( latitude: number, longitude: number ) : Coordinate {
