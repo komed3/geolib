@@ -5,7 +5,10 @@ export abstract class Value {
     return this.value * Math.PI / 180
   }
 
-  public toString ( precision: number = -1 ) : string {
-    return ( precision < 0 ? `${ this.value }` : this.value.toFixed( precision ) ) + '°';
+  public toString ( precision?: number, lang: string = 'en' ) : string {
+    return this.value.toLocaleString( lang, {
+      minimumFractionDigits: precision,
+      maximumFractionDigits: precision
+    } ) + '°';
   }
 }
