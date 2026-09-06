@@ -22,4 +22,11 @@ export class CoordinateSystem {
   public clone () : CoordinateSystem {
     return new CoordinateSystem( this.type, this.axes.map( axis => ( { ...axis } ) ) );
   }
+
+  public equals ( other: CoordinateSystem ) : boolean {
+    return this.type === other.type && this.axes.length === other.axes.length && this.axes.every(
+      ( { name, direction, unit }, i ) => name === other.axes[ i ].name &&
+        direction === other.axes[ i ].direction && unit === other.axes[ i ].unit
+    );
+  }
 }
