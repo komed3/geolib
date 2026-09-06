@@ -11,7 +11,7 @@ export class DMS {
   public readonly seconds: number;
   public readonly direction: DMSDirection;
 
-  public constructor( degrees: number, minutes: number, seconds: number, direction: DMSDirection ) {
+  public constructor ( degrees: number, minutes: number, seconds: number, direction: DMSDirection ) {
     if ( ! Number.isInteger( degrees ) || degrees < 0 )
       throw new RangeError( 'Degrees must be a non-negative integer' );
 

@@ -14,7 +14,8 @@ export abstract class Value {
 
   public toString ( { precision, lang, showUnit }: StringOptions = {} ) : string {
     return this.value.toLocaleString( lang, {
-      minimumFractionDigits: precision, maximumFractionDigits: precision
+      minimumFractionDigits: precision,
+      maximumFractionDigits: precision
     } ) + ( showUnit ? '°' : '' );
   }
 }
