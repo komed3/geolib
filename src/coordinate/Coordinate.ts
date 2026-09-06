@@ -3,6 +3,11 @@ import { Latitude } from './Latitude';
 import { Longitude } from './Longitude';
 
 
+export type Tuple< T = number > = [
+  latitude: T,
+  longitude: T
+];
+
 interface StringOptions {
   precision?: number;
   lang?: string;
@@ -17,15 +22,15 @@ export class Coordinate {
     public readonly longitude: Longitude
   ) {}
 
-  public toTuple () : [ number, number ] {
+  public toTuple () : Tuple {
     return [ this.latitude.value, this.longitude.value ];
   }
 
-  public toRadians () : [ number, number ] {
+  public toRadians () : Tuple {
     return [ this.latitude.toRadians(), this.longitude.toRadians() ];
   }
 
-  public toDMS () : [ DMS, DMS ] {
+  public toDMS () : Tuple< DMS > {
     return [ DMS.fromLatitude( this.latitude.value ), DMS.fromLongitude( this.longitude.value ) ];
   }
 
