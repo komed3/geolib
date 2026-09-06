@@ -27,9 +27,8 @@ export class Coordinate {
     return new Coordinate( this.latitude, this.longitude );
   }
 
-  public equals ( other: Coordinate ) : boolean {
-    return this.latitude.value === other.latitude.value &&
-      this.longitude.value === other.longitude.value;
+  public equals ( { latitude, longitude }: Coordinate ) : boolean {
+    return this.latitude.value === latitude.value && this.longitude.value === longitude.value;
   }
 
   public toTuple () : Tuple {
@@ -37,10 +36,7 @@ export class Coordinate {
   }
 
   public toRadians () : Tuple {
-    return [
-      this.latitude.toRadians(),
-      this.longitude.toRadians()
-    ];
+    return [ this.latitude.toRadians(), this.longitude.toRadians() ];
   }
 
   public toDMS () : Tuple< DMS > {

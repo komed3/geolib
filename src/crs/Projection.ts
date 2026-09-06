@@ -12,10 +12,10 @@ export class Projection {
     return new Projection( this.name, this.method, { ...this.params } );
   }
 
-  public equals ( other: Projection ) : boolean {
-    return this.name === other.name && this.method === other.method &&
-      Object.keys( this.params ).length === Object.keys( other.params ).length &&
-      Object.keys( this.params ).every( k => this.params[ k ] === other.params[ k ] );
+  public equals ( { name, method, params }: Projection ) : boolean {
+    return this.name === name && this.method === method && Object.keys( this.params ).every(
+      k => this.params[ k ] === params[ k ]
+    );
   }
 
   public hasParam ( name: string ) : boolean {
