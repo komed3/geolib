@@ -17,4 +17,12 @@ export class Projection {
       Object.keys( this.params ).length === Object.keys( other.params ).length &&
       Object.keys( this.params ).every( k => this.params[ k ] === other.params[ k ] );
   }
+
+  public hasParam ( name: string ) : boolean {
+    return name in this.params;
+  }
+
+  public getParam ( name: string ) : number | undefined {
+    return this.params[ name ];
+  }
 }
