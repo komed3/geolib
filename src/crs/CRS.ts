@@ -34,4 +34,12 @@ export class CRS {
   public isProjected () : boolean {
     return this.type === 'projected';
   }
+
+  public isEllipsoidal () : boolean {
+    return this.coordinateSystem === 'ellipsoidal';
+  }
+
+  public isCartesian () : boolean {
+    return this.coordinateSystem === 'cartesian';
+  }
 }
