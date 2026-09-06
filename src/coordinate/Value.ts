@@ -1,3 +1,6 @@
+import { deg2Rad } from '../utils/math';
+
+
 interface StringOptions {
   precision?: number;
   lang?: string;
@@ -9,7 +12,7 @@ export abstract class Value {
   public constructor ( public readonly value: number ) {}
 
   public toRadians () : number {
-    return this.value * Math.PI / 180
+    return deg2Rad( this.value );
   }
 
   public toString ( { precision, lang, showUnit }: StringOptions = {} ) : string {
