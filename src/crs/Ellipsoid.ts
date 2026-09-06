@@ -12,4 +12,28 @@ export class Ellipsoid {
     this.semiMajorAxis = semiMajorAxis;
     this.inverseFlattening = inverseFlattening;
   }
+
+  public get flattening () : number {
+    return 1 / this.inverseFlattening;
+  }
+
+  public get semiMinorAxis () : number {
+    return this.semiMajorAxis * ( 1 - this.flattening );
+  }
+
+  public get firstEccentricitySquared () : number {
+    return this.flattening * ( 2 - this.flattening );
+  }
+
+  public get firstEccentricity () : number {
+    return Math.sqrt( this.firstEccentricitySquared );
+  }
+
+  public get secondEccentricitySquared () : number {
+    return this.firstEccentricitySquared / ( 1 - this.firstEccentricitySquared );
+  }
+
+  public get secondEccentricity () : number {
+    return Math.sqrt( this.secondEccentricitySquared );
+  }
 }
