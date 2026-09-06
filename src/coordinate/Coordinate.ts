@@ -7,4 +7,8 @@ export class Coordinate {
     public readonly latitude: Latitude,
     public readonly longitude: Longitude
   ) {}
+
+  public static fromDegrees ( latitude: number, longitude: number ) : Coordinate {
+    return new Coordinate( new Latitude( latitude ), new Longitude( longitude ) );
+  }
 }
