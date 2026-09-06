@@ -2,7 +2,6 @@ export type DMSDirection = 'N' | 'S' | 'E' | 'W';
 
 interface StringOptions {
   precision?: number;
-  showUnit?: boolean;
 }
 
 
@@ -46,5 +45,9 @@ export class DMS {
 
   public toRadians () : number {
     return this.toDecimal() * Math.PI / 180;
+  }
+
+  public toString ( { precision = 2 }: StringOptions = {} ) : string {
+    return `${ this.degrees }° ${ this.minutes }′ ${ this.seconds.toFixed( precision ) }″ ${ this.direction }`;
   }
 }
