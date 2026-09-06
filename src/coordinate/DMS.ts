@@ -1,3 +1,6 @@
+import { deg2Rad } from '../utils/math';
+
+
 export type DMSDirection = 'N' | 'S' | 'E' | 'W';
 
 interface StringOptions {
@@ -45,5 +48,14 @@ export class DMS {
   public equals ( other: DMS ) : boolean {
     return this.degrees === other.degrees && this.minutes === other.minutes &&
       this.seconds === other.seconds && this.direction === other.direction;
+  }
+
+  public toDecimal () : number {
+    const value = this.degrees + this.minutes / 60 + this.seconds / 3600;
+    return this.direction === 'S' || this.direction === 'W' ? -value : value;
+  }
+
+  public toRadians () : number {
+    return deg2Rad( this.toDecimal() );
   }
 }
