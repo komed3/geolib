@@ -1,6 +1,6 @@
 export type CoordinateSystemType = 'ellipsoidal' | 'cartesian';
 export type AxisDirection = 'north' | 'south' | 'east' | 'west' | 'up' | 'down';
-export type AxisUnit = | 'degree' | 'metre';
+export type AxisUnit = 'degree' | 'metre';
 
 export interface CoordinateAxis {
   readonly name: string;
@@ -9,4 +9,13 @@ export interface CoordinateAxis {
 }
 
 
-export class CoordinateSystem {}
+export class CoordinateSystem {
+  public constructor (
+    public readonly type: CoordinateSystemType,
+    public readonly axes: readonly CoordinateAxis[]
+  ) {}
+
+  public get dimension () : number {
+    return this.axes.length;
+  }
+}
