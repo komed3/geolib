@@ -49,9 +49,9 @@ export class DMS {
     return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
   }
 
-  public equals ( other: DMS ) : boolean {
-    return this.degrees === other.degrees && this.minutes === other.minutes &&
-      this.seconds === other.seconds && this.direction === other.direction;
+  public equals ( { degrees, minutes, seconds, direction }: DMS ) : boolean {
+    return this.degrees === degrees && this.minutes === minutes &&
+      this.seconds === seconds && this.direction === direction;
   }
 
   public toDecimal () : number {
