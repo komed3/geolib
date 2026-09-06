@@ -22,6 +22,17 @@ export class DMS {
     if ( ! Number.isFinite( seconds ) || seconds < 0 || seconds >= 60 )
       throw new RangeError( 'Seconds must be between 0 and 60' );
 
+    if ( ! [ 'N', 'S', 'E', 'W' ].includes( direction ) )
+      throw new RangeError( 'Direction must be N, S, E or W' );
+
+    const maxDegrees = direction === 'N' || direction === 'S' ? 90 : 180;
+
+    if ( degrees > maxDegrees )
+      throw new RangeError( `Degrees must be between 0 and ${ maxDegrees }` );
+
+    if ( degrees === maxDegrees && ( minutes > 0 || seconds > 0 ) )
+      throw new RangeError( `Degrees cannot exceed ${ maxDegrees }` );
+
     this.degrees = degrees;
     this.minutes = minutes;
     this.seconds = seconds;
