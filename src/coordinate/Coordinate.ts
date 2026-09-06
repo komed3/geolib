@@ -8,11 +8,12 @@ export class Coordinate {
     public readonly longitude: Longitude
   ) {}
 
+  public toTuple () : [ number, number ] {
+    return [ this.latitude.value, this.longitude.value ];
+  }
+
   public toRadians () : [ number, number ] {
-    return [
-      this.latitude.toRadians(),
-      this.longitude.toRadians()
-    ]
+    return [ this.latitude.toRadians(), this.longitude.toRadians() ];
   }
 
   public static fromDegrees ( latitude: number, longitude: number ) : Coordinate {
