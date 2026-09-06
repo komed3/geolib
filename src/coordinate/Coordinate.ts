@@ -2,6 +2,13 @@ import { Latitude } from './Latitude';
 import { Longitude } from './Longitude';
 
 
+interface StringOptions {
+  precision?: number;
+  lang?: string;
+  delimiter?: string;
+}
+
+
 export class Coordinate {
   public constructor (
     public readonly latitude: Latitude,
@@ -14,6 +21,10 @@ export class Coordinate {
 
   public toRadians () : [ number, number ] {
     return [ this.latitude.toRadians(), this.longitude.toRadians() ];
+  }
+
+  public toString ( { precision, lang, delimiter }: StringOptions = {} ) : string {
+    //
   }
 
   public static fromDegrees ( latitude: number, longitude: number ) : Coordinate {
