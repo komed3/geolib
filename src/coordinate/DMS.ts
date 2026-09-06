@@ -87,23 +87,14 @@ export class DMS {
   }
 
   public static fromRadians ( value: number, direction: DMSDirection ) : DMS {
-    if ( ! Number.isFinite( value ) )
-      throw new TypeError( 'Value must be a finite number' );
-
     return DMS.fromDecimal( rad2Deg( value ), direction );
   }
 
   public static fromLatitude ( value: number ) : DMS {
-    if ( ! Number.isFinite( value ) )
-      throw new TypeError( 'Latitude must be a finite number' );
-
     return DMS.fromDecimal( value, value < 0 ? 'S' : 'N' );
   }
 
   public static fromLongitude ( value: number ) : DMS {
-    if ( ! Number.isFinite( value ) )
-      throw new TypeError( 'Longitude must be a finite number' );
-
     return DMS.fromDecimal( value, value < 0 ? 'W' : 'E' );
   }
 }
