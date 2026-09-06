@@ -5,7 +5,7 @@ export abstract class Value {
     return this.value * Math.PI / 180
   }
 
-  public toString ( precision?: number, lang: string = 'en' ) : string {
+  public toString ( { precision, lang }: { precision?: number, lang?: string } = {} ) : string {
     return this.value.toLocaleString( lang, {
       minimumFractionDigits: precision,
       maximumFractionDigits: precision
