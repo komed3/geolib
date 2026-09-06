@@ -1,3 +1,4 @@
+import { rad2Deg } from '../utils/math';
 import { DMS } from './DMS';
 import { Latitude } from './Latitude';
 import { Longitude } from './Longitude';
@@ -32,10 +33,7 @@ export class Coordinate {
   }
 
   public toTuple () : Tuple {
-    return [
-      this.latitude.value,
-      this.longitude.value
-    ];
+    return [ this.latitude.value, this.longitude.value ];
   }
 
   public toRadians () : Tuple {
@@ -61,6 +59,13 @@ export class Coordinate {
 
   public static fromDegrees ( latitude: number, longitude: number ) : Coordinate {
     return new Coordinate( new Latitude( latitude ), new Longitude( longitude ) );
+  }
+
+  public static fromRadians ( latitude: number, longitude: number ) : Coordinate {
+    return new Coordinate(
+      new Latitude( rad2Deg( latitude ) ),
+      new Longitude( rad2Deg( longitude ) )
+    );
   }
 
   public static fromTuple ( [ latitude, longitude ]: Tuple ) : Coordinate {
