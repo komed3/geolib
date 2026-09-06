@@ -1,4 +1,4 @@
-export type ProjectionParams = Readonly< Record< string, number > >;
+type ProjectionParams = Readonly< Record< string, number > >;
 
 
 export class Projection {
