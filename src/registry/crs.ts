@@ -25,3 +25,10 @@ export const WEB_MERCATOR = new CRS(
   'EPSG:3857', 'WGS 84 / Pseudo-Mercator', 'projected', WGS84_D, projected2D,
   new Projection( 'Pseudo-Mercator', 'mercator' )
 );
+
+export const WGS84_UTM32N = new CRS(
+  'EPSG:32632', 'WGS 84 / UTM zone 32N', 'projected', WGS84_D, projected2D,
+  new Projection( 'UTM zone 32N', 'transverse-mercator', {
+    centralMeridian: 9, scaleFactor: 0.9996, falseEasting: 500000, falseNorthing: 0
+  } )
+);
