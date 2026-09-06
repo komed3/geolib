@@ -37,4 +37,13 @@ export class DMS {
     this.seconds = seconds;
     this.direction = direction;
   }
+
+  public clone () : DMS {
+    return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
+  }
+
+  public equals ( other: DMS ) : boolean {
+    return this.degrees === other.degrees && this.minutes === other.minutes &&
+      this.seconds === other.seconds && this.direction === other.direction;
+  }
 }
