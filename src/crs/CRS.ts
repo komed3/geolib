@@ -19,4 +19,12 @@ export class CRS {
   public equals ( other: CRS ) : boolean {
     return this.code === other.code;
   }
+
+  public isGeographic () : boolean {
+    return this.type === 'geographic';
+  }
+
+  public isProjected () : boolean {
+    return this.type === 'projected';
+  }
 }
