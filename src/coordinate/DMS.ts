@@ -22,4 +22,9 @@ export class DMS {
     this.seconds = seconds;
     this.direction = direction;
   }
+
+  public toDecimal () : number {
+    const value = this.degrees + this.minutes / 60 + this.seconds / 3600;
+    return this.direction === 'S' || this.direction === 'W' ? -value : value;
+  }
 }
