@@ -58,4 +58,15 @@ export class DMS {
   public toRadians () : number {
     return deg2Rad( this.toDecimal() );
   }
+
+  public toString ( { precision = 2 }: StringOptions = {} ) : string {
+    const factor = 10 ** precision;
+    let sec = Math.round( this.seconds * factor ) / factor;
+    let min = Math.floor( this.minutes ), deg = Math.floor( this.degrees );
+
+    if ( sec >= 60 ) sec = 0, min++;
+    if ( min >= 60 ) min = 0, deg++;
+
+    return `${ deg }° ${ min }′ ${ sec }″ ${ this.direction }`;
+  }
 }
