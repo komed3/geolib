@@ -29,4 +29,12 @@ export class CoordinateSystem {
         direction === other.axes[ i ].direction && unit === other.axes[ i ].unit
     );
   }
+
+  public isEllipsoidal () : boolean {
+    return this.type === 'ellipsoidal';
+  }
+
+  public isCartesian () : boolean {
+    return this.type === 'cartesian';
+  }
 }
