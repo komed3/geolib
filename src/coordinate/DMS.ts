@@ -69,4 +69,20 @@ export class DMS {
 
     return `${ deg }° ${ min }′ ${ sec }″ ${ this.direction }`;
   }
+
+  public static fromDecimal ( value: number, direction: DMSDirection ) : DMS {
+    if ( ! Number.isFinite( value ) )
+      throw new TypeError( 'Value must be a finite number' );
+
+    const max = direction === 'N' || direction === 'S' ? 90 : 180;
+    const abs = Math.abs( value );
+
+    if ( abs > max )
+      throw new RangeError( `Value must be between -${ max } and ${ max } degrees` );
+
+    return new DMS(
+      Math.floor( abs ), Math.floor( ( abs % 1 ) * 60 ),
+      Math.round( ( ( abs % 1 ) * 60 % 1 ) * 60 ), direction
+    );
+  }
 }
