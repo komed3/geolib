@@ -43,4 +43,8 @@ export class DMS {
     const value = this.degrees + this.minutes / 60 + this.seconds / 3600;
     return this.direction === 'S' || this.direction === 'W' ? -value : value;
   }
+
+  public toRadians () : number {
+    return this.toDecimal() * Math.PI / 180;
+  }
 }
