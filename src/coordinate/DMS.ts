@@ -60,4 +60,12 @@ export class DMS {
 
     return new DMS( degrees, minutes, seconds, direction );
   }
+
+  public static fromLatitude ( value: number ) : DMS {
+    return DMS.fromDecimal( value, value < 0 ? 'S' : 'N' );
+  }
+
+  public static fromLongitude ( value: number ) : DMS {
+    return DMS.fromDecimal( value, value < 0 ? 'W' : 'E' );
+  }
 }
