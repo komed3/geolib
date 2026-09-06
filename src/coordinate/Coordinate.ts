@@ -42,6 +42,10 @@ export class Coordinate {
     return new Coordinate( new Latitude( latitude ), new Longitude( longitude ) );
   }
 
+  public static fromTuple ( [ latitude, longitude ]: Tuple ) : Coordinate {
+    return new Coordinate( new Latitude( latitude ), new Longitude( longitude ) );
+  }
+
   public static fromDMS ( latitude: DMS, longitude: DMS ) : Coordinate {
     if ( latitude.direction !== 'N' && latitude.direction !== 'S' )
       throw new TypeError( 'Latitude must use N or S direction' );
