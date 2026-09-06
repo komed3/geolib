@@ -1,14 +1,16 @@
 export class Ellipsoid {
+  public readonly code: string;
   public readonly semiMajorAxis: number;
   public readonly inverseFlattening: number;
 
-  public constructor ( semiMajorAxis: number, inverseFlattening: number ) {
+  public constructor ( code: string, semiMajorAxis: number, inverseFlattening: number ) {
     if ( ! Number.isFinite( semiMajorAxis ) || semiMajorAxis <= 0 )
       throw new RangeError( 'Semi-major axis must be a positive finite number' );
 
     if ( ! Number.isFinite( inverseFlattening ) || inverseFlattening <= 0 )
       throw new RangeError( 'Inverse flattening must be a positive finite number' );
 
+    this.code = code;
     this.semiMajorAxis = semiMajorAxis;
     this.inverseFlattening = inverseFlattening;
   }
@@ -42,10 +44,11 @@ export class Ellipsoid {
   }
 
   public clone () : Ellipsoid {
-    return new Ellipsoid( this.semiMajorAxis, this.inverseFlattening );
+    return new Ellipsoid( this.code, this.semiMajorAxis, this.inverseFlattening );
   }
 
-  public equals ( { semiMajorAxis, inverseFlattening }: Ellipsoid ) : boolean {
-    return this.semiMajorAxis === semiMajorAxis && this.inverseFlattening === inverseFlattening;
+  public equals ( { code, semiMajorAxis, inverseFlattening }: Ellipsoid ) : boolean {
+    return this.code === code && this.semiMajorAxis === semiMajorAxis &&
+      this.inverseFlattening === inverseFlattening;
   }
 }
