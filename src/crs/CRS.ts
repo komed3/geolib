@@ -29,12 +29,10 @@ export class CRS {
     );
   }
 
-  public equals ( other: CRS ) : boolean {
-    return this.code === other.code && this.name === other.name && this.type === other.type &&
-      this.datum.equals( other.datum ) && this.coordinateSystem.equals( other.coordinateSystem ) &&
-      ( this.projection === undefined && other.projection === undefined ||
-        this.projection !== undefined && other.projection !== undefined &&
-        this.projection.equals( other.projection ) );
+  public equals( { code, name, type, datum, coordinateSystem, projection }: CRS ): boolean {
+    return this.code === code && this.name === name && this.type === type &&
+      this.datum.equals( datum ) && this.coordinateSystem.equals( coordinateSystem ) &&
+      !! this.projection && !! projection && this.projection.equals( projection );
   }
 
   public isGeographic () : boolean {
