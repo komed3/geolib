@@ -1,4 +1,4 @@
-import { deg2Rad } from '../utils/math';
+import { deg2Rad, rad2Deg } from '../utils/math';
 
 
 export type DMSDirection = 'N' | 'S' | 'E' | 'W';
@@ -84,6 +84,13 @@ export class DMS {
       Math.floor( abs ), Math.floor( ( abs % 1 ) * 60 ),
       Math.round( ( ( abs % 1 ) * 60 % 1 ) * 60 ), direction
     );
+  }
+
+  public static fromRadians ( value: number, direction: DMSDirection ) : DMS {
+    if ( ! Number.isFinite( value ) )
+      throw new TypeError( 'Value must be a finite number' );
+
+    return DMS.fromDecimal( rad2Deg( value ), direction );
   }
 
   public static fromLatitude ( value: number ) : DMS {
