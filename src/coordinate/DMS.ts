@@ -67,7 +67,7 @@ export class DMS {
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    return `${ deg }° ${ min }′ ${ sec }″ ${ this.direction }`;
+    return `${ deg }° ${ min }′ ${ Number( sec ).toString() }″ ${ this.direction }`;
   }
 
   public static fromDecimal ( value: number, direction: DMSDirection ) : DMS {
