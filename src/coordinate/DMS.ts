@@ -50,4 +50,21 @@ export class DMS {
   public toString ( { precision = 2 }: StringOptions = {} ) : string {
     return `${ this.degrees }° ${ this.minutes }′ ${ this.seconds.toFixed( precision ) }″ ${ this.direction }`;
   }
+
+  public static fromDecimal ( value: number, direction?: DMSDirection ) : DMS {
+    if ( ! Number.isFinite( value ) )
+      throw new TypeError( 'Value must be a finite number' );
+
+    if ( value < -180 || value > 180 )
+      throw new RangeError( 'Value must be between -180 and 180 degrees' );
+
+    const resolvedDirection = direction ?? ( value < 0 ? 'S' : 'N' );
+    const abs = Math.abs( value );
+    const degrees = Math.floor( abs );
+    const minutesValue = ( abs - degrees ) * 60;
+    const minutes = Math.floor( minutesValue );
+    const seconds = ( minutesValue - minutes ) * 60;
+
+    return new DMS( degrees, minutes, seconds, resolvedDirection );
+  }
 }
