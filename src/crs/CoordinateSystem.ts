@@ -18,4 +18,8 @@ export class CoordinateSystem {
   public get dimension () : number {
     return this.axes.length;
   }
+
+  public clone () : CoordinateSystem {
+    return new CoordinateSystem( this.type, this.axes.map( axis => ( { ...axis } ) ) );
+  }
 }
