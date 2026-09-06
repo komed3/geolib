@@ -58,4 +58,22 @@ export class Coordinate {
       this.longitude.toString( options )
     ].join( delimiter );
   }
+
+  public static fromDegrees ( latitude: number, longitude: number ) : Coordinate {
+    return new Coordinate( new Latitude( latitude ), new Longitude( longitude ) );
+  }
+
+  public static fromTuple ( [ latitude, longitude ]: Tuple ) : Coordinate {
+    return new Coordinate( new Latitude( latitude ), new Longitude( longitude ) );
+  }
+
+  public static fromDMS ( latitude: DMS, longitude: DMS ) : Coordinate {
+    if ( latitude.direction !== 'N' && latitude.direction !== 'S' )
+      throw new TypeError( 'Latitude must use N or S direction' );
+
+    if ( longitude.direction !== 'E' && longitude.direction !== 'W' )
+      throw new TypeError( 'Longitude must use E or W direction' );
+
+    return Coordinate.fromDegrees( latitude.toDecimal(), longitude.toDecimal() );
+  }
 }
