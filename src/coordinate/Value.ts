@@ -1,3 +1,9 @@
+interface StringOptions {
+  precision?: number;
+  lang?: string;
+}
+
+
 export abstract class Value {
   public constructor ( public readonly value: number ) {}
 
@@ -5,7 +11,7 @@ export abstract class Value {
     return this.value * Math.PI / 180
   }
 
-  public toString ( { precision, lang }: { precision?: number, lang?: string } = {} ) : string {
+  public toString ( { precision, lang }: StringOptions = {} ) : string {
     return this.value.toLocaleString( lang, {
       minimumFractionDigits: precision,
       maximumFractionDigits: precision
