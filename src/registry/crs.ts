@@ -18,6 +18,7 @@ const projected2D = new CoordinateSystem( 'cartesian', [
 
 export const crs = new CRSRegistry();
 
+
 export const WGS84 = new CRS( 'EPSG:4326', 'WGS 84', 'geographic', WGS84_D, geographic2D );
 export const ETRS89 = new CRS( 'EPSG:4258', 'ETRS89', 'geographic', ETRS89_D, geographic2D );
 
@@ -32,3 +33,9 @@ export const WGS84_UTM32N = new CRS(
     centralMeridian: 9, scaleFactor: 0.9996, falseEasting: 500000, falseNorthing: 0
   } )
 );
+
+
+crs.register( WGS84 );
+crs.register( ETRS89 );
+crs.register( WEB_MERCATOR );
+crs.register( WGS84_UTM32N );
