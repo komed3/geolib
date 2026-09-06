@@ -37,6 +37,10 @@ export class Ellipsoid {
     return Math.sqrt( this.secondEccentricitySquared );
   }
 
+  public isSphere () : boolean {
+    return this.firstEccentricitySquared === 0;
+  }
+
   public clone () : Ellipsoid {
     return new Ellipsoid( this.semiMajorAxis, this.inverseFlattening );
   }
