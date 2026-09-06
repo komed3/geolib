@@ -2,6 +2,8 @@ import { Datum } from './Datum';
 
 
 export type CRSType = 'geographic' | 'projected';
+export type CRSUnit = 'degree' | 'metre';
+export type CRSCoordinateSystem = 'ellipsoidal' | 'cartesian';
 
 
 export class CRS {
