@@ -13,7 +13,6 @@ export class Datum {
   }
 
   public equals ( { code, name, ellipsoid }: Datum ) : boolean {
-    return this.code === code && this.name === name &&
-      this.ellipsoid.equals( ellipsoid );
+    return this.code === code && this.name === name && this.ellipsoid.equals( ellipsoid );
   }
 }

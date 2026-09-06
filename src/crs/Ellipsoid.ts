@@ -45,8 +45,7 @@ export class Ellipsoid {
     return new Ellipsoid( this.semiMajorAxis, this.inverseFlattening );
   }
 
-  public equals ( other: Ellipsoid ) : boolean {
-    return this.semiMajorAxis === other.semiMajorAxis &&
-      this.inverseFlattening === other.inverseFlattening;
+  public equals ( { semiMajorAxis, inverseFlattening }: Ellipsoid ) : boolean {
+    return this.semiMajorAxis === semiMajorAxis && this.inverseFlattening === inverseFlattening;
   }
 }
