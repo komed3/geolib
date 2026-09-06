@@ -7,4 +7,8 @@ export class Projection {
     public readonly method: string,
     public readonly parameters: ProjectionParams = {}
   ) {}
+
+  public clone () : Projection {
+    return new Projection( this.name, this.method, { ...this.parameters } );
+  }
 }
