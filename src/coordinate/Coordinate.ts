@@ -8,6 +8,13 @@ export type Tuple< T = number > = [
   longitude: T
 ];
 
+interface StringOptions {
+  precision?: number;
+  lang?: string;
+  showUnit?: boolean;
+  delimiter?: string;
+}
+
 
 export class Coordinate {
   public constructor (
@@ -43,5 +50,12 @@ export class Coordinate {
       DMS.fromLatitude( this.latitude.value ),
       DMS.fromLongitude( this.longitude.value )
     ];
+  }
+
+  public toString ( { delimiter, ...options }: StringOptions = {} ) : string {
+    return [
+      this.latitude.toString( options ),
+      this.longitude.toString( options )
+    ].join( delimiter ?? ';' );
   }
 }
