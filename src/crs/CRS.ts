@@ -7,15 +7,20 @@ export type CRSCoordinateSystem = 'ellipsoidal' | 'cartesian';
 
 
 export class CRS {
+  public readonly coordinateSystem: CRSCoordinateSystem;
+
   public constructor (
     public readonly code: string,
     public readonly name: string,
     public readonly type: CRSType,
-    public readonly datum: Datum
-  ) {}
+    public readonly datum: Datum,
+    public readonly unit: CRSUnit
+  ) {
+    this.coordinateSystem = type === 'geographic' ? 'ellipsoidal' : 'cartesian';
+  }
 
   public clone () : CRS {
-    return new CRS( this.code, this.name, this.type, this.datum.clone() );
+    return new CRS( this.code, this.name, this.type, this.datum.clone(), this.unit );
   }
 
   public equals ( other: CRS ) : boolean {
