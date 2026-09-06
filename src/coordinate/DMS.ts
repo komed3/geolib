@@ -1,5 +1,10 @@
 export type DMSDirection = 'N' | 'S' | 'E' | 'W';
 
+interface StringOptions {
+  precision?: number;
+  showUnit?: boolean;
+}
+
 
 export class DMS {
   public readonly degrees: number;
