@@ -19,6 +19,7 @@ export function normalizeBearing ( bearing: number ) : number {
   return ( bearing % 360 + 360 ) % 360;
 }
 
+
 function sphericalInverse ( a: Coordinate, b: Coordinate, radius: number ) : GeodesicResult {
   const lat1 = deg2Rad( a.latitude.value ), lat2 = deg2Rad( b.latitude.value );
   const deltaLon = deg2Rad( b.longitude.value - a.longitude.value );
@@ -43,4 +44,26 @@ function sphericalInverse ( a: Coordinate, b: Coordinate, radius: number ) : Geo
   ) ) + 180 );
 
   return { distance: radius * centralAngle, initialBearing, finalBearing };
+}
+
+
+export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = WGS84 ) : GeodesicResult {
+  const lat1 = deg2Rad( a.latitude.value ), lat2 = deg2Rad( b.latitude.value );
+  const lon1 = deg2Rad( a.longitude.value ), lon2 = deg2Rad( b.longitude.value );
+
+  const semiMajorAxis = ellipsoid.semiMajorAxis;
+  const flattening = ellipsoid.flattening;
+  const semiMinorAxis = ellipsoid.semiMinorAxis;
+
+  if ( a.equals( b ) ) return { distance: 0, initialBearing: 0, finalBearing: 0 };
+  if ( ellipsoid.isSphere() ) return sphericalInverse( a, b, semiMajorAxis );
+
+  const reducedLat1 = Math.atan( ( 1 - flattening ) * Math.tan( lat1 ) );
+  const reducedLat2 = Math.atan( ( 1 - flattening ) * Math.tan( lat2 ) );
+
+  const sinReducedLat1 = Math.sin( reducedLat1 );
+  const cosReducedLat1 = Math.cos( reducedLat1 );
+  const sinReducedLat2 = Math.sin( reducedLat2 );
+  const cosReducedLat2 = Math.cos( reducedLat2 );
+  const deltaLongitude = lon2 - lon1;
 }
