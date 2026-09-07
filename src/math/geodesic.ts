@@ -72,5 +72,35 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
   let cosSquaredAlpha = 0, cosSquaredSigmaM = 0;
   let converged = false;
 
-  
+  for ( let i = 0; i < MAX_ITERATIONS; i++ ) {
+    const sinLambda = Math.sin( lambda ), cosLambda = Math.cos( lambda );
+    const x = cosReducedLat2 * sinLambda;
+    const y = cosReducedLat1 * sinReducedLat2 - sinReducedLat1 * cosReducedLat2 * cosLambda;
+
+    sinSigma = Math.hypot( x, y );
+
+    if ( sinSigma === 0 ) return { distance: 0, initialBearing: 0, finalBearing: 0 };
+
+    cosSigma = sinReducedLat1 * sinReducedLat2 + cosReducedLat1 * cosReducedLat2 * cosLambda;
+    sigma = Math.atan2( sinSigma, cosSigma );
+    sinAlpha = cosReducedLat1 * cosReducedLat2 * sinLambda / sinSigma;
+    cosSquaredAlpha = 1 - sinAlpha ** 2;
+    cosSquaredSigmaM = cosSquaredAlpha === 0 ? 0 : cosSigma - 2 * sinReducedLat1 * sinReducedLat2 / cosSquaredAlpha;
+
+    const c = flattening / 16 * cosSquaredAlpha * ( 4 + flattening * ( 4 - 3 * cosSquaredAlpha ) );
+    const nextLambda = deltaLon + ( 1 - c ) * flattening * sinAlpha * (
+      sigma + c * sinSigma * ( cosSquaredSigmaM + c * cosSigma * ( -1 + 2 * cosSquaredSigmaM ** 2 ) )
+    );
+
+    if ( Math.abs( nextLambda - lambda ) < CONVERGENCE ) {
+      lambda = nextLambda;
+      converged = true;
+      break;
+    }
+
+    if ( nextLambda === previousLambda ) break;
+
+    previousLambda = lambda;
+    lambda = nextLambda;
+  }
 }
