@@ -9,6 +9,10 @@ import { CRS, type CRSType } from './crs/CRS';
 import { Datum } from './crs/Datum';
 import { Ellipsoid } from './crs/Ellipsoid';
 
+import { angle } from './math/angle';
+import { bearing } from './math/bearing';
+import { distance } from './math/distance';
+
 import { Mercator } from './projection/Mercator';
 import { ProjectedCoordinate, type ProjectedTuple } from './projection/ProjectedCoordinate';
 import { SphericalMercator } from './projection/SphericalMercator';
@@ -21,11 +25,12 @@ import {
 
 
 export {
-  AxisDirection, AxisUnit, CLARKE1866, Coordinate, CoordinateAxis, CoordinateSystem,
-  CoordinateSystemType, CRS, crs, CRSRegistry, CRSType, Datum, DatumRegistry, datums,
-  DMS, DMSDirection, Ellipsoid, EllipsoidRegistry, ellipsoids, ETRS89, ETRS89_D, GRS80,
-  Latitude, Longitude, Mercator, NAD83, ProjectedCoordinate, ProjectedTuple, SphericalMercator,
-  TransverseMercator, Tuple, WEB_MERCATOR, WGS84, WGS84_D, WGS84_E, WGS84_UTM32N
+  angle, AxisDirection, AxisUnit, bearing, CLARKE1866, Coordinate, CoordinateAxis,
+  CoordinateSystem, CoordinateSystemType, CRS, crs, CRSRegistry, CRSType, Datum,
+  DatumRegistry, datums, distance, DMS, DMSDirection, Ellipsoid, EllipsoidRegistry,
+  ellipsoids, ETRS89, ETRS89_D, GRS80, Latitude, Longitude, Mercator, NAD83,
+  ProjectedCoordinate, ProjectedTuple, SphericalMercator, TransverseMercator,
+  Tuple, WEB_MERCATOR, WGS84, WGS84_D, WGS84_E, WGS84_UTM32N
 };
 
 
@@ -34,6 +39,7 @@ export const geolib = {
   CoordinateSystem, CRS, Datum, Ellipsoid,
   Mercator, ProjectedCoordinate, SphericalMercator, TransverseMercator,
   CRSRegistry, DatumRegistry, EllipsoidRegistry,
+  angle, bearing, distance,
   registry: { crs, datums, ellipsoids },
   crs: { WGS84, ETRS89, WEB_MERCATOR, WGS84_UTM32N },
   ellipsoid: { WGS84: WGS84_E, GRS80, CLARKE1866 },
