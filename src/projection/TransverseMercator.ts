@@ -29,6 +29,17 @@ export class TransverseMercator extends Projection {
       throw new TypeError( 'False northing must be a finite number' );
   }
 
+  private meridionalArc ( latitude: number, semiMajorAxis: number, eccentricitySquared: number ) : number {
+    const e4 = eccentricitySquared ** 2, e6 = eccentricitySquared ** 3;
+
+    return semiMajorAxis * (
+      ( 1 - eccentricitySquared / 4 - 3 * e4 / 64 - 5 * e6 / 256 ) * latitude -
+      ( 3 * eccentricitySquared / 8 + 3 * e4 / 32 + 45 * e6 / 1024 ) * Math.sin( 2 * latitude ) +
+      ( 15 * e4 / 256 + 45 * e6 / 1024 ) * Math.sin( 4 * latitude ) -
+      ( 35 * e6 / 3072 ) * Math.sin( 6 * latitude )
+    );
+  }
+
   public clone () : TransverseMercator {
     return new TransverseMercator(
       this.ellipsoid.clone(), this.centralMeridian, this.latitudeOfOrigin,
