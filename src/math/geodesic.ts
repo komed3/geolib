@@ -65,5 +65,12 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
   const cosReducedLat1 = Math.cos( reducedLat1 );
   const sinReducedLat2 = Math.sin( reducedLat2 );
   const cosReducedLat2 = Math.cos( reducedLat2 );
-  const deltaLongitude = lon2 - lon1;
+  const deltaLon = lon2 - lon1;
+
+  let lambda = deltaLon, previousLambda = Infinity;
+  let sinSigma = 0, cosSigma = 0, sigma = 0, sinAlpha = 0;
+  let cosSquaredAlpha = 0, cosSquaredSigmaM = 0;
+  let converged = false;
+
+  
 }
