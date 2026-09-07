@@ -10,7 +10,7 @@ export interface AngleOptions {
 }
 
 
-export function angle ( a: Coordinate, b: Coordinate, c: Coordinate, { ellipsoid }: AngleOptions ) : number;
+export function angle ( a: Coordinate, b: Coordinate, c: Coordinate, { ellipsoid }?: AngleOptions ) : number;
 export function angle ( a: ProjectedCoordinate, b: ProjectedCoordinate, c: ProjectedCoordinate ) : number;
 
 export function angle (

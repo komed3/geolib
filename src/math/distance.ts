@@ -9,7 +9,7 @@ export interface DistanceOptions {
 }
 
 
-export function distance ( a: Coordinate, b: Coordinate, { ellipsoid }: DistanceOptions ) : number;
+export function distance ( a: Coordinate, b: Coordinate, { ellipsoid }?: DistanceOptions ) : number;
 export function distance ( a: ProjectedCoordinate, b: ProjectedCoordinate ) : number;
 
 export function distance (
