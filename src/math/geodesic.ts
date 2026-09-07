@@ -18,3 +18,29 @@ const CONVERGENCE = 1e-13;
 export function normalizeBearing ( bearing: number ) : number {
   return ( bearing % 360 + 360 ) % 360;
 }
+
+function sphericalInverse ( a: Coordinate, b: Coordinate, radius: number ) : GeodesicResult {
+  const lat1 = deg2Rad( a.latitude.value ), lat2 = deg2Rad( b.latitude.value );
+  const deltaLon = deg2Rad( b.longitude.value - a.longitude.value );
+
+  const sinLat1 = Math.sin( lat1 );
+  const cosLat1 = Math.cos( lat1 );
+  const sinLat2 = Math.sin( lat2 );
+  const cosLat2 = Math.cos( lat2 );
+
+  const centralAngle = Math.atan2( Math.hypot(
+    cosLat2 * Math.sin( deltaLon ), cosLat1 * sinLat2 - sinLat1 * cosLat2 * Math.cos( deltaLon )
+  ), sinLat1 * sinLat2 + cosLat1 * cosLat2 * Math.cos( deltaLon ) );
+
+  if ( centralAngle === 0 ) return { distance: 0, initialBearing: 0, finalBearing: 0 };
+
+  const initialBearing = normalizeBearing( rad2Deg( Math.atan2(
+    Math.sin( deltaLon ) * cosLat2, cosLat1 * sinLat2 - sinLat1 * cosLat2 * Math.cos( deltaLon )
+  ) ) );
+
+  const finalBearing = normalizeBearing( rad2Deg( Math.atan2(
+    Math.sin( deltaLon ) * cosLat1, -sinLat1 * cosLat2 + cosLat1 * sinLat2 * Math.cos( deltaLon )
+  ) ) + 180 );
+
+  return { distance: radius * centralAngle, initialBearing, finalBearing };
+}
