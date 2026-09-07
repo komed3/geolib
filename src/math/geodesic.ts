@@ -114,4 +114,6 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
     cosSigma * ( -1 + 2 * cosSquaredSigmaM ** 2 ) - B / 6 * cosSquaredSigmaM *
     ( -3 + 4 * sinSigma ** 2 ) * ( -3 + 4 * cosSquaredSigmaM ** 2 )
   ) );
+
+  const distance = semiMinorAxis * A * ( sigma - deltaSigma );
 }
