@@ -68,4 +68,17 @@ export class Mercator extends Projection {
 
     return Coordinate.fromRadians( latitude, longitude );
   }
+
+  public clone () : Mercator {
+    return new Mercator(
+      this.ellipsoid.clone(), this.centralMeridian, this.scaleFactor,
+      this.falseEasting, this.falseNorthing
+    );
+  }
+
+  public equals ( other: Projection ) : boolean {
+    return other instanceof Mercator && this.ellipsoid.equals( other.ellipsoid ) &&
+      this.centralMeridian === other.centralMeridian && this.scaleFactor === other.scaleFactor &&
+      this.falseEasting === other.falseEasting && this.falseNorthing === other.falseNorthing;
+  }
 }
