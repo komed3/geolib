@@ -46,6 +46,16 @@ export class SphericalMercator extends Projection {
     return new ProjectedCoordinate( x, y );
   }
 
+  public unproject ( coordinate: ProjectedCoordinate ) : Coordinate {
+    const x = ( coordinate.easting - this.falseEasting ) / ( this.radius * this.scaleFactor );
+    const y = ( coordinate.northing - this.falseNorthing ) / ( this.radius * this.scaleFactor );
+
+    const longitude = deg2Rad( this.centralMeridian ) + x;
+    const latitude = 2 * Math.atan( Math.exp( y ) ) - Math.PI / 2;
+
+    return Coordinate.fromRadians( latitude, longitude );
+  }
+
   public clone () : SphericalMercator {
     return new SphericalMercator(
       this.radius, this.centralMeridian, this.scaleFactor,
