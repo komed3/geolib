@@ -39,7 +39,8 @@
     "bundle": "esbuild dist/esm/index.js --bundle --minify --legal-comments=none --format=iife --global-name=geolib --outfile=dist/bundle.js",
     "build": "npm run clean && npm run build:all && npm run format && npm run bundle",
     "postbuild": "tsc-alias && node scripts/postbuild.mjs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "vitest run"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",
