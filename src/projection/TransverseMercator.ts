@@ -28,4 +28,18 @@ export class TransverseMercator extends Projection {
     if ( ! Number.isFinite( falseNorthing ) )
       throw new TypeError( 'False northing must be a finite number' );
   }
+
+  public clone () : TransverseMercator {
+    return new TransverseMercator(
+      this.ellipsoid.clone(), this.centralMeridian, this.latitudeOfOrigin,
+      this.scaleFactor, this.falseEasting, this.falseNorthing
+    );
+  }
+
+  public equals ( other: Projection ) : boolean {
+    return other instanceof TransverseMercator && this.ellipsoid.equals( other.ellipsoid ) &&
+      this.centralMeridian === other.centralMeridian && this.latitudeOfOrigin === other.latitudeOfOrigin &&
+      this.scaleFactor === other.scaleFactor && this.falseEasting === other.falseEasting &&
+      this.falseNorthing === other.falseNorthing;
+  }
 }
