@@ -1,6 +1,6 @@
+import { Projection } from '../projection/Projection';
 import { CoordinateSystem } from './CoordinateSystem';
 import { Datum } from './Datum';
-import { Projection } from './Projection';
 
 
 export type CRSType = 'geographic' | 'projected';
