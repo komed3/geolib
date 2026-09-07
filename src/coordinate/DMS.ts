@@ -10,7 +10,7 @@ interface StringOptions {
 }
 
 
-const DMS_REGEX = /^(\d+(?:\.\d+)?)\s*°?\s*(\d+(?:\.\d+)?)?\s*(?:′|')?\s*(\d+(?:\.\d+)?)?\s*(?:″|")?\s*([NSEW])$/i;
+const DMS_REGEX = /^(\d+(?:\.\d+)?)(?:\s*°\s*(\d+)(?:\s*[′']\s*(\d+(?:\.\d+)?))?|(?:\s+)(\d+)(?:\s+(\d+(?:\.\d+)?))?)?\s*([NSEW])$/i;
 
 
 export class DMS {
@@ -67,7 +67,7 @@ export class DMS {
   public toString ( { precision = 2, lang = 'en-US', delimiter = ' ' }: StringOptions = {} ) : string {
     const factor = 10 ** precision;
     let sec = Math.round( this.seconds * factor ) / factor;
-    let min = Math.floor( this.minutes ), deg = Math.floor( this.degrees );
+    let min = this.minutes, deg = this.degrees;
 
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
@@ -84,14 +84,14 @@ export class DMS {
       throw new TypeError( 'Value must be a finite number' );
 
     const max = direction === 'N' || direction === 'S' ? 90 : 180;
-    const abs = Math.abs( value );
+    const absolute = Math.abs( value );
 
-    if ( abs > max )
+    if ( absolute > max )
       throw new RangeError( `Value must be between -${ max } and ${ max } degrees` );
 
     return new DMS(
-      Math.floor( abs ), Math.floor( ( abs * 60 ) % 60 ),
-      ( abs * 3600 ) % 60, direction
+      Math.floor( absolute ), Math.floor( ( absolute * 60 ) % 60 ),
+      ( absolute * 3600 ) % 60, direction
     );
   }
 
@@ -111,11 +111,15 @@ export class DMS {
     const match = value.trim().match( DMS_REGEX );
     if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
 
+    const degrees = Number( match[ 1 ] );
+    const minutes = match[ 2 ] ?? match[ 4 ];
+    const seconds = match[ 3 ] ?? match[ 5 ];
+
     return new DMS(
-      Number( match[ 1 ] ),
-      match[ 2 ] === undefined ? 0 : Number( match[ 2 ] ),
-      match[ 3 ] === undefined ? 0 : Number( match[ 3 ] ),
-      match[ 4 ].toUpperCase() as DMSDirection
+      Number.isNaN( degrees ) ? 0 : degrees,
+      minutes === undefined ? 0 : Number( minutes ),
+      seconds === undefined ? 0 : Number( seconds ),
+      match[ 6 ].toUpperCase() as DMSDirection
     );
   }
 }
