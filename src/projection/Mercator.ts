@@ -28,43 +28,44 @@ export class Mercator extends Projection {
       throw new TypeError( 'False northing must be a finite number' );
   }
 
-  public project ( coordinate: Coordinate ) : ProjectedCoordinate {
-    const latitude = deg2Rad( coordinate.latitude.value );
-    const longitude = deg2Rad( coordinate.longitude.value );
+  public project ( { latitude, longitude }: Coordinate ) : ProjectedCoordinate {
+    const lat = deg2Rad( latitude.value ), lon = deg2Rad( longitude.value );
     const centralMeridian = deg2Rad( this.centralMeridian );
+
+    if ( Math.abs( lat ) >= Math.PI / 2 )
+      throw new RangeError( 'Mercator projection is undefined at the poles' );
+
     const eccentricity = this.ellipsoid.firstEccentricity;
-    const sinLatitude = Math.sin( latitude );
+    const sinLatitude = Math.sin( lat );
 
     const x = this.ellipsoid.semiMajorAxis * this.scaleFactor *
-      ( longitude - centralMeridian ) + this.falseEasting;
+      ( lon - centralMeridian ) + this.falseEasting;
 
     const y = this.ellipsoid.semiMajorAxis * this.scaleFactor * Math.log(
-      Math.tan( Math.PI / 4 + latitude / 2 ) * (
-        ( 1 - eccentricity * sinLatitude ) / ( 1 + eccentricity * sinLatitude )
-      ) ** ( eccentricity / 2 )
+      Math.tan( Math.PI / 4 + lat / 2 ) * ( ( 1 - eccentricity * sinLatitude ) /
+        ( 1 + eccentricity * sinLatitude ) ) ** ( eccentricity / 2 )
     ) + this.falseNorthing;
 
     return new ProjectedCoordinate( x, y );
   }
 
   public unproject ( { easting, northing }: ProjectedCoordinate ) : Coordinate {
-    const eccentricity = this.ellipsoid.firstEccentricity;
-    const x = ( easting - this.falseEasting ) / ( this.ellipsoid.semiMajorAxis * this.scaleFactor );
-    const y = ( northing - this.falseNorthing ) / ( this.ellipsoid.semiMajorAxis * this.scaleFactor );
+    const a = this.ellipsoid.semiMajorAxis;
+    const e2 = this.ellipsoid.firstEccentricitySquared;
+    const e4 = e2 ** 2, e6 = e2 ** 3, e8 = e2 ** 4;
 
-    const longitude = deg2Rad( this.centralMeridian ) + x;
-    let latitude = Math.PI / 2 - 2 * Math.atan( Math.exp( -y ) );
+    const chi = Math.PI / 2 - 2 * Math.atan(
+      Math.exp( ( this.falseNorthing - northing ) / ( a * this.scaleFactor ) )
+    );
 
-    for ( let i = 0; i < 10; i++ ) {
-      const sinLatitude = Math.sin( latitude );
+    const latitude = chi +
+      ( e2 / 2 + 5 * e4 / 24 + e6 / 12 + 13 * e8 / 360 ) * Math.sin( 2 * chi ) +
+      ( 7 * e4 / 48 + 29 * e6 / 240 + 811 * e8 / 11520 ) * Math.sin( 4 * chi ) +
+      ( 7 * e6 / 120 + 81 * e8 / 1120 ) * Math.sin( 6 * chi ) +
+      ( 4279 * e8 / 161280 ) * Math.sin( 8 * chi );
 
-      const next = Math.PI / 2 - 2 * Math.atan( Math.exp( -y ) * (
-        ( 1 - eccentricity * sinLatitude ) / ( 1 + eccentricity * sinLatitude )
-      ) ** ( eccentricity / 2 ) );
-
-      if ( Math.abs( next - latitude ) < 1e-12 ) { latitude = next; break }
-      latitude = next;
-    }
+    const longitude = deg2Rad( this.centralMeridian ) +
+      ( easting - this.falseEasting ) / ( a * this.scaleFactor );
 
     return Coordinate.fromRadians( latitude, longitude );
   }
