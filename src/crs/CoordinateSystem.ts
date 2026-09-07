@@ -24,9 +24,9 @@ export class CoordinateSystem {
   }
 
   public equals ( { type, axes }: CoordinateSystem ) : boolean {
-    return this.type === type && this.axes.every(
-      ( { name, direction, unit }, i ) => name === axes[ i ].name &&
-        direction === axes[ i ].direction && unit === axes[ i ].unit
+    return this.type === type && this.axes.length === axes.length && this.axes.every(
+      ( { name, direction, unit }, i ) => name === axes[ i ].name && direction === axes[ i ].direction &&
+        unit === axes[ i ].unit
     );
   }
 
