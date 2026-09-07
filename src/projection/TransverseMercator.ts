@@ -1,4 +1,7 @@
+import { Coordinate } from '../coordinate/Coordinate';
 import type { Ellipsoid } from '../crs/Ellipsoid';
+import { deg2Rad } from '../utils/math';
+import { ProjectedCoordinate } from './ProjectedCoordinate';
 import { Projection } from './Projection';
 
 
@@ -38,6 +41,40 @@ export class TransverseMercator extends Projection {
       ( 15 * e4 / 256 + 45 * e6 / 1024 ) * Math.sin( 4 * latitude ) -
       ( 35 * e6 / 3072 ) * Math.sin( 6 * latitude )
     );
+  }
+
+  public project ( coordinate: Coordinate ) : ProjectedCoordinate {
+    const latitude = deg2Rad( coordinate.latitude.value );
+    const longitude = deg2Rad( coordinate.longitude.value );
+    const centralMeridian = deg2Rad( this.centralMeridian );
+    const latitudeOfOrigin = deg2Rad( this.latitudeOfOrigin );
+
+    const a = this.ellipsoid.semiMajorAxis;
+    const e2 = this.ellipsoid.firstEccentricitySquared;
+    const ePrime2 = this.ellipsoid.secondEccentricitySquared;
+
+    const sinLatitude = Math.sin( latitude );
+    const cosLatitude = Math.cos( latitude );
+    const tanLatitude = Math.tan( latitude );
+
+    const n = a / Math.sqrt( 1 - e2 * sinLatitude ** 2 );
+    const t = tanLatitude ** 2;
+    const c = ePrime2 * cosLatitude ** 2;
+    const a1 = cosLatitude * ( longitude - centralMeridian );
+
+    const m = this.meridionalArc( latitude, a, e2 ) - this.meridionalArc( latitudeOfOrigin, a, e2 );
+
+    const x = this.falseEasting + this.scaleFactor * n * ( a1 + ( 1 - t + c ) * a1 ** 3 / 6 +
+      ( 5 - 18 * t + t ** 2 + 72 * c - 58 * ePrime2 ) * a1 ** 5 / 120
+    );
+
+    const y = this.falseNorthing + this.scaleFactor * ( m + n * tanLatitude * ( a1 ** 2 / 2 +
+        ( 5 - t + 9 * c + 4 * c ** 2 ) * a1 ** 4 / 24 +
+        ( 61 - 58 * t + t ** 2 + 600 * c - 330 * ePrime2 ) * a1 ** 6 / 720
+      )
+    );
+
+    return new ProjectedCoordinate( x, y );
   }
 
   public clone () : TransverseMercator {
