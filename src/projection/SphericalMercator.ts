@@ -30,25 +30,22 @@ export class SphericalMercator extends Projection {
       throw new TypeError( 'False northing must be a finite number' );
   }
 
-  public project ( coordinate: Coordinate ) : ProjectedCoordinate {
-    const latitude = deg2Rad( coordinate.latitude.value );
-    const longitude = deg2Rad( coordinate.longitude.value );
+  public project ( { latitude, longitude }: Coordinate ) : ProjectedCoordinate {
+    const lat = deg2Rad( latitude.value ), lon = deg2Rad( longitude.value );
     const centralMeridian = deg2Rad( this.centralMeridian );
 
-    const maxLatitude = deg2Rad( 85.0511287798066 );
-    const clampedLatitude = Math.max( -maxLatitude, Math.min( maxLatitude, latitude ) );
+    if ( Math.abs( lat ) >= Math.PI / 2 )
+      throw new RangeError( 'Spherical Mercator projection is undefined at the poles' );
 
-    const x = this.radius * this.scaleFactor * ( longitude - centralMeridian ) + this.falseEasting;
-    const y = this.radius * this.scaleFactor * Math.log(
-      Math.tan( Math.PI / 4 + clampedLatitude / 2 )
-    ) + this.falseNorthing;
+    const x = this.radius * this.scaleFactor * ( lon - centralMeridian ) + this.falseEasting;
+    const y = this.radius * this.scaleFactor * Math.log( Math.tan( Math.PI / 4 + lat / 2 ) ) + this.falseNorthing;
 
     return new ProjectedCoordinate( x, y );
   }
 
-  public unproject ( coordinate: ProjectedCoordinate ) : Coordinate {
-    const x = ( coordinate.easting - this.falseEasting ) / ( this.radius * this.scaleFactor );
-    const y = ( coordinate.northing - this.falseNorthing ) / ( this.radius * this.scaleFactor );
+  public unproject ( { easting, northing }: ProjectedCoordinate ) : Coordinate {
+    const x = ( easting - this.falseEasting ) / ( this.radius * this.scaleFactor );
+    const y = ( northing - this.falseNorthing ) / ( this.radius * this.scaleFactor );
 
     const longitude = deg2Rad( this.centralMeridian ) + x;
     const latitude = 2 * Math.atan( Math.exp( y ) ) - Math.PI / 2;
