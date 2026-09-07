@@ -3,9 +3,18 @@ export type ProjectedTuple = [
   northing: number
 ];
 
+
 export class ProjectedCoordinate {
   public constructor (
     public readonly easting: number,
     public readonly northing: number
   ) {}
+
+  public clone () : ProjectedCoordinate {
+    return new ProjectedCoordinate( this.easting, this.northing );
+  }
+
+  public equals ( { easting, northing }: ProjectedCoordinate ) : boolean {
+    return this.easting === easting && this.northing === northing;
+  }
 }
