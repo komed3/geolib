@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { Longitude } from '../../src/coordinate/Longitude';
 
 
