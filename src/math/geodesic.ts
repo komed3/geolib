@@ -116,4 +116,14 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
   ) );
 
   const distance = semiMinorAxis * A * ( sigma - deltaSigma );
+
+  const initialBearing = normalizeBearing( rad2Deg( Math.atan2(
+    cosReducedLat2 * Math.sin( lambda ),
+    cosReducedLat1 * sinReducedLat2 - sinReducedLat1 * cosReducedLat2 * Math.cos( lambda )
+  ) ) );
+
+  const finalBearing = normalizeBearing( rad2Deg( Math.atan2(
+    cosReducedLat1 * Math.sin( lambda ),
+    -sinReducedLat1 * cosReducedLat2 + cosReducedLat1 * sinReducedLat2 * Math.cos( lambda )
+  ) ) + 180 );
 }
