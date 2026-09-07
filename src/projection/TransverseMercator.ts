@@ -43,36 +43,37 @@ export class TransverseMercator extends Projection {
     );
   }
 
-  public project ( coordinate: Coordinate ) : ProjectedCoordinate {
-    const latitude = deg2Rad( coordinate.latitude.value );
-    const longitude = deg2Rad( coordinate.longitude.value );
+  public project ( { latitude, longitude }: Coordinate ) : ProjectedCoordinate {
+    const lat = deg2Rad( latitude.value ), lon = deg2Rad( longitude.value );
     const centralMeridian = deg2Rad( this.centralMeridian );
     const latitudeOfOrigin = deg2Rad( this.latitudeOfOrigin );
+
+    if ( Math.abs( lat ) >= Math.PI / 2 )
+      throw new RangeError( 'Transverse Mercator projection is undefined at the poles' );
 
     const a = this.ellipsoid.semiMajorAxis;
     const e2 = this.ellipsoid.firstEccentricitySquared;
     const ePrime2 = this.ellipsoid.secondEccentricitySquared;
 
-    const sinLatitude = Math.sin( latitude );
-    const cosLatitude = Math.cos( latitude );
-    const tanLatitude = Math.tan( latitude );
+    const sinLatitude = Math.sin( lat );
+    const cosLatitude = Math.cos( lat );
+    const tanLatitude = Math.tan( lat );
 
     const n = a / Math.sqrt( 1 - e2 * sinLatitude ** 2 );
     const t = tanLatitude ** 2;
     const c = ePrime2 * cosLatitude ** 2;
-    const a1 = cosLatitude * ( longitude - centralMeridian );
+    const a1 = cosLatitude * ( lon - centralMeridian );
 
-    const m = this.meridionalArc( latitude, a, e2 ) - this.meridionalArc( latitudeOfOrigin, a, e2 );
+    const m = this.meridionalArc( lat, a, e2 ) - this.meridionalArc( latitudeOfOrigin, a, e2 );
 
     const x = this.falseEasting + this.scaleFactor * n * ( a1 + ( 1 - t + c ) * a1 ** 3 / 6 +
       ( 5 - 18 * t + t ** 2 + 72 * c - 58 * ePrime2 ) * a1 ** 5 / 120
     );
 
     const y = this.falseNorthing + this.scaleFactor * ( m + n * tanLatitude * ( a1 ** 2 / 2 +
-        ( 5 - t + 9 * c + 4 * c ** 2 ) * a1 ** 4 / 24 +
-        ( 61 - 58 * t + t ** 2 + 600 * c - 330 * ePrime2 ) * a1 ** 6 / 720
-      )
-    );
+      ( 5 - t + 9 * c + 4 * c ** 2 ) * a1 ** 4 / 24 +
+      ( 61 - 58 * t + t ** 2 + 600 * c - 330 * ePrime2 ) * a1 ** 6 / 720
+    ) );
 
     return new ProjectedCoordinate( x, y );
   }
