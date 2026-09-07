@@ -31,8 +31,9 @@ export class CRS {
 
   public equals( { code, name, type, datum, coordinateSystem, projection }: CRS ): boolean {
     return this.code === code && this.name === name && this.type === type &&
-      this.datum.equals( datum ) && this.coordinateSystem.equals( coordinateSystem ) &&
-      !! this.projection && !! projection && this.projection.equals( projection );
+      this.datum.equals( datum ) && this.coordinateSystem.equals( coordinateSystem ) && (
+        ! this.projection || ! projection || this.projection.equals( projection )
+      );
   }
 
   public isGeographic () : boolean {
