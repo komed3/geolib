@@ -126,4 +126,6 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
     cosReducedLat1 * Math.sin( lambda ),
     -sinReducedLat1 * cosReducedLat2 + cosReducedLat1 * sinReducedLat2 * Math.cos( lambda )
   ) ) + 180 );
+
+  return { distance, initialBearing, finalBearing };
 }
