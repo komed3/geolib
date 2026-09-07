@@ -90,8 +90,10 @@ export class TransverseMercator extends Projection {
     const centralMeridian = deg2Rad( this.centralMeridian );
 
     const m0 = this.meridionalArc( latitudeOfOrigin, a, e2 );
-    const mu = ( m0 + y ) / a;
+    const e4 = e2 ** 2;
+    const e6 = e2 ** 3;
 
+    const mu = ( m0 + y ) / ( a * ( 1 - e2 / 4 - 3 * e4 / 64 - 5 * e6 / 256 ) );
     const e1 = ( 1 - Math.sqrt( 1 - e2 ) ) / ( 1 + Math.sqrt( 1 - e2 ) );
 
     const phi1 = mu + ( 3 * e1 / 2 - 27 * e1 ** 3 / 32 ) * Math.sin( 2 * mu ) +
