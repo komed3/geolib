@@ -17,4 +17,12 @@ export class ProjectedCoordinate {
   public equals ( { easting, northing }: ProjectedCoordinate ) : boolean {
     return this.easting === easting && this.northing === northing;
   }
+
+  public toTuple () : ProjectedTuple {
+    return [ this.easting, this.northing ];
+  }
+
+  public static fromTuple ( [ easting, northing ]: ProjectedTuple ) : ProjectedCoordinate {
+    return new ProjectedCoordinate( easting, northing );
+  }
 }
