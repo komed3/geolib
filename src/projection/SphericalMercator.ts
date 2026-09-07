@@ -1,3 +1,6 @@
+import { Coordinate } from '../coordinate/Coordinate';
+import { deg2Rad } from '../utils/math';
+import { ProjectedCoordinate } from './ProjectedCoordinate';
 import { Projection } from './Projection';
 
 
@@ -25,6 +28,22 @@ export class SphericalMercator extends Projection {
 
     if ( ! Number.isFinite( falseNorthing ) )
       throw new TypeError( 'False northing must be a finite number' );
+  }
+
+  public project ( coordinate: Coordinate ) : ProjectedCoordinate {
+    const latitude = deg2Rad( coordinate.latitude.value );
+    const longitude = deg2Rad( coordinate.longitude.value );
+    const centralMeridian = deg2Rad( this.centralMeridian );
+
+    const maxLatitude = deg2Rad( 85.0511287798066 );
+    const clampedLatitude = Math.max( -maxLatitude, Math.min( maxLatitude, latitude ) );
+
+    const x = this.radius * this.scaleFactor * ( longitude - centralMeridian ) + this.falseEasting;
+    const y = this.radius * this.scaleFactor * Math.log(
+      Math.tan( Math.PI / 4 + clampedLatitude / 2 )
+    ) + this.falseNorthing;
+
+    return new ProjectedCoordinate( x, y );
   }
 
   public clone () : SphericalMercator {
