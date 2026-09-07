@@ -11,7 +11,7 @@ describe( 'SphericalMercator', () => {
     const result = projection.project( Coordinate.fromDegrees( 0, 0 ) );
 
     expect( result.easting ).toBe( 0 );
-    expect( result.northing ).toBeCloseTo( 0 );
+    expect( result.northing ).toBeCloseTo( 0, 7 );
   } );
 
   it( 'projects the Web Mercator latitude limit naturally', () => {

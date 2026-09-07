@@ -13,7 +13,7 @@ describe( 'Mercator', () => {
     const result = projection.project( Coordinate.fromDegrees( 0, 0 ) );
 
     expect( result.easting ).toBe( 0 );
-    expect( result.northing ).toBeCloseTo( 0 );
+    expect( result.northing ).toBeCloseTo( 0, 7 );
   } );
 
   it( 'projects a known WGS 84 / World Mercator coordinate', () => {
