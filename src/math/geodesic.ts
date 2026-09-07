@@ -93,8 +93,7 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
     );
 
     if ( Math.abs( nextLambda - lambda ) < CONVERGENCE ) {
-      lambda = nextLambda;
-      converged = true;
+      lambda = nextLambda, converged = true;
       break;
     }
 
