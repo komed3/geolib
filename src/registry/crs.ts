@@ -1,6 +1,6 @@
 import { CoordinateSystem } from '../crs/CoordinateSystem';
 import { CRS } from '../crs/CRS';
-import { Mercator } from '../projection/Mercator';
+import { SphericalMercator } from '../projection/SphericalMercator';
 import { TransverseMercator } from '../projection/TransverseMercator';
 import { CRSRegistry } from './CRSRegistry';
 import { ETRS89 as ETRS89_D, WGS84 as WGS84_D } from './datums';
@@ -25,7 +25,7 @@ export const ETRS89 = new CRS( 'EPSG:4258', 'ETRS89', 'geographic', ETRS89_D, ge
 
 export const WEB_MERCATOR = new CRS(
   'EPSG:3857', 'WGS 84 / Pseudo-Mercator', 'projected', WGS84_D, projected2D,
-  new Mercator( WGS84_D.ellipsoid )
+  new SphericalMercator()
 );
 
 export const WGS84_UTM32N = new CRS(
