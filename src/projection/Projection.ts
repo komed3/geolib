@@ -1,5 +1,5 @@
-import { Coordinate } from '../coordinate/Coordinate';
-import { ProjectedCoordinate } from './ProjectedCoordinate';
+import type { Coordinate } from '../coordinate/Coordinate';
+import type { ProjectedCoordinate } from './ProjectedCoordinate';
 
 
 export abstract class Projection {
