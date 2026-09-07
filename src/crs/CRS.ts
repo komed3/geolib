@@ -15,6 +15,12 @@ export class CRS {
     public readonly coordinateSystem: CoordinateSystem,
     public readonly projection?: Projection
   ) {
+    if ( type === 'geographic' && ! coordinateSystem.isEllipsoidal() )
+      throw new TypeError( 'Geographic CRS must use an ellipsoidal coordinate system' );
+
+    if ( type === 'projected' && ! coordinateSystem.isCartesian() )
+      throw new TypeError( 'Projected CRS must use a Cartesian coordinate system' );
+
     if ( type === 'geographic' && projection !== undefined )
       throw new TypeError( 'Geographic CRS cannot have a projection' );
 
@@ -29,10 +35,10 @@ export class CRS {
     );
   }
 
-  public equals( { code, name, type, datum, coordinateSystem, projection }: CRS ): boolean {
-    return this.code === code && this.name === name && this.type === type &&
-      this.datum.equals( datum ) && this.coordinateSystem.equals( coordinateSystem ) && (
-        ! this.projection || ! projection || this.projection.equals( projection )
+  public equals ( { code, name, type, datum, coordinateSystem, projection }: CRS ) : boolean {
+    return this.code === code && this.name === name && this.type === type && this.datum.equals( datum ) &&
+      this.coordinateSystem.equals( coordinateSystem ) && ( this.projection === undefined
+        ? projection === undefined : projection !== undefined && this.projection.equals( projection )
       );
   }
 
