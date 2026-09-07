@@ -20,7 +20,6 @@ describe( 'Ellipsoid', () => {
   } );
 
   it( 'rejects an invalid inverse flattening', () => {
-    expect( () => new Ellipsoid( 'TEST', 6378137, 0 ) ).toThrow( RangeError );
     expect( () => new Ellipsoid( 'TEST', 6378137, -1 ) ).toThrow( RangeError );
     expect( () => new Ellipsoid( 'TEST', 6378137, NaN ) ).toThrow( RangeError );
     expect( () => new Ellipsoid( 'TEST', 6378137, Infinity ) ).toThrow( RangeError );
@@ -48,6 +47,10 @@ describe( 'Ellipsoid', () => {
 
   it( 'calculates the second eccentricity', () => {
     expect( ellipsoid.secondEccentricity ).toBeCloseTo( 0.08209443794969568 );
+  } );
+
+  it( 'detects a sphere', () => {
+    expect( new Ellipsoid( 'SPHERE', 6378137, 0 ).isSphere() ).toBe( true );
   } );
 
   it( 'clones an ellipsoid', () => {
