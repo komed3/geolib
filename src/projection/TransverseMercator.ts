@@ -77,6 +77,48 @@ export class TransverseMercator extends Projection {
     return new ProjectedCoordinate( x, y );
   }
 
+  public unproject ( { easting, northing }: ProjectedCoordinate ) : Coordinate {
+    const x = ( easting - this.falseEasting ) / this.scaleFactor;
+    const y = ( northing - this.falseNorthing ) / this.scaleFactor;
+
+    const a = this.ellipsoid.semiMajorAxis;
+    const e2 = this.ellipsoid.firstEccentricitySquared;
+    const ePrime2 = this.ellipsoid.secondEccentricitySquared;
+
+    const latitudeOfOrigin = deg2Rad( this.latitudeOfOrigin );
+    const centralMeridian = deg2Rad( this.centralMeridian );
+
+    const m0 = this.meridionalArc( latitudeOfOrigin, a, e2 );
+    const mu = ( m0 + y ) / a;
+
+    const e1 = ( 1 - Math.sqrt( 1 - e2 ) ) / ( 1 + Math.sqrt( 1 - e2 ) );
+
+    const phi1 = mu + ( 3 * e1 / 2 - 27 * e1 ** 3 / 32 ) * Math.sin( 2 * mu ) +
+      ( 21 * e1 ** 2 / 16 - 55 * e1 ** 4 / 32 ) * Math.sin( 4 * mu ) +
+      ( 151 * e1 ** 3 / 96 ) * Math.sin( 6 * mu ) + ( 1097 * e1 ** 4 / 512 ) * Math.sin( 8 * mu );
+
+    const sinPhi1 = Math.sin( phi1 );
+    const cosPhi1 = Math.cos( phi1 );
+    const tanPhi1 = Math.tan( phi1 );
+
+    const c1 = ePrime2 * cosPhi1 ** 2;
+    const t1 = tanPhi1 ** 2;
+    const n1 = a / Math.sqrt( 1 - e2 * sinPhi1 ** 2 );
+    const r1 = a * ( 1 - e2 ) / ( 1 - e2 * sinPhi1 ** 2 ) ** 1.5;
+    const d = x / n1;
+
+    const latitude = phi1 - ( n1 * tanPhi1 / r1 ) * ( d ** 2 / 2 -
+      ( 5 + 3 * t1 + 10 * c1 - 4 * c1 ** 2 - 9 * ePrime2 ) * d ** 4 / 24 +
+      ( 61 + 90 * t1 + 298 * c1 + 45 * t1 ** 2 - 252 * ePrime2 - 3 * c1 ** 2 ) * d ** 6 / 720
+    );
+
+    const longitude = centralMeridian + ( d - ( 1 + 2 * t1 + c1 ) * d ** 3 / 6 +
+      ( 5 - 2 * c1 + 28 * t1 - 3 * c1 ** 2 + 8 * ePrime2 + 24 * t1 ** 2 ) * d ** 5 / 120
+    ) / cosPhi1;
+
+    return Coordinate.fromRadians( latitude, longitude );
+  }
+
   public clone () : TransverseMercator {
     return new TransverseMercator(
       this.ellipsoid.clone(), this.centralMeridian, this.latitudeOfOrigin,
