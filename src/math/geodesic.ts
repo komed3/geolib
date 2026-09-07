@@ -9,3 +9,12 @@ export interface GeodesicResult {
   readonly initialBearing: number;
   readonly finalBearing: number;
 }
+
+
+const MAX_ITERATIONS = 200;
+const CONVERGENCE = 1e-13;
+
+
+export function normalizeBearing ( bearing: number ) : number {
+  return ( bearing % 360 + 360 ) % 360;
+}
