@@ -103,4 +103,15 @@ export function geodesic ( a: Coordinate, b: Coordinate, ellipsoid: Ellipsoid = 
     previousLambda = lambda;
     lambda = nextLambda;
   }
+
+  if ( ! converged ) return sphericalInverse( a, b, ( 2 * semiMajorAxis + semiMinorAxis ) / 3 );
+
+  const uSquared = cosSquaredAlpha * ( semiMajorAxis ** 2 - semiMinorAxis ** 2 ) / semiMinorAxis ** 2;
+  const A = 1 + uSquared / 16384 * ( 4096 + uSquared * ( -768 + uSquared * ( 320 - 175 * uSquared ) ) );
+  const B = uSquared / 1024 * ( 256 + uSquared * ( -128 + uSquared * ( 74 - 47 * uSquared ) ) );
+
+  const deltaSigma = B * sinSigma * ( cosSquaredSigmaM + B / 4 * (
+    cosSigma * ( -1 + 2 * cosSquaredSigmaM ** 2 ) - B / 6 * cosSquaredSigmaM *
+    ( -3 + 4 * sinSigma ** 2 ) * ( -3 + 4 * cosSquaredSigmaM ** 2 )
+  ) );
 }
