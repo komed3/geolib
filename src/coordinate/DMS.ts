@@ -10,7 +10,7 @@ interface StringOptions {
 }
 
 
-const DMS_REGEX = /^(\d+(?:\.\d+)?)(?:\s*°\s*(\d+)(?:\s*[′']\s*(\d+(?:\.\d+)?))?|(?:\s+)(\d+)(?:\s+(\d+(?:\.\d+)?))?)?\s*([NSEW])$/i;
+const DMS_REGEX = /^(\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+))?(?:\s*[′'])?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[″"])?\s*([NSEW])$/i;
 
 
 export class DMS {
@@ -112,14 +112,9 @@ export class DMS {
     if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
 
     const degrees = Number( match[ 1 ] );
-    const minutes = match[ 2 ] ?? match[ 4 ];
-    const seconds = match[ 3 ] ?? match[ 5 ];
+    const minutes = Number( match[ 2 ] ?? 0 );
+    const seconds = Number( match[ 3 ] ?? 0 );
 
-    return new DMS(
-      Number.isNaN( degrees ) ? 0 : degrees,
-      minutes === undefined ? 0 : Number( minutes ),
-      seconds === undefined ? 0 : Number( seconds ),
-      match[ 6 ].toUpperCase() as DMSDirection
-    );
+    return new DMS( degrees, minutes, seconds, match[ 4 ].toUpperCase() as DMSDirection );
   }
 }
