@@ -7,8 +7,8 @@ export class Ellipsoid {
     if ( ! Number.isFinite( semiMajorAxis ) || semiMajorAxis <= 0 )
       throw new RangeError( 'Semi-major axis must be a positive finite number' );
 
-    if ( ! Number.isFinite( inverseFlattening ) || inverseFlattening < 0 )
-      throw new RangeError( 'Inverse flattening must be a non-negative finite number' );
+    if ( ! Number.isFinite( inverseFlattening ) || inverseFlattening < 0 || ( inverseFlattening > 0 && inverseFlattening <= 1 ) )
+      throw new RangeError( 'Inverse flattening must be 0 or greater than 1' );
 
     this.code = code;
     this.semiMajorAxis = semiMajorAxis;
@@ -40,7 +40,7 @@ export class Ellipsoid {
   }
 
   public isSphere () : boolean {
-    return this.flattening === 0;
+    return this.inverseFlattening === 0;
   }
 
   public clone () : Ellipsoid {
