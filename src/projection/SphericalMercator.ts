@@ -26,4 +26,17 @@ export class SphericalMercator extends Projection {
     if ( ! Number.isFinite( falseNorthing ) )
       throw new TypeError( 'False northing must be a finite number' );
   }
+
+  public clone () : SphericalMercator {
+    return new SphericalMercator(
+      this.radius, this.centralMeridian, this.scaleFactor,
+      this.falseEasting, this.falseNorthing
+    );
+  }
+
+  public equals ( other: Projection ) : boolean {
+    return other instanceof SphericalMercator && this.radius === other.radius &&
+      this.centralMeridian === other.centralMeridian && this.scaleFactor === other.scaleFactor &&
+      this.falseEasting === other.falseEasting && this.falseNorthing === other.falseNorthing;
+  }
 }
