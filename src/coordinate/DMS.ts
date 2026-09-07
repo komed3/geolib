@@ -5,6 +5,7 @@ export type DMSDirection = 'N' | 'S' | 'E' | 'W';
 
 interface StringOptions {
   precision?: number;
+  lang?: string;
   delimiter?: string;
 }
 
@@ -63,7 +64,7 @@ export class DMS {
     return deg2Rad( this.toDecimal() );
   }
 
-  public toString ( { precision = 2, delimiter = ' ' }: StringOptions = {} ) : string {
+  public toString ( { precision = 2, lang = 'en-US', delimiter = ' ' }: StringOptions = {} ) : string {
     const factor = 10 ** precision;
     let sec = Math.round( this.seconds * factor ) / factor;
     let min = Math.floor( this.minutes ), deg = Math.floor( this.degrees );
@@ -71,7 +72,11 @@ export class DMS {
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    return [ `${ deg }°`, `${ min }′`, `${ Number( sec ) }″`, this.direction ].join( delimiter );
+    return [
+      `${ deg }°`, `${ min }′`,
+      `${ sec.toLocaleString( lang, { maximumFractionDigits: precision } ) }″`,
+      this.direction
+    ].join( delimiter );
   }
 
   public static fromDecimal ( value: number, direction: DMSDirection ) : DMS {

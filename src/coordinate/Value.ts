@@ -15,10 +15,10 @@ export abstract class Value {
     return deg2Rad( this.value );
   }
 
-  public toString ( { precision, lang, showUnit }: StringOptions = {} ) : string {
+  public toString ( { precision, lang = 'en-US', showUnit }: StringOptions = {} ) : string {
     return this.value.toLocaleString( lang, {
-      minimumFractionDigits: precision,
-      maximumFractionDigits: precision
+      minimumFractionDigits: precision ?? 0,
+      maximumFractionDigits: precision ?? 20
     } ) + ( showUnit ? '°' : '' );
   }
 }
