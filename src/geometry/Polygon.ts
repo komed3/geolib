@@ -28,4 +28,17 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     return this.outer.equals( other.outer ) && this.holes.length === other.holes.length &&
       this.holes.every( ( hole, index ) => hole.equals( other.holes[ index ] ) );
   }
+
+  public get perimeter () : number {
+    return this.outer.length + this.holes.reduce( ( total, hole ) => total + hole.length, 0 );
+  }
+
+  public get boundingBox () : BoundingBox< T > {
+    return BoundingBox.fromPoints( [ ...this.outer.points, ...this.holes.flatMap( hole => hole.points ) ] );
+  }
+
+  public contains ( point: Point< T > ) : boolean {
+    if ( ! this.containsRing( this.outer, point ) ) return false;
+    return ! this.holes.some( hole => this.containsRing( hole, point ) );
+  }
 }
