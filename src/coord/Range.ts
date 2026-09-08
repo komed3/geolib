@@ -8,7 +8,7 @@ export interface TRangeOptions {
   maxInclusive?: boolean;
 }
 
-export interface RangeStringOptions {
+export interface TRangeStringOptions {
   locale?: string;
   precision?: number;
 }
@@ -41,7 +41,7 @@ export class Range {
       this.maxInclusive === range.maxInclusive;
   }
 
-  public toString ( { locale = 'en', precision = 22 }: RangeStringOptions ) : string {
+  public toString ( { locale = 'en', precision = 22 }: TRangeStringOptions ) : string {
     const f = Intl.NumberFormat( locale, { maximumFractionDigits: precision } );
     const min = this.min === null ? '-∞' : f.format( this.min );
     const max = this.max === null ? '∞' : f.format( this.max );
