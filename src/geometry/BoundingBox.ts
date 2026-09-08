@@ -1,6 +1,6 @@
 import { Coordinate } from '../coordinate/Coordinate';
 import { ProjectedCoordinate } from '../projection/ProjectedCoordinate';
-import { GeometryCoordinate } from './Point';
+import { GeometryCoordinate, Point } from './Point';
 
 
 export class BoundingBox< T extends GeometryCoordinate = GeometryCoordinate > {
@@ -54,5 +54,49 @@ export class BoundingBox< T extends GeometryCoordinate = GeometryCoordinate > {
       return this.max.latitude.value - this.min.latitude.value;
 
     return this.max.northing - this.min.northing;
+  }
+
+  public static fromPoints< T extends GeometryCoordinate > ( points: readonly Point< T >[] ) : BoundingBox< T > {
+    if ( points.length === 0 ) throw new RangeError( 'BoundingBox requires at least one point' );
+
+    const first = points[ 0 ].coordinate;
+
+    if ( first instanceof Coordinate ) {
+      let minLat = first.latitude.value, maxLat = first.latitude.value,
+          minLon = first.longitude.value, maxLon = first.longitude.value;
+
+      for ( const point of points.slice( 1 ) ) {
+        if ( ! ( point.coordinate instanceof Coordinate ) )
+          throw new TypeError( 'Coordinates must use the same coordinate type' );
+
+        minLat = Math.min( minLat, point.coordinate.latitude.value );
+        maxLat = Math.max( maxLat, point.coordinate.latitude.value );
+        minLon = Math.min( minLon, point.coordinate.longitude.value );
+        maxLon = Math.max( maxLon, point.coordinate.longitude.value );
+      }
+
+      return new BoundingBox(
+        Coordinate.fromDegrees( minLat, minLon ) as T,
+        Coordinate.fromDegrees( maxLat, maxLon ) as T
+      );
+    }
+
+    let minEasting = first.easting, maxEasting = first.easting,
+        minNorthing = first.northing, maxNorthing = first.northing;
+
+    for ( const point of points.slice( 1 ) ) {
+      if ( ! ( point.coordinate instanceof ProjectedCoordinate ) )
+        throw new TypeError( 'Coordinates must use the same coordinate type' );
+
+      minEasting = Math.min( minEasting, point.coordinate.easting );
+      maxEasting = Math.max( maxEasting, point.coordinate.easting );
+      minNorthing = Math.min( minNorthing, point.coordinate.northing );
+      maxNorthing = Math.max( maxNorthing, point.coordinate.northing );
+    }
+
+    return new BoundingBox(
+      new ProjectedCoordinate( minEasting, minNorthing ) as T,
+      new ProjectedCoordinate( maxEasting, maxNorthing ) as T
+    );
   }
 }
