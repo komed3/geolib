@@ -1,4 +1,4 @@
-export type NormalizeMode = 'none' | 'clamp' | 'wrap';
+export type TNormalizeMode = 'none' | 'clamp' | 'wrap';
 
 
 export class Utils {
@@ -11,7 +11,7 @@ export class Utils {
     return ( ( value - min ) % range + range ) % range + min;
   }
 
-  public static normalize ( value: number, min: number, max: number, mode: NormalizeMode = 'none' ) : number {
+  public static normalize ( value: number, min: number, max: number, mode: TNormalizeMode = 'none' ) : number {
     return mode === 'clamp' ? this.clamp( value, min, max ) : mode === 'wrap' ? this.wrap( value, min, max ) : value;
   }
 
