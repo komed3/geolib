@@ -63,4 +63,11 @@ export class Axis {
       mode: this.normalization, min: this.range.min, max: this.range.max
     } );
   }
+
+  public equals ( other: Axis ) : boolean {
+    return this.name === other.name && this.direction === other.direction &&
+      this.unit?.name === other.unit?.name && this.unit?.symbol === other.unit?.symbol &&
+      this.range.equals( other.range ) && this.normalization === other.normalization &&
+      this.cyclic === other.cyclic && this.period === other.period;
+  }
 }
