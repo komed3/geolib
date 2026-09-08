@@ -20,10 +20,10 @@ export class Utils {
   }
 
   public static min ( values: readonly number[] ) : number {
-    return globalThis.Math.min( ...values );
+    return Math.min( ...values );
   }
 
   public static max ( values: readonly number[] ) : number {
-    return globalThis.Math.max( ...values );
+    return Math.max( ...values );
   }
 }
