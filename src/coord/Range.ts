@@ -22,4 +22,10 @@ export class Range {
 
     return minValid && maxValid;
   }
+
+  public equals ( range: Range ) : boolean {
+    return this.min === range.min && this.max === range.max &&
+      this.minInclusive === range.minInclusive &&
+      this.maxInclusive === range.maxInclusive;
+  }
 }
