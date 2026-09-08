@@ -33,4 +33,8 @@ export class AxisSet {
   public toArray () : readonly Axis[] {
     return this.axes;
   }
+
+  public toString () : string {
+    return this.axes.map( axis => axis.toString() ).join( ', ' );
+  }
 }
