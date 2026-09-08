@@ -12,12 +12,12 @@ export class Range {
   public readonly minInclusive: boolean;
   public readonly maxInclusive: boolean;
 
-  public constructor ( { min = -Infinity, max = Infinity, minInclusive, maxInclusive }: IRange = {} ) {
-    if ( min > max ) throw new Error( `Range: min (${min}) cannot be greater than max (${max})` );
+  public constructor ( { min = -Infinity, max = Infinity, minInclusive = true, maxInclusive = true }: IRange = {} ) {
+    if ( min > max ) throw new Error( `Range: min (${ min }) cannot be greater than max (${ max })` );
 
     this.min = min, this.max = max;
-    this.minInclusive = minInclusive ?? true;
-    this.maxInclusive = maxInclusive ?? true;
+    this.minInclusive = minInclusive;
+    this.maxInclusive = maxInclusive;
   }
 
   public contains ( value: number ) : boolean {
