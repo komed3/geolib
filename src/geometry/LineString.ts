@@ -17,4 +17,16 @@ export class LineString< T extends GeometryCoordinate > {
 
     return total;
   }
+
+  public get start () : Point< T > {
+    return this.points[ 0 ];
+  }
+
+  public get end () : Point< T > {
+    return this.points[ this.points.length - 1 ];
+  }
+
+  public get isClosed () : boolean {
+    return this.start.equals( this.end );
+  }
 }
