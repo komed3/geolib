@@ -33,4 +33,18 @@ export class Axis implements IAxis {
     this.cyclic = cyclic;
     this.period = period;
   }
+
+  public contains ( value: number ) : boolean {
+    return this.range.contains( value );
+  }
+
+  public clamp ( value: number ) : number {
+    return this.range.clamp( value );
+  }
+
+  public normalize ( value: number ) : number {
+    return this.normalization === 'wrap' && this.cyclic
+      ? Utils.wrap( value, this.range.min, this.period ?? this.range.max )
+      : Utils.normalize( value, this.range.min, this.range.max, this.normalization );
+  }
 }
