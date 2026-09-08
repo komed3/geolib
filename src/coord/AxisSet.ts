@@ -29,4 +29,14 @@ export class AxisSet {
   public has ( axis: Axis ) : boolean {
     return this.indexOf( axis ) !== -1;
   }
+
+  public equals ( axes: AxisSet ) : boolean {
+    return this.axes.length === axes.axes.length && this.axes.every(
+      ( axis, i ) => axis.equals( axes.axes[ i ] )
+    );
+  }
+
+  public toString ( { delimiter = ', ', ...options }: TAxisSetStringOptions = {} ) : string {
+    return this.axes.map( axis => axis.toString( options ) ).join( delimiter );
+  }
 }
