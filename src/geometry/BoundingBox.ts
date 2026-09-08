@@ -29,4 +29,16 @@ export class BoundingBox< T extends GeometryCoordinate = GeometryCoordinate > {
   public equals ( other: BoundingBox< T > ) : boolean {
     return this.min.equals( other.min ) && this.max.equals( other.max );
   }
+
+  public contains ( coordinate: T ) : boolean {
+    if ( this.min instanceof Coordinate && this.max instanceof Coordinate && coordinate instanceof Coordinate )
+      return coordinate.latitude.value >= this.min.latitude.value && coordinate.latitude.value <= this.max.latitude.value &&
+        coordinate.longitude.value >= this.min.longitude.value && coordinate.longitude.value <= this.max.longitude.value;
+
+    if ( this.min instanceof ProjectedCoordinate && this.max instanceof ProjectedCoordinate && coordinate instanceof ProjectedCoordinate )
+      return coordinate.easting >= this.min.easting && coordinate.easting <= this.max.easting &&
+        coordinate.northing >= this.min.northing && coordinate.northing <= this.max.northing;
+
+    throw new TypeError( 'Coordinates must use the same coordinate type' );
+  }
 }
