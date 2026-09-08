@@ -20,6 +20,25 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     this.holes = holes.map( hole => hole.clone() );
   }
 
+  private projectedArea () : number {
+    return Math.abs( this.ringArea( this.outer ) - this.holes.reduce(
+      ( total, hole ) => total + Math.abs( this.ringArea( hole ) ), 0
+    ) );
+  }
+
+  private ringArea ( ring: LineString< T > ) : number {
+    let area = 0;
+
+    for ( let i = 1; i < ring.points.length; i++ ) {
+      const a = ring.points[ i - 1 ].coordinate as ProjectedCoordinate;
+      const b = ring.points[ i ].coordinate as ProjectedCoordinate;
+
+      area += a.easting * b.northing - b.easting * a.northing;
+    }
+
+    return area / 2;
+  }
+
   public clone () : Polygon< T > {
     return new Polygon( this.outer, this.holes );
   }
