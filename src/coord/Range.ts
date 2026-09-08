@@ -35,10 +35,8 @@ export class Range {
     return Utils.clamp( value, this.min ?? -Infinity, this.max ?? Infinity );
   }
 
-  public equals ( range: Range ) : boolean {
-    return this.min === range.min && this.max === range.max &&
-      this.minInclusive === range.minInclusive &&
-      this.maxInclusive === range.maxInclusive;
+  public equals ( { min, max, minInclusive, maxInclusive }: Range ) : boolean {
+    return this.min === min && this.max === max && this.minInclusive === minInclusive && this.maxInclusive === maxInclusive;
   }
 
   public toString ( { locale = 'en', precision = 22 }: TRangeStringOptions ) : string {
