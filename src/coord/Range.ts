@@ -1,4 +1,4 @@
-export interface RangeProps {
+export interface IRange {
   readonly min?: number;
   readonly max?: number;
   readonly minInclusive?: boolean;
@@ -6,13 +6,13 @@ export interface RangeProps {
 }
 
 
-export class Range {
+export class Range implements IRange {
   public readonly min: number;
   public readonly max: number;
   public readonly minInclusive: boolean;
   public readonly maxInclusive: boolean;
 
-  public constructor ( { min = -Infinity, max = Infinity, minInclusive, maxInclusive }: RangeProps = {} ) {
+  public constructor ( { min = -Infinity, max = Infinity, minInclusive, maxInclusive }: IRange = {} ) {
     if ( min > max ) throw new Error( `Range: min (${min}) cannot be greater than max (${max})` );
 
     this.min = min, this.max = max;
