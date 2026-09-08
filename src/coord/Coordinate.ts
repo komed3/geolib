@@ -1,5 +1,5 @@
 import type { System } from './System';
-import type { TValueStringOptions, Value } from './Value';
+import { type TValueStringOptions, Value } from './Value';
 
 
 export interface TCoordinateStringOptions extends TValueStringOptions {
@@ -34,5 +34,10 @@ export class Coordinate {
 
   public toString ( { delimiter = ', ', ...options }: TCoordinateStringOptions = {} ) : string {
     return this.values.map( value => value.toString( options ) ).join( delimiter );
+  }
+
+  public static fromTuple ( tuple: readonly number[], system: System ) : Coordinate {
+    const values = tuple.map( ( value, i ) => new Value( value, system.axes.get( i ) ) );
+    return new Coordinate( system, values );
   }
 }
