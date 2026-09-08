@@ -39,6 +39,34 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     return area / 2;
   }
 
+  private projectedCentroid () : Point< T > {
+    const rings = [ this.outer, ...this.holes ];
+    let area = 0, x = 0, y = 0;
+
+    for ( const ring of rings ) {
+      const signedArea = this.ringArea( ring );
+      let ringX = 0, ringY = 0;
+
+      for ( let i = 1; i < ring.points.length; i++ ) {
+        const a = ring.points[ i - 1 ].coordinate as ProjectedCoordinate;
+        const b = ring.points[ i ].coordinate as ProjectedCoordinate;
+        const cross = a.easting * b.northing - b.easting * a.northing;
+
+        ringX += ( a.easting + b.easting ) * cross;
+        ringY += ( a.northing + b.northing ) * cross;
+      }
+
+      const factor = 1 / ( 6 * signedArea );
+
+      x += ringX * factor * signedArea;
+      y += ringY * factor * signedArea;
+      area += signedArea;
+    }
+
+    if ( area === 0 ) throw new RangeError( 'Centroid is undefined for zero-area polygon' );
+    return new Point( new ProjectedCoordinate( x / area, y / area ) as T );
+  }
+
   public clone () : Polygon< T > {
     return new Polygon( this.outer, this.holes );
   }
