@@ -16,4 +16,23 @@ export class Coordinate implements ICoordinate {
     this.values = Object.freeze( [ ...values ] );
     this.system = system;
   }
+
+  public get dimension () : number {
+    return this.values.length;
+  }
+
+  public get ( index: number ) : number | undefined {
+    return this.values[ index ];
+  }
+
+  public with ( index: number, value: number ) : Coordinate {
+    const values = [ ...this.values ];
+    values[ index ] = value;
+
+    return new Coordinate( { values, system: this.system } );
+  }
+
+  public map ( callback: ( value: number, index: number ) => number ) : Coordinate {
+    return new Coordinate( { values: this.values.map( callback ), system: this.system } );
+  }
 }
