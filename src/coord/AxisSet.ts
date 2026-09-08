@@ -23,4 +23,14 @@ export class AxisSet {
   public has ( axis: Axis ) : boolean {
     return this.indexOf( axis ) !== -1;
   }
+
+  public equals ( axes: AxisSet ) : boolean {
+    return this.dimension === axes.dimension && this.axes.every(
+      ( axis, i ) => axis.equals( axes.axes[ i ] )
+    );
+  }
+
+  public toArray () : readonly Axis[] {
+    return this.axes;
+  }
 }
