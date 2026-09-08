@@ -1,5 +1,5 @@
-import { Utils } from '../lib/Utils';
 import type { TUnit } from '../lib/Units';
+import { Utils } from '../lib/Utils';
 import { Range } from './Range';
 
 
@@ -28,5 +28,14 @@ export class Axis {
   public constructor ( { name, direction, unit, range, behavior = 'none' }: TAxisOptions ) {
     this.name = name, this.direction = direction, this.unit = unit;
     this.range = range, this.behavior = behavior;
+  }
+
+  public initialize ( value: number ) : number {
+    if ( this.behavior === 'clamp' ) return this.range.clamp( value );
+
+    if ( this.behavior === 'wrap' && this.range.min !== null && this.range.max !== null )
+      return Utils.wrap( value, this.range.min, this.range.max );
+
+    return value;
   }
 }
