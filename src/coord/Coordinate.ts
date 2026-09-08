@@ -47,4 +47,12 @@ export class Coordinate implements ICoordinate {
   public valid () : boolean {
     return this.values.every( ( value, i ) => this.system.get( i )?.contains( value ) ?? false );
   }
+
+  public equals ( coordinate: Coordinate, tolerance = 0 ) : boolean {
+    return this.system.equals( coordinate.system ) && this.values.length === coordinate.values.length &&
+      this.values.every( ( value, index ) => tolerance > 0
+        ? Utils.approximatelyEqual( value, coordinate.values[ index ], tolerance )
+        : value === coordinate.values[ index ]
+      );
+  }
 }
