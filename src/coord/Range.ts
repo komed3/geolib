@@ -5,6 +5,11 @@ export interface TRangeOptions {
   maxInclusive?: boolean;
 }
 
+export interface RangeStringOptions {
+  locale?: string;
+  precision?: number;
+}
+
 
 export class Range {
   public readonly min: number | null;
@@ -27,5 +32,13 @@ export class Range {
     return this.min === range.min && this.max === range.max &&
       this.minInclusive === range.minInclusive &&
       this.maxInclusive === range.maxInclusive;
+  }
+
+  public toString ( { locale = 'en', precision = 22 }: RangeStringOptions ) : string {
+    const f = Intl.NumberFormat( locale, { maximumFractionDigits: precision } );
+    const min = this.min === null ? '-∞' : f.format( this.min );
+    const max = this.max === null ? '∞' : f.format( this.max );
+
+    return `${ this.minInclusive ? '[' : '(' }${ min }, ${ max }${ this.maxInclusive ? ']' : ')' }`;
   }
 }
