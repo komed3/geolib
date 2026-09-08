@@ -25,4 +25,9 @@ export class Range {
 
     Object.freeze( this );
   }
+
+  public contains ( value: number ) : boolean {
+    return this.minInclusive ? value >= this.min : value > this.min &&
+           this.maxInclusive ? value <= this.max : value < this.max;
+  }
 }
