@@ -1,11 +1,11 @@
 import { Coordinate } from '../coordinate/Coordinate';
-import { ProjectedCoordinate } from '../projection/ProjectedCoordinate';
 import type { Ellipsoid } from '../crs/Ellipsoid';
+import { ProjectedCoordinate } from '../projection/ProjectedCoordinate';
 import { WGS84 } from '../registry/ellipsoids';
 import { deg2Rad, rad2Deg } from '../utils/math';
-import { Point, type GeometryCoordinate } from './Point';
-import { LineString } from './LineString';
 import { BoundingBox } from './BoundingBox';
+import { LineString } from './LineString';
+import { Point, type GeometryCoordinate } from './Point';
 
 
 export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
@@ -114,6 +114,34 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     const latitude = Math.atan2( z, Math.hypot( x, y ) );
 
     return new Point( Coordinate.fromDegrees( rad2Deg( latitude ), rad2Deg( longitude ) ) as T );
+  }
+
+  private containsRing ( ring: LineString< T >, point: Point< T > ) : boolean {
+    if ( ! ( point.coordinate instanceof Coordinate ) || ! ( ring.start.coordinate instanceof Coordinate ) )
+      if ( ! ( point.coordinate instanceof ProjectedCoordinate ) || ! ( ring.start.coordinate instanceof ProjectedCoordinate ) )
+        throw new TypeError( 'Coordinates must use the same coordinate type' );
+
+    let inside = false;
+    const px = point.coordinate instanceof Coordinate ? point.coordinate.longitude.value : point.coordinate.easting;
+    const py = point.coordinate instanceof Coordinate ? point.coordinate.latitude.value : point.coordinate.northing;
+
+    for ( let i = 1; i < ring.points.length; i++ ) {
+      const a = ring.points[ i - 1 ].coordinate;
+      const b = ring.points[ i ].coordinate;
+
+      const ax = a instanceof Coordinate ? a.longitude.value : a.easting;
+      const ay = a instanceof Coordinate ? a.latitude.value : a.northing;
+      const bx = b instanceof Coordinate ? b.longitude.value : b.easting;
+      const by = b instanceof Coordinate ? b.latitude.value : b.northing;
+
+      if ( ( ay > py ) !== ( by > py ) ) {
+        const x = ( bx - ax ) * ( py - ay ) / ( by - ay ) + ax;
+
+        if ( px < x ) inside = ! inside;
+      }
+    }
+
+    return inside;
   }
 
   public clone () : Polygon< T > {
