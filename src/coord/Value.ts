@@ -23,4 +23,13 @@ export class Value {
   public equals ( value: Value ) : boolean {
     return this.value === value.value && this.axis.equals( value.axis );
   }
+
+  public toString ( { locale = 'en', precision, showUnit = true }: TValueStringOptions = {} ) : string {
+    const value = this.value.toLocaleString( locale, {
+      minimumFractionDigits: precision ?? 0,
+      maximumFractionDigits: precision ?? 22
+    } );
+
+    return `${ value }${ showUnit ? this.axis.unit.symbol : '' }`;
+  }
 }
