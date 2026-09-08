@@ -18,4 +18,24 @@ export class System {
     this.name = name, this.type = type;
     this.axes = axes instanceof AxisSet ? axes : new AxisSet( axes );
   }
+
+  public get dimension () : number {
+    return this.axes.dimension;
+  }
+
+  public get ( index: number ) : Axis | undefined {
+    return this.axes.get( index );
+  }
+
+  public indexOf ( axis: Axis ) : number {
+    return this.axes.indexOf( axis );
+  }
+
+  public equals ( system: System ) : boolean {
+    return this.name === system.name && this.type === system.type && this.axes.equals( system.axes );
+  }
+
+  public toString () : string {
+    return this.name ? `${ this.name } (${ this.axes })` : this.axes.toString();
+  }
 }
