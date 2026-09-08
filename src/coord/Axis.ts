@@ -1,6 +1,6 @@
 import type { IUnit } from '../lib/Units';
 import { Utils } from '../lib/Utils';
-import type { Range } from './Range';
+import { Range } from './Range';
 
 
 export type TAxisNormalization = 'none' | 'clamp' | 'wrap';
@@ -9,8 +9,28 @@ export interface IAxis {
   readonly name: string;
   readonly direction: string;
   readonly unit: IUnit;
-  readonly range: Range;
+  readonly range?: Range;
   readonly normalization?: TAxisNormalization;
   readonly cyclic?: boolean;
   readonly period?: number;
+}
+
+
+export class Axis implements IAxis {
+  public readonly name: string;
+  public readonly direction: string;
+  public readonly unit: IUnit;
+  public readonly range: Range;
+  public readonly normalization: TAxisNormalization;
+  public readonly cyclic: boolean;
+  public readonly period?: number;
+
+  public constructor ( { name, direction, unit, range, normalization = 'none', cyclic = false, period }: IAxis ) {
+    this.name = name, this.direction = direction, this.unit = unit;
+    this.range = range instanceof Range ? range : new Range( range );
+
+    this.normalization = normalization;
+    this.cyclic = cyclic;
+    this.period = period;
+  }
 }
