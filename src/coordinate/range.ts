@@ -30,4 +30,20 @@ export class Range {
     return this.minInclusive ? value >= this.min : value > this.min &&
            this.maxInclusive ? value <= this.max : value < this.max;
   }
+
+  public clamp ( value: number ) : number {
+    return clamp( value, this.min, this.max );
+  }
+
+  public get size () : number {
+    return this.max - this.min;
+  }
+
+  public get bounded () : boolean {
+    return Number.isFinite( this.min ) && Number.isFinite( this.max );
+  }
+
+  public get empty () : boolean {
+    return this.min === this.max && ( ! this.minInclusive || ! this.maxInclusive );
+  }
 }
