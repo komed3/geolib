@@ -45,4 +45,22 @@ export class Axis {
 
     Object.freeze( this );
   }
+
+  public contains ( value: number ) : boolean {
+    return this.range.contains( value );
+  }
+
+  public clamp ( value: number ) : number {
+    return this.range.clamp( value );
+  }
+
+  public normalize ( value: number ) : number {
+    if ( this.normalization === 'wrap' && this.period ) return normalize( value, {
+      mode: 'wrap', min: this.range.min, max: this.range.min + this.period
+    } );
+
+    return normalize( value, {
+      mode: this.normalization, min: this.range.min, max: this.range.max
+    } );
+  }
 }
