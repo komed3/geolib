@@ -41,4 +41,19 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     if ( ! this.containsRing( this.outer, point ) ) return false;
     return ! this.holes.some( hole => this.containsRing( hole, point ) );
   }
+
+  public get area () : number {
+    if ( this.outer.start.coordinate instanceof ProjectedCoordinate ) return this.projectedArea();
+    return this.geographicArea( WGS84 );
+  }
+
+  public areaOn ( ellipsoid: Ellipsoid ) : number {
+    if ( this.outer.start.coordinate instanceof ProjectedCoordinate ) return this.projectedArea();
+    return this.geographicArea( ellipsoid );
+  }
+
+  public get centroid () : Point< T > {
+    if ( this.outer.start.coordinate instanceof ProjectedCoordinate ) return this.projectedCentroid();
+    return this.geographicCentroid();
+  }
 }
