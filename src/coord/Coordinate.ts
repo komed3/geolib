@@ -55,4 +55,12 @@ export class Coordinate implements ICoordinate {
         : value === coordinate.values[ index ]
       );
   }
+
+  public toArray () : readonly number[] {
+    return this.values;
+  }
+
+  public toString () : string {
+    return this.values.join( ', ' );
+  }
 }
