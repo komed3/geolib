@@ -44,4 +44,8 @@ export class Axis {
       this.unit.name === axis.unit.name && this.unit.symbol === axis.unit.symbol &&
       this.range.equals( axis.range ) && this.behavior === axis.behavior;
   }
+
+  public toString ( { showUnit = true }: TAxisStringOptions = {} ) : string {
+    return `${ this.name }${ showUnit ? ` [${ this.unit.symbol }]` : '' }`;
+  }
 }
