@@ -67,6 +67,29 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     return new Point( new ProjectedCoordinate( x / area, y / area ) as T );
   }
 
+  private geographicArea ( ellipsoid: Ellipsoid ) : number {
+    const radius = ellipsoid.semiMajorAxis, rings = [ this.outer, ...this.holes ];
+    let area = 0;
+
+    for ( const ring of rings ) {
+      let ringArea = 0;
+
+      for ( let i = 1; i < ring.points.length; i++ ) {
+        const a = ring.points[ i - 1 ].coordinate as Coordinate;
+        const b = ring.points[ i ].coordinate as Coordinate;
+
+        const lat1 = deg2Rad( a.latitude.value ), lat2 = deg2Rad( b.latitude.value );
+        const lon1 = deg2Rad( a.longitude.value ), lon2 = deg2Rad( b.longitude.value );
+
+        ringArea += ( lon2 - lon1 ) * ( 2 + Math.sin( lat1 ) + Math.sin( lat2 ) );
+      }
+
+      area += ringArea;
+    }
+
+    return Math.abs( area * radius ** 2 / 4 );
+  }
+
   public clone () : Polygon< T > {
     return new Polygon( this.outer, this.holes );
   }
