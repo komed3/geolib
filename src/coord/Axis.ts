@@ -16,7 +16,7 @@ export interface IAxis {
 }
 
 
-export class Axis implements IAxis {
+export class Axis {
   public readonly name: string;
   public readonly direction: string;
   public readonly unit: IUnit;
@@ -46,5 +46,12 @@ export class Axis implements IAxis {
     return this.normalization === 'wrap' && this.cyclic
       ? Utils.wrap( value, this.range.min, this.period ?? this.range.max )
       : Utils.normalize( value, this.range.min, this.range.max, this.normalization );
+  }
+
+  public equals ( axis: Axis ) : boolean {
+    return this.name === axis.name && this.direction === axis.direction &&
+      this.unit === axis.unit && this.range.equals( axis.range ) &&
+      this.normalization === axis.normalization && this.cyclic === axis.cyclic &&
+      this.period === axis.period;
   }
 }

@@ -6,7 +6,7 @@ export interface IRange {
 }
 
 
-export class Range implements IRange {
+export class Range {
   public readonly min: number;
   public readonly max: number;
   public readonly minInclusive: boolean;
