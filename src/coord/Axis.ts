@@ -38,4 +38,10 @@ export class Axis {
 
     return value;
   }
+
+  public equals ( axis: Axis ) : boolean {
+    return this.name === axis.name && this.direction === axis.direction &&
+      this.unit.name === axis.unit.name && this.unit.symbol === axis.unit.symbol &&
+      this.range.equals( axis.range ) && this.behavior === axis.behavior;
+  }
 }
