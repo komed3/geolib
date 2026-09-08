@@ -23,10 +23,7 @@ export class Point< T extends GeometryCoordinate = GeometryCoordinate > {
   }
 
   public bearingTo ( other: Point< T > ) : number {
-    if (
-      ! ( this.coordinate instanceof Coordinate ) ||
-      ! ( other.coordinate instanceof Coordinate )
-    )
+    if ( ! ( this.coordinate instanceof Coordinate ) || ! ( other.coordinate instanceof Coordinate ) )
       throw new TypeError( 'Bearing requires geographic coordinates' );
 
     return bearing( this.coordinate, other.coordinate );
