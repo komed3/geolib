@@ -15,4 +15,11 @@ export class Range {
   public constructor ( { min = null, max = null, minInclusive = true, maxInclusive = true }: TRangeOptions = {} ) {
     this.min = min, this.max = max, this.minInclusive = minInclusive, this.maxInclusive = maxInclusive;
   }
+
+  public contains ( value: number ) : boolean {
+    const minValid = this.min === null || ( this.minInclusive ? value >= this.min : value > this.min );
+    const maxValid = this.max === null || ( this.maxInclusive ? value <= this.max : value < this.max );
+
+    return minValid && maxValid;
+  }
 }
