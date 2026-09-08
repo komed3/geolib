@@ -42,4 +42,8 @@ export class Range {
       this.minInclusive === range.minInclusive &&
       this.maxInclusive === range.maxInclusive;
   }
+
+  public toString () : string {
+    return `${ this.minInclusive ? '[' : '(' }${ this.min }, ${ this.max }${ this.maxInclusive ? ']' : ')' }`;
+  }
 }
