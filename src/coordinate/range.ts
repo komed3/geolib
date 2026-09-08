@@ -28,7 +28,7 @@ export class Range {
 
   public contains ( value: number ) : boolean {
     return this.minInclusive ? value >= this.min : value > this.min &&
-           this.maxInclusive ? value <= this.max : value < this.max;
+      this.maxInclusive ? value <= this.max : value < this.max;
   }
 
   public clamp ( value: number ) : number {
@@ -45,5 +45,10 @@ export class Range {
 
   public get empty () : boolean {
     return this.min === this.max && ( ! this.minInclusive || ! this.maxInclusive );
+  }
+
+  public equals ( other: Range ) : boolean {
+    return this.min === other.min && this.max === other.max &&
+      this.minInclusive === other.minInclusive && this.maxInclusive === other.maxInclusive;
   }
 }
