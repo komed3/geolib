@@ -20,8 +20,8 @@ export class Value {
     return this.value;
   }
 
-  public equals ( value: Value ) : boolean {
-    return this.value === value.value && this.axis.equals( value.axis );
+  public equals ( { value, axis }: Value ) : boolean {
+    return this.value === value && this.axis.equals( axis );
   }
 
   public toString ( { locale = 'en', precision, showUnit = true }: TValueStringOptions = {} ) : string {

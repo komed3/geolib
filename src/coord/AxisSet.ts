@@ -30,14 +30,12 @@ export class AxisSet {
     return this.indexOf( axis ) !== -1;
   }
 
-  public equals ( axes: AxisSet ) : boolean {
-    return this.axes.length === axes.axes.length && this.axes.every(
-      ( axis, i ) => axis.equals( axes.axes[ i ] )
-    );
+  public equals ( { axes }: AxisSet ) : boolean {
+    return this.axes.length === axes.length && this.axes.every( ( axis, i ) => axis.equals( axes[ i ] ) );
   }
 
   public toArray () : readonly Axis[] {
-    return this.axes;
+    return [ ...this.axes ];
   }
 
   public toString ( { delimiter = ', ', ...options }: TAxisSetStringOptions = {} ) : string {
