@@ -1,4 +1,4 @@
-import { Axis } from './Axis';
+import type { Axis } from './Axis';
 
 
 export interface TValueStringOptions {
