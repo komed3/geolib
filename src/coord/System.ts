@@ -26,11 +26,11 @@ export class System {
     return this.axes.indexOf( axis );
   }
 
-  public equals ( system: System ) : boolean {
-    return this.name === system.name && this.axes.equals( system.axes );
+  public equals ( { name, axes }: System ) : boolean {
+    return this.name === name && this.axes.equals( axes );
   }
 
-  public toString ( options: TSystemStringOptions = {} ) : string {
+  public toString ( options?: TSystemStringOptions ) : string {
     return `${ this.name } (${ this.axes.toString( options ) })`;
   }
 }
