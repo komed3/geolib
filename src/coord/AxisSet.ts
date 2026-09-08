@@ -1,4 +1,4 @@
-import { Axis } from './Axis';
+import type { Axis } from './Axis';
 
 
 export interface TAxisSetStringOptions {
@@ -36,7 +36,15 @@ export class AxisSet {
     );
   }
 
+  public toArray () : readonly Axis[] {
+    return this.axes;
+  }
+
   public toString ( { delimiter = ', ', ...options }: TAxisSetStringOptions = {} ) : string {
     return this.axes.map( axis => axis.toString( options ) ).join( delimiter );
+  }
+
+  public [ Symbol.iterator ] () : Iterator< Axis > {
+    return this.axes[ Symbol.iterator ]();
   }
 }
