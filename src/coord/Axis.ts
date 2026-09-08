@@ -16,3 +16,17 @@ export interface TAxisOptions {
 export interface TAxisStringOptions {
   showUnit?: boolean;
 }
+
+
+export class Axis {
+  public readonly name: string;
+  public readonly direction: string;
+  public readonly unit: TUnit;
+  public readonly range: Range;
+  public readonly behavior: TAxisBehavior;
+
+  public constructor ( { name, direction, unit, range, behavior = 'none' }: TAxisOptions ) {
+    this.name = name, this.direction = direction, this.unit = unit;
+    this.range = range, this.behavior = behavior;
+  }
+}
