@@ -14,4 +14,21 @@ export class Coordinate {
   public constructor ( system: System, values: readonly Value[] ) {
     this.system = system, this.values = Object.freeze( [ ...values ] );
   }
+
+  public get dimension () : number {
+    return this.values.length;
+  }
+
+  public get ( index: number ) : Value {
+    return this.values[ index ];
+  }
+
+  public toTuple () : number[] {
+    return this.values.map( value => value.toNumber() );
+  }
+
+  public equals ( { system, values }: Coordinate ) : boolean {
+    return this.system.equals( system ) && this.values.length === values.length &&
+      this.values.every( ( value, i ) => value.equals( values[ i ] ) );
+  }
 }
