@@ -35,4 +35,16 @@ export class Coordinate implements ICoordinate {
   public map ( callback: ( value: number, index: number ) => number ) : Coordinate {
     return new Coordinate( { values: this.values.map( callback ), system: this.system } );
   }
+
+  public normalize () : Coordinate {
+    return this.map( ( value, i ) => this.system.get( i )?.normalize( value ) ?? value );
+  }
+
+  public clamp () : Coordinate {
+    return this.map( ( value, i ) => this.system.get( i )?.clamp( value ) ?? value );
+  }
+
+  public valid () : boolean {
+    return this.values.every( ( value, i ) => this.system.get( i )?.contains( value ) ?? false );
+  }
 }
