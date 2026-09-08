@@ -26,7 +26,17 @@ export class LineString< T extends GeometryCoordinate > {
     return this.points[ this.points.length - 1 ];
   }
 
-  public get isClosed () : boolean {
+  public isClosed () : boolean {
     return this.start.equals( this.end );
+  }
+
+  public clone () : LineString< T > {
+    return new LineString( this.points );
+  }
+
+  public equals ( other: LineString< T > ) : boolean {
+    return this.points.length === other.points.length && this.points.every(
+      ( point, index ) => point.equals( other.points[ index ] )
+    );
   }
 }
