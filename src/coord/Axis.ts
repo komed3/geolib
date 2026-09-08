@@ -54,4 +54,8 @@ export class Axis {
       this.normalization === axis.normalization && this.cyclic === axis.cyclic &&
       this.period === axis.period;
   }
+
+  public toString () : string {
+    return `${ this.name } [${ this.unit.symbol }]`;
+  }
 }
