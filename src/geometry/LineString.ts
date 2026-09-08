@@ -39,4 +39,12 @@ export class LineString< T extends GeometryCoordinate > {
       ( point, index ) => point.equals( other.points[ index ] )
     );
   }
+
+  public reverse () : LineString< T > {
+    return new LineString( [ ...this.points ].reverse() );
+  }
+
+  public toArray () : readonly Point< T >[] {
+    return this.points.map( point => point.clone() );
+  }
 }
