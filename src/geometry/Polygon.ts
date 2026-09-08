@@ -90,6 +90,32 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     return Math.abs( area * radius ** 2 / 4 );
   }
 
+  private geographicCentroid () : Point< T > {
+    let x = 0, y = 0, z = 0, weight = 0;
+
+    for ( const point of this.outer.points.slice( 0, -1 ) ) {
+      const { latitude, longitude } = point.coordinate as Coordinate;
+      const lat = deg2Rad( latitude.value ), lon = deg2Rad( longitude.value );
+      const cosLat = Math.cos( lat );
+
+      x += cosLat * Math.cos( lon );
+      y += cosLat * Math.sin( lon );
+      z += Math.sin( lat );
+      weight++;
+    }
+
+    if ( weight === 0 ) throw new RangeError( 'Centroid is undefined for empty polygon' );
+
+    x /= weight;
+    y /= weight;
+    z /= weight;
+
+    const longitude = Math.atan2( y, x );
+    const latitude = Math.atan2( z, Math.hypot( x, y ) );
+
+    return new Point( Coordinate.fromDegrees( rad2Deg( latitude ), rad2Deg( longitude ) ) as T );
+  }
+
   public clone () : Polygon< T > {
     return new Polygon( this.outer, this.holes );
   }
