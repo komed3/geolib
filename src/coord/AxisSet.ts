@@ -37,4 +37,8 @@ export class AxisSet {
   public toString () : string {
     return this.axes.map( axis => axis.toString() ).join( ', ' );
   }
+
+  public [ Symbol.iterator ] () : Iterator< Axis > {
+    return this.axes[ Symbol.iterator ]();
+  }
 }
