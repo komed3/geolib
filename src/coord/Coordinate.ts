@@ -1,5 +1,5 @@
 import type { System } from './System';
-import type { Value, TValueStringOptions } from './Value';
+import type { TValueStringOptions, Value } from './Value';
 
 
 export interface TCoordinateStringOptions extends TValueStringOptions {
@@ -30,5 +30,9 @@ export class Coordinate {
   public equals ( { system, values }: Coordinate ) : boolean {
     return this.system.equals( system ) && this.values.length === values.length &&
       this.values.every( ( value, i ) => value.equals( values[ i ] ) );
+  }
+
+  public toString ( { delimiter = ', ', ...options }: TCoordinateStringOptions = {} ) : string {
+    return this.values.map( value => value.toString( options ) ).join( delimiter );
   }
 }
