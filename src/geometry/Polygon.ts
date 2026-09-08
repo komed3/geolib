@@ -19,4 +19,13 @@ export class Polygon< T extends GeometryCoordinate = GeometryCoordinate > {
     this.outer = outer.clone();
     this.holes = holes.map( hole => hole.clone() );
   }
+
+  public clone () : Polygon< T > {
+    return new Polygon( this.outer, this.holes );
+  }
+
+  public equals ( other: Polygon< T > ) : boolean {
+    return this.outer.equals( other.outer ) && this.holes.length === other.holes.length &&
+      this.holes.every( ( hole, index ) => hole.equals( other.holes[ index ] ) );
+  }
 }
