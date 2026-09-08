@@ -18,4 +18,12 @@ export class Utils {
   public static approximatelyEqual ( a: number, b: number, tolerance = Number.EPSILON ) : boolean {
     return Math.abs( a - b ) <= tolerance;
   }
+
+  public static min ( values: readonly number[] ) : number {
+    return globalThis.Math.min( ...values );
+  }
+
+  public static max ( values: readonly number[] ) : number {
+    return globalThis.Math.max( ...values );
+  }
 }
