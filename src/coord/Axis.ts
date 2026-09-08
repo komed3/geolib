@@ -39,10 +39,9 @@ export class Axis {
     return value;
   }
 
-  public equals ( axis: Axis ) : boolean {
-    return this.name === axis.name && this.direction === axis.direction &&
-      this.unit.name === axis.unit.name && this.unit.symbol === axis.unit.symbol &&
-      this.range.equals( axis.range ) && this.behavior === axis.behavior;
+  public equals ( { name, direction, unit, range, behavior }: Axis ) : boolean {
+    return this.name === name && this.direction === direction && this.unit.name === unit.name &&
+    this.unit.symbol === unit.symbol && this.range.equals( range ) && this.behavior === behavior;
   }
 
   public toString ( { showUnit = true }: TAxisStringOptions = {} ) : string {
