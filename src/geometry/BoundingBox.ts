@@ -21,4 +21,12 @@ export class BoundingBox< T extends GeometryCoordinate = GeometryCoordinate > {
 
     throw new TypeError( 'Coordinates must use the same coordinate type' );
   }
+
+  public clone () : BoundingBox< T > {
+    return new BoundingBox( this.min.clone() as T, this.max.clone() as T );
+  }
+
+  public equals ( other: BoundingBox< T > ) : boolean {
+    return this.min.equals( other.min ) && this.max.equals( other.max );
+  }
 }
