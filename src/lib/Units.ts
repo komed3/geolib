@@ -1,9 +1,9 @@
-export interface IUnit {
+export interface TUnit {
   name: string;
   symbol: string;
 }
 
 
-export const DEGREE: IUnit = { name: 'Degree', symbol: '°' };
-export const RADIAN: IUnit = { name: 'Radian', symbol: 'rad' };
-export const METRE: IUnit = { name: 'Metre', symbol: 'm' };
+export const DEGREE: TUnit = { name: 'Degree', symbol: '°' };
+export const RADIAN: TUnit = { name: 'Radian', symbol: 'rad' };
+export const METRE: TUnit = { name: 'Metre', symbol: 'm' };

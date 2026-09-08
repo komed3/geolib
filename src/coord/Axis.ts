@@ -1,4 +1,4 @@
-import type { IUnit } from '../lib/Units';
+import type { TUnit } from '../lib/Units';
 import { Utils } from '../lib/Utils';
 import { Range } from './Range';
 
@@ -8,7 +8,7 @@ export type TAxisNormalization = 'none' | 'clamp' | 'wrap';
 export interface IAxis {
   readonly name: string;
   readonly direction: string;
-  readonly unit: IUnit;
+  readonly unit: TUnit;
   readonly range?: Range;
   readonly normalization?: TAxisNormalization;
   readonly cyclic?: boolean;
@@ -19,7 +19,7 @@ export interface IAxis {
 export class Axis {
   public readonly name: string;
   public readonly direction: string;
-  public readonly unit: IUnit;
+  public readonly unit: TUnit;
   public readonly range: Range;
   public readonly normalization: TAxisNormalization;
   public readonly cyclic: boolean;

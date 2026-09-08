@@ -2,7 +2,7 @@ import type { Axis } from './Axis';
 import { AxisSet } from './AxisSet';
 
 
-export interface ISystem {
+export interface TSystem {
   readonly name?: string;
   readonly type?: string;
   readonly axes: AxisSet | readonly Axis[];
@@ -14,7 +14,7 @@ export class System {
   public readonly type?: string;
   public readonly axes: AxisSet;
 
-  public constructor ( { name, type, axes }: ISystem ) {
+  public constructor ( { name, type, axes }: TSystem ) {
     this.name = name, this.type = type;
     this.axes = axes instanceof AxisSet ? axes : new AxisSet( axes );
   }

@@ -2,17 +2,17 @@ import { Utils } from '../lib/Utils';
 import type { System } from './System';
 
 
-export interface ICoordinate {
+export interface TCoordinate {
   readonly values: readonly number[];
   readonly system: System;
 }
 
 
-export class Coordinate implements ICoordinate {
+export class Coordinate implements TCoordinate {
   public readonly values: readonly number[];
   public readonly system: System;
 
-  public constructor ( { values, system }: ICoordinate ) {
+  public constructor ( { values, system }: TCoordinate ) {
     this.values = Object.freeze( [ ...values ] );
     this.system = system;
   }
