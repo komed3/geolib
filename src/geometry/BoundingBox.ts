@@ -41,4 +41,18 @@ export class BoundingBox< T extends GeometryCoordinate = GeometryCoordinate > {
 
     throw new TypeError( 'Coordinates must use the same coordinate type' );
   }
+
+  public get width () : number {
+    if ( this.min instanceof Coordinate && this.max instanceof Coordinate )
+      return this.max.longitude.value - this.min.longitude.value;
+
+    return this.max.easting - this.min.easting;
+  }
+
+  public get height () : number {
+    if ( this.min instanceof Coordinate && this.max instanceof Coordinate )
+      return this.max.latitude.value - this.min.latitude.value;
+
+    return this.max.northing - this.min.northing;
+  }
 }
