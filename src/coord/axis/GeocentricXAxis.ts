@@ -1,16 +1,10 @@
 import { Axis } from '../../base/Axis';
 import { Range } from '../../base/Range';
-import { METRE } from '../../lib/Units';
+import { METRE, type TUnit } from '../../lib/Units';
 
 
 export class GeocentricXAxis extends Axis {
-  public constructor () {
-    super( {
-      name: 'Geocentric X',
-      direction: 'geocentricX',
-      unit: METRE,
-      range: new Range(),
-      behavior: 'none'
-    } );
+  public constructor ( unit: TUnit = METRE, range: Range = new Range() ) {
+    super( { name: 'Geocentric X', direction: 'x', unit, range, behavior: 'none' } );
   }
 }
