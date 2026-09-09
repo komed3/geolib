@@ -1,16 +1,10 @@
 import { Axis } from '../../base/Axis';
 import { Range } from '../../base/Range';
-import { FOOT } from '../../lib/Units';
+import { METRE, type TUnit } from '../../lib/Units';
 
 
 export class AltitudeAxis extends Axis {
-  public constructor () {
-    super( {
-      name: 'Altitude',
-      direction: 'up',
-      unit: FOOT,
-      range: new Range(),
-      behavior: 'none'
-    } );
+  public constructor ( unit: TUnit = METRE, range: Range = new Range() ) {
+    super( { name: 'Altitude', direction: 'up', unit, range, behavior: 'none' } );
   }
 }
