@@ -64,7 +64,7 @@ export class DMS {
   }
 
   public clone () : DMS {
-    return new DMS( this.value, 0, 0, this.direction );
+    return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
   }
 
   public toDecimal () : number {
