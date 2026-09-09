@@ -23,17 +23,17 @@ export class Coordinate {
     return this.values[ index ];
   }
 
-  public toTuple () : number[] {
-    return this.values.map( value => value.toNumber() );
-  }
-
   public equals ( { system, values }: Coordinate ) : boolean {
     return this.system.equals( system ) && this.values.length === values.length &&
       this.values.every( ( value, i ) => value.equals( values[ i ] ) );
   }
 
   public clone () : Coordinate {
-    return new Coordinate( this.system, this.values.map( value => value.clone() ) );
+    return new Coordinate( this.system.clone(), this.values.map( value => value.clone() ) );
+  }
+
+  public toTuple () : number[] {
+    return this.values.map( value => value.toNumber() );
   }
 
   public toJSON () : { system: string, values: readonly number[] } {

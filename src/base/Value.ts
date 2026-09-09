@@ -25,7 +25,7 @@ export class Value {
   }
 
   public clone () : Value {
-    return new Value( this.value, this.axis );
+    return new Value( this.value, this.axis.clone() );
   }
 
   public toJSON () : { value: number, axis: TAxisOptions } {
