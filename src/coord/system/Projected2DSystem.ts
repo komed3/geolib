@@ -10,4 +10,12 @@ export class Projected2DSystem extends System {
   ] ) ) {
     super( name, axes );
   }
+
+  public get easting () : EastingAxis {
+    return this.axes.get( 0 );
+  }
+
+  public get northing () : NorthingAxis {
+    return this.axes.get( 1 );
+  }
 }
