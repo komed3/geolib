@@ -36,6 +36,16 @@ export class DMS {
   public readonly minutes: number;
   public readonly seconds: number;
 
+  private static parseDirection ( value?: string ) : TDirection | null {
+    if ( ! value ) return null;
+
+    switch ( value.toUpperCase() ) {
+      case 'N': return 'north'; case 'E': return 'east';
+      case 'S': return 'south'; case 'W': return 'west';
+      default: throw new SyntaxError( 'Invalid DMS direction' );
+    }
+  }
+
   public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {
     const value = degrees + minutes / 60 + seconds / 3600;
 
