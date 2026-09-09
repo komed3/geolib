@@ -30,7 +30,11 @@ const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\
 
 export class DMS {
   private readonly value: number;
+
   public readonly direction: TDirection | null;
+  public readonly degrees: number;
+  public readonly minutes: number;
+  public readonly seconds: number;
 
   public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {
     const value = degrees + minutes / 60 + seconds / 3600;
@@ -40,5 +44,17 @@ export class DMS {
 
     this.value = direction === 'south' || direction === 'west' ? -value : value;
     this.direction = direction;
+
+    const sign = value < 0 ? -1 : 1, abs = Math.abs( value );
+
+    let deg = Math.floor( abs ), min = Math.floor( ( abs - deg ) * 60 ),
+        sec = Math.round( ( abs - deg - min / 60 ) * 3600 );
+
+    if ( sec >= 60 ) sec = 0, min++;
+    if ( min >= 60 ) min = 0, deg++;
+
+    this.degrees = direction != null ? deg : sign * deg;
+    this.minutes = min;
+    this.seconds = sec;
   }
 }
