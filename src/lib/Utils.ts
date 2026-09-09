@@ -9,7 +9,7 @@ export class Utils {
 
   public static wrap ( value: number, min: number, max: number ) : number {
     const range = max - min;
-    return ( ( value - min ) % range + range ) % range + min;
+    return range === 0 ? min : ( ( value - min ) % range + range ) % range + min;
   }
 
   public static approximatelyEqual ( a: number, b: number, tolerance = Number.EPSILON ) : boolean {
