@@ -90,6 +90,13 @@ export class DMS {
     if ( format === 'dd' ) return `${ sign }${ Math.abs( this.value )
       .toLocaleString( locale, { maximumFractionDigits: precision } ) }${ dir }`;
 
+    let deg = Math.abs( this.degrees ), min = this.minutes, sec = this.seconds;
+    if ( format === 'dm' ) min = Math.round( ( min + sec / 60 ) * factor ) / factor, sec = 0;
+    else sec = Math.round( sec * factor ) / factor;
+
+    if ( sec >= 60 ) sec = 0, min++;
+    if ( min >= 60 ) min = 0, deg++;
+
     return '';
   }
 
