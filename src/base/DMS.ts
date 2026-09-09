@@ -26,6 +26,7 @@ export const DIRECTION_MAP_EN: TDirectionMap = { north: 'N', east: 'E', south: '
 export const DIRECTION_MAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
 
 const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[′'])?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[″"])?(?:\s*([NSEW]))?\s*$/i;
+const DMS_DIRMAP = { N: 'north', E: 'east', O: 'east', S: 'south', W: 'west' } as const;
 
 
 export class DMS {
@@ -99,9 +100,12 @@ export class DMS {
     const match = value.match( DMS_REGEX );
     if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
 
+    const direction = DMS_DIRMAP[ match[ 4 ]?.toUpperCase() as keyof typeof DMS_DIRMAP ];
+    if ( ! direction ) throw new SyntaxError( 'Invalid DMS direction' );
+
     return new DMS(
-      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ), Number( match[ 3 ] ?? 0 ),
-      DMS.parseDirection( match[ 4 ] )
+      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ),
+      Number( match[ 3 ] ?? 0), direction
     );
   }
 }
