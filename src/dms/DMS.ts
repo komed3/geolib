@@ -29,7 +29,7 @@ export class DMS {
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    if ( direction !== null ) deg = Math.abs( deg );
+    if ( direction != null ) deg = Math.abs( deg );
     else if ( sign < 0 ) deg = -deg;
 
     return { degrees: deg, minutes: min, seconds: sec, direction: direction ?? null };
@@ -103,12 +103,7 @@ export class DMS {
 
   public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
     if ( ! Number.isFinite( value ) ) throw new RangeError( 'Invalid decimal value' );
-
-    const abs = Math.abs( value ), deg = Math.floor( abs );
-    const mVal = ( abs - deg ) * 60, min = Math.floor( mVal ), sec = ( mVal - min ) * 60;
-    const dir = direction ?? ( value < 0 ? null : null );
-
-    return new DMS( deg, min, sec, dir );
+    return new DMS( value, 0, 0, direction );
   }
 
   public static fromObject ( { degrees, minutes, seconds, direction }: TDMSOptions ) : DMS {
