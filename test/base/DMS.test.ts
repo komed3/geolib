@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { DMS, DIRECTION_MAP_DE, DIRECTION_MAP_EN } from '../../src/base/DMS';
+import { DMS, DIRECTION_MAP_DE, type TDirection } from '../../src/base/DMS';
 
 
-const components = ( dms: DMS ) => ( { deg: dms.degrees, min: dms.minutes, sec: dms.seconds, dir: dms.direction } );
+const expectDMS = (
+  dms: DMS, degrees: number, minutes: number,
+  seconds: number, direction: TDirection
+) => {
+  expect( dms.degrees ).toBe( degrees );
+  expect( dms.minutes ).toBe( minutes );
+  expect( dms.seconds ).toBeCloseTo( seconds );
+  expect( dms.direction ).toBe( direction );
+};
