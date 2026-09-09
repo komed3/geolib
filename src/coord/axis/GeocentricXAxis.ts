@@ -1,6 +1,6 @@
-import { Axis } from '../base/Axis';
-import { Range } from '../base/Range';
-import { METRE } from '../lib/Units';
+import { Axis } from '../../base/Axis';
+import { Range } from '../../base/Range';
+import { METRE } from '../../lib/Units';
 
 
 export class GeocentricXAxis extends Axis {

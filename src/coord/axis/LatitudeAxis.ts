@@ -1,6 +1,6 @@
-import { Axis } from '../base/Axis';
-import { DEGREE } from '../lib/Units';
-import { LatitudeRange } from './LatitudeRange';
+import { Axis } from '../../base/Axis';
+import { DEGREE } from '../../lib/Units';
+import { LatitudeRange } from '../range/LatitudeRange';
 
 
 export class LatitudeAxis extends Axis {
