@@ -1,6 +1,10 @@
-import type { TCoordinateStringOptions } from '../types/base';
 import type { System } from './System';
-import { Value } from './Value';
+import { type TValueStringOptions, Value } from './Value';
+
+
+export interface TCoordinateStringOptions extends TValueStringOptions {
+  delimiter?: string;
+}
 
 
 export class Coordinate {

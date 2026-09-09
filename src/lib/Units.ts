@@ -1,4 +1,7 @@
-import { TUnit } from '../types/lib';
+export interface TUnit {
+  readonly name: string;
+  readonly symbol: string;
+}
 
 
 export const DEGREE: TUnit = { name: 'Degree', symbol: '°' };
