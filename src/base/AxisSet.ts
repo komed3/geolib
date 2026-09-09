@@ -1,4 +1,4 @@
-import type { TAxisSetStringOptions } from '../types/axis';
+import type { TAxisSetStringOptions } from '../types/base';
 import type { Axis } from './Axis';
 
 

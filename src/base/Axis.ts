@@ -1,6 +1,6 @@
 import { Utils } from '../lib/Utils';
-import type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from '../types/axis';
-import type { TUnit } from '../types/unit';
+import type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from '../types/base';
+import type { TUnit } from '../types/lib';
 import type { Range } from './Range';
 
 
