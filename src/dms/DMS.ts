@@ -19,20 +19,19 @@ export class DMS {
   public readonly seconds: number;
   public readonly direction: TDirection | null;
 
-  private static normalize ( { degrees, minutes, seconds, direction }: TDMSOptions ) : Required< TDMSOptions > {
-    const value = Math.abs( degrees ) + Math.abs( minutes ?? 0 ) / 60 + Math.abs( seconds ?? 0 ) / 3600;
-    const sign = degrees < 0 ? -1 : 1;
+  private static normalize ( { degrees, minutes = 0, seconds = 0, direction = null }: TDMSOptions ) : Required< TDMSOptions > {
+    const value = Math.abs( degrees ) + Math.abs( minutes ) / 60 + Math.abs( seconds ) / 3600;
 
-    let deg = Math.floor( value ), mVal = ( value - deg ) * 60;
-    let min = Math.floor( mVal ), sec = ( mVal - min ) * 60;
+    let deg = Math.floor( value ), min = Math.floor( ( value - deg ) * 60 ),
+        sec = Math.round( ( value - deg - min / 60 ) * 3600 );
 
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    if ( direction != null ) deg = Math.abs( deg );
-    else if ( sign < 0 ) deg = -deg;
-
-    return { degrees: deg, minutes: min, seconds: sec, direction: direction ?? null };
+    return {
+      degrees: direction != null ? Math.abs( deg ) : ( degrees < 0 ? -deg : deg ),
+      minutes: min, seconds: sec, direction
+    };
   }
 
   private static parseDirection ( value?: string ) : TDirection | null {
@@ -56,12 +55,6 @@ export class DMS {
     this.direction = normalized.direction;
   }
 
-  public toDecimal () : number {
-    const value = this.degrees + this.minutes / 60 + this.seconds / 3600;
-    if ( this.direction === 'south' || this.direction === 'west' ) return -value;
-    return value;
-  }
-
   public equals ( { degrees, minutes, seconds, direction }: DMS ) : boolean {
     return this.degrees === degrees && this.minutes === minutes &&
       this.seconds === seconds && this.direction === direction;
@@ -69,6 +62,12 @@ export class DMS {
 
   public clone () : DMS {
     return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
+  }
+
+  public toDecimal () : number {
+    const value = this.degrees + this.minutes / 60 + this.seconds / 3600;
+    if ( this.direction === 'south' || this.direction === 'west' ) return -value;
+    return value;
   }
 
   public toJSON () : TDMSOptions {
@@ -83,8 +82,9 @@ export class DMS {
     dirMap = DIRECTION_MAP_EN, notation = 'directional'
   }: TDirectionStringOptions = {} ) : string {
     const factor = 10 ** precision;
-    let sec = Math.round( this.seconds * factor ) / factor;
-    let min = this.minutes, deg = this.degrees;
+
+    let sec = Math.round( this.seconds * factor ) / factor,
+        min = this.minutes, deg = this.degrees;
 
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
@@ -102,7 +102,6 @@ export class DMS {
   }
 
   public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
-    if ( ! Number.isFinite( value ) ) throw new RangeError( 'Invalid decimal value' );
     return new DMS( value, 0, 0, direction );
   }
 
