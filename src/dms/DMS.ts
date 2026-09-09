@@ -1,4 +1,12 @@
-import { type TDirection } from './Angle';
+import { DIRECTION_MAP, type TAngleStringOptions, type TDirection } from './Angle';
+
+
+export interface TDMSOptions {
+  degrees: number;
+  minutes: number;
+  seconds: number;
+  direction: TDirection | null;
+}
 
 
 export class DMS {
@@ -24,7 +32,35 @@ export class DMS {
     return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
   }
 
-  public toJSON () : { degrees: number, minutes: number, seconds: number, direction: TDirection | null } {
-    return { degrees: this.degrees, minutes: this.minutes, seconds: this.seconds, direction: this.direction };
+  public toJSON () : TDMSOptions {
+    return {
+      degrees: this.degrees, minutes: this.minutes, seconds: this.seconds,
+      direction: this.direction
+    };
+  }
+
+  public toString ( {
+    locale = 'en', precision = 2, delimiter = ' ',
+    showUnit = true, dirMap = DIRECTION_MAP, notation = 'directional'
+  }: TAngleStringOptions = {} ) : string {
+    const factor = 10 ** precision;
+    let sec = Math.round( this.seconds * factor ) / factor;
+    let min = this.minutes, deg = this.degrees;
+
+    if ( sec >= 60 ) sec = 0, min++;
+    if ( min >= 60 ) min = 0, deg++;
+
+    const d = deg.toLocaleString( locale, { maximumFractionDigits: 0 } );
+    const m = min.toLocaleString( locale, { minimumFractionDigits: 0, maximumFractionDigits: 0 } );
+    const s = sec.toLocaleString( locale, { minimumFractionDigits: 0, maximumFractionDigits: precision } );
+
+    const value = showUnit
+      ? `${ d }°${ delimiter }${ m }′${ delimiter }${ s }″`
+      : `${ d }${ delimiter }${ m }${ delimiter }${ s }`;
+
+    if ( notation === 'signed' || this.direction === null )
+      return this.degrees < 0 ? `-${ value }` : value;
+
+    return `${ value }${ delimiter }${ dirMap[ this.direction ] }`;
   }
 }
