@@ -103,6 +103,14 @@ export class DMS {
     return new DMS( value, 0, 0, direction );
   }
 
+  public static fromLongitude ( value: number ) : DMS {
+    return DMS.fromDecimals( Math.abs( value ), value < 0 ? 'west' : 'east' );
+  }
+
+  public static fromLatitude ( value: number ) : DMS {
+    return DMS.fromDecimals( Math.abs( value ), value < 0 ? 'south' : 'north' );
+  }
+
   public static fromObject ( { degrees, minutes, seconds, direction }: TDMSOptions ) : DMS {
     return new DMS( degrees, minutes, seconds, direction );
   }
