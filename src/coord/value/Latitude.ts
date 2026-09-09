@@ -1,15 +1,11 @@
-import { Value } from '../../base/Value';
+import { DegreeValue } from '../../base/DegreeValue';
 import { Geodesy } from '../../lib/Geodesy';
 import { LatitudeAxis } from '../axis/LatitudeAxis';
 
 
-export class Latitude extends Value {
+export class Latitude extends DegreeValue {
   public constructor ( value: number, axis: LatitudeAxis = new LatitudeAxis() ) {
     super( value, axis );
-  }
-
-  public toRadians () : number {
-    return Geodesy.deg2rad( this.value );
   }
 
   public static fromRadians ( rad: number ) : Latitude {
