@@ -1,5 +1,5 @@
 import type { Range } from '../base/Range';
-import type { TUnit } from './unit';
+import type { TUnit } from './lib';
 
 
 export type TAxisBehavior = 'none' | 'clamp' | 'wrap';
@@ -18,5 +18,15 @@ export interface TAxisStringOptions {
 
 export interface TAxisSetStringOptions {
   showUnit?: boolean;
+  delimiter?: string;
+}
+
+export interface TValueStringOptions {
+  locale?: string;
+  precision?: number;
+  showUnit?: boolean;
+}
+
+export interface TCoordinateStringOptions extends TValueStringOptions {
   delimiter?: string;
 }
