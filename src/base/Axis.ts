@@ -45,7 +45,7 @@ export class Axis {
   }
 
   public clone () : Axis {
-    return new Axis( this.toJSON() );
+    return new Axis( { ...this.toJSON(), range: this.range.clone() } );
   }
 
   public toJSON () : TAxisOptions {
