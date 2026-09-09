@@ -4,7 +4,7 @@ export type TNotation = 'signed' | 'directional';
 
 export type TDirectionMap = Partial< Record< TDirection, string > >;
 
-export interface TAngleStringOptions {
+export interface TDirectionStringOptions {
   locale?: string;
   precision?: number;
   delimiter?: string;
@@ -14,4 +14,5 @@ export interface TAngleStringOptions {
 }
 
 
-export const DIRECTION_MAP: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
+export const DIRECTION_MAP_EN: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
+export const DIRECTION_MAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };

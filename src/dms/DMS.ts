@@ -1,4 +1,5 @@
-import { DIRECTION_MAP, type TAngleStringOptions, type TDirection } from './Angle';
+import type { TDirection, TDirectionStringOptions } from './Direction';
+import { DIRECTION_MAP_EN } from './Direction';
 
 
 export interface TDMSOptions {
@@ -40,9 +41,9 @@ export class DMS {
   }
 
   public toString ( {
-    locale = 'en', precision = 2, delimiter = ' ',
-    showUnit = true, dirMap = DIRECTION_MAP, notation = 'directional'
-  }: TAngleStringOptions = {} ) : string {
+    locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
+    dirMap = DIRECTION_MAP_EN, notation = 'directional'
+  }: TDirectionStringOptions = {} ) : string {
     const factor = 10 ** precision;
     let sec = Math.round( this.seconds * factor ) / factor;
     let min = this.minutes, deg = Math.abs( this.degrees );
