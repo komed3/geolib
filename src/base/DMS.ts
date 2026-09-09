@@ -29,7 +29,8 @@ const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\
 
 
 export class DMS {
-  public readonly value: number;
+  private readonly value: number;
+
   public readonly direction: TDirection | null;
   public readonly degrees: number;
   public readonly minutes: number;
@@ -57,11 +58,22 @@ export class DMS {
     this.seconds = sec;
   }
 
-  public equals ( { value, direction }: DMS ) : boolean {
-    return this.value === value && this.direction === direction;
+  public equals ( { toDecimal, direction }: DMS ) : boolean {
+    return this.value === toDecimal() && this.direction === direction;
   }
 
   public clone () : DMS {
     return new DMS( this.value, 0, 0, this.direction );
+  }
+
+  public toDecimal () : number {
+    return this.value;
+  }
+
+  public toJSON () : TDMSOptions & { value: number } {
+    return {
+      value: this.value, direction: this.direction, degrees: this.degrees,
+      minutes: this.minutes, seconds: this.seconds
+    };
   }
 }
