@@ -82,6 +82,11 @@ export class DMS {
     format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
     dirMap = DIRECTION_MAP_EN, notation = 'directional'
   }: TDMSStringOptions = {} ) : string {
+    const factor = 10 ** precision;
+
+    const sign = this.value < 0 && ( notation === 'signed' || ! this.direction ) ? '-' : '';
+    const dir = notation === 'directional' && this.direction ? `${ delimiter }${ dirMap[ this.direction ] }` : '';
+
     return '';
   }
 
