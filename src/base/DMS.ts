@@ -29,5 +29,8 @@ const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\
 
 
 export class DMS {
-  public constructor () {}
+  private readonly value: number;
+  public readonly direction: TDirection | null;
+
+  public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {}
 }
