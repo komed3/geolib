@@ -97,7 +97,15 @@ export class DMS {
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    return '';
+    const d = deg.toLocaleString( locale, { maximumFractionDigits: 0 } );
+    const m = min.toLocaleString( locale, { maximumFractionDigits: format === 'dm' ? precision : 0 } );
+    const s = sec.toLocaleString( locale, { maximumFractionDigits: precision } );
+
+    const value = format === 'dm'
+      ? `${ d }${ showUnit ? '°' : '' }${ delimiter }${ m }${ showUnit ? '′' : '' }`
+      : `${ d }${ showUnit ? '°' : '' }${ delimiter }${ m }${ showUnit ? '′' : '' }${ delimiter }${ s }${ showUnit ? '″' : '' }`;
+
+    return `${ sign }${ value }${ dir }`;
   }
 
   public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
