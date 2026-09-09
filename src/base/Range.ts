@@ -1,17 +1,5 @@
 import { Utils } from '../lib/Utils';
-
-
-export interface TRangeOptions {
-  min?: number | null;
-  max?: number | null;
-  minInclusive?: boolean;
-  maxInclusive?: boolean;
-}
-
-export interface TRangeStringOptions {
-  locale?: string;
-  precision?: number;
-}
+import type { TRangeOptions, TRangeStringOptions } from '../types/base';
 
 
 export class Range {

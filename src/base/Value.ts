@@ -1,11 +1,5 @@
+import type { TValueStringOptions } from '../types/base';
 import type { Axis } from './Axis';
-
-
-export interface TValueStringOptions {
-  locale?: string;
-  precision?: number;
-  showUnit?: boolean;
-}
 
 
 export class Value {

@@ -21,12 +21,29 @@ export interface TAxisSetStringOptions {
   delimiter?: string;
 }
 
+export interface TCoordinateStringOptions extends TValueStringOptions {
+  delimiter?: string;
+}
+
+export interface TRangeOptions {
+  min?: number | null;
+  max?: number | null;
+  minInclusive?: boolean;
+  maxInclusive?: boolean;
+}
+
+export interface TRangeStringOptions {
+  locale?: string;
+  precision?: number;
+}
+
+export interface TSystemStringOptions {
+  showUnit?: boolean;
+  delimiter?: string;
+}
+
 export interface TValueStringOptions {
   locale?: string;
   precision?: number;
   showUnit?: boolean;
-}
-
-export interface TCoordinateStringOptions extends TValueStringOptions {
-  delimiter?: string;
 }

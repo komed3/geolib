@@ -1,11 +1,6 @@
+import type { TSystemStringOptions } from '../types/base';
 import type { Axis } from './Axis';
 import type { AxisSet } from './AxisSet';
-
-
-export interface TSystemStringOptions {
-  showUnit?: boolean;
-  delimiter?: string;
-}
 
 
 export class System {
