@@ -39,6 +39,14 @@ export class Range {
     return this.min === min && this.max === max && this.minInclusive === minInclusive && this.maxInclusive === maxInclusive;
   }
 
+  public clone () : Range {
+    return new Range( this.toJSON() );
+  }
+
+  public toJSON () : TRangeOptions {
+    return { min: this.min, max: this.max, minInclusive: this.minInclusive, maxInclusive: this.maxInclusive };
+  }
+
   public toString ( { locale = 'en', precision = 22 }: TRangeStringOptions = {} ) : string {
     const f = Intl.NumberFormat( locale, { maximumFractionDigits: precision } );
     const min = this.min === null ? '-∞' : f.format( this.min );
