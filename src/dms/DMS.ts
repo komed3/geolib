@@ -63,4 +63,8 @@ export class DMS {
 
     return `${ value }${ delimiter }${ dirMap[ this.direction ] }`;
   }
+
+  public static fromObject ( { degrees, minutes, seconds, direction }: TDMSOptions ) : DMS {
+    return new DMS( degrees, minutes, seconds, direction );
+  }
 }
