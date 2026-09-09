@@ -32,5 +32,13 @@ export class DMS {
   private readonly value: number;
   public readonly direction: TDirection | null;
 
-  public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {}
+  public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {
+    const value = degrees + minutes / 60 + seconds / 3600;
+
+    if ( direction != null && value < 0 )
+      throw new RangeError( 'DMS value has conflicting sign and direction' );
+
+    this.value = direction === 'south' || direction === 'west' ? -value : value;
+    this.direction = direction;
+  }
 }
