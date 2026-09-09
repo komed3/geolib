@@ -32,6 +32,14 @@ export class Coordinate {
       this.values.every( ( value, i ) => value.equals( values[ i ] ) );
   }
 
+  public clone () : Coordinate {
+    return new Coordinate( this.system, this.values.map( value => value.clone() ) );
+  }
+
+  public toJSON () : { system: string, values: readonly number[] } {
+    return { system: this.system.name, values: this.toTuple() };
+  }
+
   public toString ( { delimiter = ', ', ...options }: TCoordinateStringOptions = {} ) : string {
     return this.values.map( value => value.toString( options ) ).join( delimiter );
   }

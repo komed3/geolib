@@ -1,4 +1,4 @@
-import type { Axis } from './Axis';
+import type { Axis, TAxisOptions } from './Axis';
 
 
 export interface TValueStringOptions {
@@ -22,6 +22,14 @@ export class Value {
 
   public equals ( { value, axis }: Value ) : boolean {
     return this.value === value && this.axis.equals( axis );
+  }
+
+  public clone () : Value {
+    return new Value( this.value, this.axis );
+  }
+
+  public toJSON () : { value: number, axis: TAxisOptions } {
+    return { value: this.value, axis: this.axis.toJSON() };
   }
 
   public toString ( { locale = 'en', precision, showUnit = true }: TValueStringOptions = {} ) : string {

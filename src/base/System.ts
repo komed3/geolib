@@ -1,4 +1,4 @@
-import type { Axis } from './Axis';
+import type { Axis, TAxisOptions } from './Axis';
 import type { AxisSet } from './AxisSet';
 
 
@@ -28,6 +28,14 @@ export class System {
 
   public equals ( { name, axes }: System ) : boolean {
     return this.name === name && this.axes.equals( axes );
+  }
+
+  public clone () : System {
+    return new System( this.name, this.axes.clone() );
+  }
+
+  public toJSON () : { name: string, axes: readonly TAxisOptions[] } {
+    return { name: this.name, axes: this.axes.toJSON() };
   }
 
   public toString ( options?: TSystemStringOptions ) : string {

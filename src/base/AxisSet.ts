@@ -1,4 +1,4 @@
-import type { Axis } from './Axis';
+import type { Axis, TAxisOptions } from './Axis';
 
 
 export interface TAxisSetStringOptions {
@@ -34,8 +34,16 @@ export class AxisSet {
     return this.axes.length === axes.length && this.axes.every( ( axis, i ) => axis.equals( axes[ i ] ) );
   }
 
+  public clone () : AxisSet {
+    return new AxisSet( this.axes.map( axis => axis.clone() ) );
+  }
+
   public toArray () : readonly Axis[] {
     return [ ...this.axes ];
+  }
+
+  public toJSON () : readonly TAxisOptions[] {
+    return this.axes.map( axis => axis.toJSON() );
   }
 
   public toString ( { delimiter = ', ', ...options }: TAxisSetStringOptions = {} ) : string {
