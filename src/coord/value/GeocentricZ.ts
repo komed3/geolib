@@ -1,10 +1,9 @@
-import type { Axis } from '../../base/Axis';
 import { Value } from '../../base/Value';
 import { GeocentricZAxis } from '../axis/GeocentricZAxis';
 
 
 export class GeocentricZ extends Value {
-  public constructor ( value: number, axis: Axis = new GeocentricZAxis() ) {
+  public constructor ( value: number, axis: GeocentricZAxis = new GeocentricZAxis() ) {
     super( value, axis );
   }
 }
