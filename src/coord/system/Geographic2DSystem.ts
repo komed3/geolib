@@ -10,4 +10,12 @@ export class Geographic2DSystem extends System {
   ] ) ) {
     super( name, axes );
   }
+
+  public get longitude () : LongitudeAxis {
+    return this.axes.get( 0 );
+  }
+
+  public get latitude () : LatitudeAxis {
+    return this.axes.get( 1 );
+  }
 }
