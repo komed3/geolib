@@ -11,4 +11,16 @@ export class GeocentricSystem extends System {
   ] ) ) {
     super( name, axes );
   }
+
+  public get x () : GeocentricXAxis {
+    return this.axes.get( 0 );
+  }
+
+  public get y () : GeocentricYAxis {
+    return this.axes.get( 1 );
+  }
+
+  public get z () : GeocentricZAxis {
+    return this.axes.get( 2 );
+  }
 }
