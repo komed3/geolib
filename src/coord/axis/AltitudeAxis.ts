@@ -3,10 +3,10 @@ import { Range } from '../../base/Range';
 import { FOOT } from '../../lib/Units';
 
 
-export class AltituteAxis extends Axis {
+export class AltitudeAxis extends Axis {
   public constructor () {
     super( {
-      name: 'Altitute',
+      name: 'Altitude',
       direction: 'up',
       unit: FOOT,
       range: new Range(),
