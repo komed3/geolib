@@ -5,7 +5,7 @@ export interface TDMSOptions {
   degrees: number;
   minutes: number;
   seconds: number;
-  direction: TDirection | null;
+  direction?: TDirection | null;
 }
 
 
@@ -45,12 +45,12 @@ export class DMS {
   }: TAngleStringOptions = {} ) : string {
     const factor = 10 ** precision;
     let sec = Math.round( this.seconds * factor ) / factor;
-    let min = this.minutes, deg = this.degrees;
+    let min = this.minutes, deg = Math.abs( this.degrees );
 
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    const d = deg.toLocaleString( locale, { maximumFractionDigits: 0 } );
+    const d = deg.toLocaleString( locale, { minimumFractionDigits: 0, maximumFractionDigits: 0 } );
     const m = min.toLocaleString( locale, { minimumFractionDigits: 0, maximumFractionDigits: 0 } );
     const s = sec.toLocaleString( locale, { minimumFractionDigits: 0, maximumFractionDigits: precision } );
 
@@ -58,9 +58,7 @@ export class DMS {
       ? `${ d }°${ delimiter }${ m }′${ delimiter }${ s }″`
       : `${ d }${ delimiter }${ m }${ delimiter }${ s }`;
 
-    if ( notation === 'signed' || this.direction === null )
-      return this.degrees < 0 ? `-${ value }` : value;
-
+    if ( notation === 'signed' || this.direction === null ) return this.degrees < 0 ? `-${ value }` : value;
     return `${ value }${ delimiter }${ dirMap[ this.direction ] }`;
   }
 
