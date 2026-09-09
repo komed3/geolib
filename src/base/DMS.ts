@@ -49,7 +49,7 @@ export class DMS {
     const sign = value < 0 ? -1 : 1, abs = Math.abs( value );
 
     let deg = Math.floor( abs ), min = Math.floor( ( abs - deg ) * 60 ),
-        sec = Math.round( ( abs - deg - min / 60 ) * 3600 );
+        sec = ( abs - deg - min / 60 ) * 3600;
 
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
