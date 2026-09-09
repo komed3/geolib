@@ -20,28 +20,28 @@ export class DMS {
   public readonly direction: TDirection | null;
 
   private static normalize ( { degrees, minutes = 0, seconds = 0, direction = null }: TDMSOptions ) : Required< TDMSOptions > {
-    const value = Math.abs( degrees ) + Math.abs( minutes ) / 60 + Math.abs( seconds ) / 3600;
+    const value = degrees + minutes / 60 + seconds / 3600;
 
-    let deg = Math.floor( value ), min = Math.floor( ( value - deg ) * 60 ),
-        sec = Math.round( ( value - deg - min / 60 ) * 3600 );
+    if ( direction != null && value < 0 )
+      throw new RangeError( 'DMS value has conflicting sign and direction' );
+
+    const sign = value < 0 ? -1 : 1, abs = Math.abs( value );
+
+    let deg = Math.floor( abs ), min = Math.floor( ( abs - deg ) * 60 ),
+        sec = Math.round( ( abs - deg - min / 60 ) * 3600 );
 
     if ( sec >= 60 ) sec = 0, min++;
     if ( min >= 60 ) min = 0, deg++;
 
-    return {
-      degrees: direction != null ? Math.abs( deg ) : ( degrees < 0 ? -deg : deg ),
-      minutes: min, seconds: sec, direction
-    };
+    return { degrees: direction != null ? deg : sign * deg, minutes: min, seconds: sec, direction };
   }
 
   private static parseDirection ( value?: string ) : TDirection | null {
     if ( ! value ) return null;
 
     switch ( value.toUpperCase() ) {
-      case 'N': return 'north';
-      case 'E': return 'east';
-      case 'S': return 'south';
-      case 'W': return 'west';
+      case 'N': return 'north'; case 'E': return 'east';
+      case 'S': return 'south'; case 'W': return 'west';
       default: throw new SyntaxError( 'Invalid DMS direction' );
     }
   }
@@ -113,10 +113,9 @@ export class DMS {
     const match = value.match( DMS_REGEX );
     if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
 
-    const deg = Number( match[ 1 ] ), min = Number( match[ 2 ] ?? 0 ), sec = Number( match[ 3 ] ?? 0 );
-    const dir = DMS.parseDirection( match[ 4 ] );
-
-    if ( dir !== null && deg < 0 ) throw new SyntaxError( 'Invalid DMS value: direction conflicts with sign' );
-    return new DMS( Math.abs( deg ), min, sec, dir );
+    return new DMS(
+      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ), Number( match[ 3 ] ?? 0 ),
+      DMS.parseDirection( match[ 4 ] )
+    );
   }
 }
