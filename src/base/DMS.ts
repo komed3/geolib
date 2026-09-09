@@ -87,6 +87,9 @@ export class DMS {
     const sign = this.value < 0 && ( notation === 'signed' || ! this.direction ) ? '-' : '';
     const dir = notation === 'directional' && this.direction ? `${ delimiter }${ dirMap[ this.direction ] }` : '';
 
+    if ( format === 'dd' ) return `${ sign }${ Math.abs( this.value )
+      .toLocaleString( locale, { maximumFractionDigits: precision } ) }${ dir }`;
+
     return '';
   }
 
