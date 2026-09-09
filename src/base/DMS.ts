@@ -1,7 +1,5 @@
 export type TDirection = 'north' | 'east' | 'south' | 'west';
-
 export type TDMSFormat = 'dd' | 'dm' | 'dms';
-
 export type TNotation = 'signed' | 'directional';
 
 export type TDirectionMap = Partial< Record< TDirection, string > >;
@@ -21,4 +19,9 @@ export interface TDMSStringOptions {
   showUnit?: boolean;
   dirMap?: TDirectionMap;
   notation?: TNotation;
+}
+
+
+export class DMS {
+  public constructor () {}
 }
