@@ -82,30 +82,21 @@ export class DMS {
     format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
     dirMap = DIRECTION_MAP_EN, notation = 'directional'
   }: TDMSStringOptions = {} ) : string {
+    const values = [ Math.abs( this.degrees ), this.minutes, this.seconds ];
+    const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2;
     const factor = 10 ** precision;
 
-    const sign = this.value < 0 && ( notation === 'signed' || ! this.direction ) ? '-' : '';
-    const dir = notation === 'directional' && this.direction ? `${ delimiter }${ dirMap[ this.direction ] }` : '';
+    values[ last ] = Math.round( values[ last ] * factor ) / factor;
+    values[ 1 ] += Math.floor( values[ 2 ] / 60 ), values[ 2 ] %= 60;
+    values[ 0 ] += Math.floor( values[ 1 ] / 60 ), values[ 1 ] %= 60;
 
-    if ( format === 'dd' ) return `${ sign }${ Math.abs( this.value )
-      .toLocaleString( locale, { maximumFractionDigits: precision } ) }${ dir }`;
-
-    let deg = Math.abs( this.degrees ), min = this.minutes, sec = this.seconds;
-    if ( format === 'dm' ) min = Math.round( ( min + sec / 60 ) * factor ) / factor, sec = 0;
-    else sec = Math.round( sec * factor ) / factor;
-
-    if ( sec >= 60 ) sec = 0, min++;
-    if ( min >= 60 ) min = 0, deg++;
-
-    const d = deg.toLocaleString( locale, { maximumFractionDigits: 0 } );
-    const m = min.toLocaleString( locale, { maximumFractionDigits: format === 'dm' ? precision : 0 } );
-    const s = sec.toLocaleString( locale, { maximumFractionDigits: precision } );
-
-    const value = format === 'dm'
-      ? `${ d }${ showUnit ? '°' : '' }${ delimiter }${ m }${ showUnit ? '′' : '' }`
-      : `${ d }${ showUnit ? '°' : '' }${ delimiter }${ m }${ showUnit ? '′' : '' }${ delimiter }${ s }${ showUnit ? '″' : '' }`;
-
-    return `${ sign }${ value }${ dir }`;
+    return [
+      notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '',
+      ...values.slice( 0, last + 1 ).map( ( value, i ) => value.toLocaleString( locale, {
+        maximumFractionDigits: i === last ? precision : 0
+      } ) + ( showUnit ? '°′″'[ i ] : '' ) ),
+      notation === 'directional' && this.direction ? dirMap[ this.direction ] : ''
+    ].filter( Boolean ).join( delimiter );
   }
 
   public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
