@@ -1,5 +1,4 @@
 import { Coordinate } from '../../base/Coordinate';
-import type { System } from '../../base/System';
 import { Geographic3DSystem } from '../system/Geographic3DSystem';
 import { Height } from '../value/Height';
 import { Latitude } from '../value/Latitude';
@@ -9,7 +8,7 @@ import { Longitude } from '../value/Longitude';
 export class Geographic3DCoordinate extends Coordinate {
   public constructor (
     longitude: number | Longitude, latitude: number | Latitude, height: number | Height,
-    system: System = new Geographic3DSystem()
+    system: Geographic3DSystem = new Geographic3DSystem()
   ) {
     super( system, [
       longitude instanceof Longitude ? longitude : new Longitude( longitude ),

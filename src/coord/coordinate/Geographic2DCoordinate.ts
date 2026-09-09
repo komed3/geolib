@@ -1,5 +1,4 @@
 import { Coordinate } from '../../base/Coordinate';
-import type { System } from '../../base/System';
 import { Geographic2DSystem } from '../system/Geographic2DSystem';
 import { Latitude } from '../value/Latitude';
 import { Longitude } from '../value/Longitude';
@@ -8,7 +7,7 @@ import { Longitude } from '../value/Longitude';
 export class Geographic2DCoordinate extends Coordinate {
   public constructor (
     longitude: number | Longitude, latitude: number | Latitude,
-    system: System = new Geographic2DSystem()
+    system: Geographic2DSystem = new Geographic2DSystem()
   ) {
     super( system, [
       longitude instanceof Longitude ? longitude : new Longitude( longitude ),

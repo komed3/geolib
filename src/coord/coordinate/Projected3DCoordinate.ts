@@ -1,5 +1,4 @@
 import { Coordinate } from '../../base/Coordinate';
-import type { System } from '../../base/System';
 import { Projected3DSystem } from '../system/Projected3DSystem';
 import { Easting } from '../value/Easting';
 import { Height } from '../value/Height';
@@ -9,7 +8,7 @@ import { Northing } from '../value/Northing';
 export class Projected3DCoordinate extends Coordinate {
   public constructor (
     easting: number | Easting, northing: number | Northing, height: number | Height,
-    system: System = new Projected3DSystem()
+    system: Projected3DSystem = new Projected3DSystem()
   ) {
     super( system, [
       easting instanceof Easting ? easting : new Easting( easting ),

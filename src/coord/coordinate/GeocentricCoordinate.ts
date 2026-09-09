@@ -1,5 +1,4 @@
 import { Coordinate } from '../../base/Coordinate';
-import type { System } from '../../base/System';
 import { GeocentricSystem } from '../system/GeocentricSystem';
 import { GeocentricX } from '../value/GeocentricX';
 import { GeocentricY } from '../value/GeocentricY';
@@ -9,7 +8,7 @@ import { GeocentricZ } from '../value/GeocentricZ';
 export class GeocentricCoordinate extends Coordinate {
   public constructor (
     x: number | GeocentricX, y: number | GeocentricY, z: number | GeocentricZ,
-    system: System = new GeocentricSystem()
+    system: GeocentricSystem = new GeocentricSystem()
   ) {
     super( system, [
       x instanceof GeocentricX ? x : new GeocentricX( x ),
