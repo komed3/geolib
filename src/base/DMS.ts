@@ -94,4 +94,14 @@ export class DMS {
   public static fromObject ( { degrees, minutes, seconds, direction }: TDMSOptions ) : DMS {
     return new DMS( degrees, minutes, seconds, direction );
   }
+
+  public static parse ( value: string ) : DMS {
+    const match = value.match( DMS_REGEX );
+    if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
+
+    return new DMS(
+      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ), Number( match[ 3 ] ?? 0 ),
+      DMS.parseDirection( match[ 4 ] )
+    );
+  }
 }
