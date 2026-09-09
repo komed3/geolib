@@ -59,15 +59,15 @@ export class DMS {
     this.seconds = sec;
   }
 
-  public equals ( { toDecimal, direction }: DMS ) : boolean {
-    return this.value === toDecimal() && this.direction === direction;
+  public equals ( { toDecimals, direction }: DMS ) : boolean {
+    return this.value === toDecimals() && this.direction === direction;
   }
 
   public clone () : DMS {
     return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
   }
 
-  public toDecimal () : number {
+  public toDecimals () : number {
     return this.value;
   }
 
@@ -99,7 +99,7 @@ export class DMS {
     ].filter( Boolean ).join( delimiter );
   }
 
-  public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
+  public static fromDecimals ( value: number, direction: TDirection | null = null ) : DMS {
     return new DMS( value, 0, 0, direction );
   }
 
