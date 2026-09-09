@@ -44,6 +44,17 @@ export class Axis {
     this.unit.symbol === unit.symbol && this.range.equals( range ) && this.behavior === behavior;
   }
 
+  public clone () : Axis {
+    return new Axis( this.toJSON() );
+  }
+
+  public toJSON () : TAxisOptions {
+    return {
+      name: this.name, direction: this.direction, unit: this.unit,
+      range: this.range, behavior: this.behavior
+    };
+  }
+
   public toString ( { showUnit = true }: TAxisStringOptions = {} ) : string {
     return `${ this.name }${ showUnit ? ` [${ this.unit.symbol }]` : '' }`;
   }
