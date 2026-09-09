@@ -39,7 +39,7 @@ export class Range {
     return this.min === min && this.max === max && this.minInclusive === minInclusive && this.maxInclusive === maxInclusive;
   }
 
-  public toString ( { locale = 'en', precision = 22 }: TRangeStringOptions ) : string {
+  public toString ( { locale = 'en', precision = 22 }: TRangeStringOptions = {} ) : string {
     const f = Intl.NumberFormat( locale, { maximumFractionDigits: precision } );
     const min = this.min === null ? '-∞' : f.format( this.min );
     const max = this.max === null ? '∞' : f.format( this.max );
