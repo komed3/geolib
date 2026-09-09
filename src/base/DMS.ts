@@ -76,4 +76,12 @@ export class DMS {
       minutes: this.minutes, seconds: this.seconds
     };
   }
+
+  public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
+    return new DMS( value, 0, 0, direction );
+  }
+
+  public static fromObject ( { degrees, minutes, seconds, direction }: TDMSOptions ) : DMS {
+    return new DMS( degrees, minutes, seconds, direction );
+  }
 }
