@@ -1,21 +1,7 @@
-import type { TUnit } from '../lib/Units';
 import { Utils } from '../lib/Utils';
+import type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from '../types/axis';
+import type { TUnit } from '../types/unit';
 import type { Range } from './Range';
-
-
-export type TAxisBehavior = 'none' | 'clamp' | 'wrap';
-
-export interface TAxisOptions {
-  name: string;
-  direction: string;
-  unit: TUnit;
-  range: Range;
-  behavior?: TAxisBehavior;
-}
-
-export interface TAxisStringOptions {
-  showUnit?: boolean;
-}
 
 
 export class Axis {

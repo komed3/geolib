@@ -1,4 +1,5 @@
-import { TUnit } from './unit';
+import type { Range } from '../base/Range';
+import type { TUnit } from './unit';
 
 
 export type TAxisBehavior = 'none' | 'clamp' | 'wrap';
@@ -13,4 +14,9 @@ export interface TAxisOptions {
 
 export interface TAxisStringOptions {
   showUnit?: boolean;
+}
+
+export interface TAxisSetStringOptions {
+  showUnit?: boolean;
+  delimiter?: string;
 }

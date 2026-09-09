@@ -1,10 +1,5 @@
+import type { TAxisSetStringOptions } from '../types/axis';
 import type { Axis } from './Axis';
-
-
-export interface TAxisSetStringOptions {
-  showUnit?: boolean;
-  delimiter?: string;
-}
 
 
 export class AxisSet {
