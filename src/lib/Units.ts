@@ -1,4 +1,4 @@
-import { TUnit } from '../types/unit';
+import { TUnit } from '../types/lib';
 
 
 export const DEGREE: TUnit = { name: 'Degree', symbol: '°' };
