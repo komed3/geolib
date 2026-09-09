@@ -17,6 +17,6 @@ export class DegreeValue extends Value {
     if ( this.axis.direction === 'east' ) return DMS.fromLongitude( this.value );
     if ( this.axis.direction === 'north' ) return DMS.fromLatitude( this.value );
 
-    throw new Error( 'Cannot convert to DMS without a valid axis direction' );
+    throw new TypeError( 'Cannot convert to DMS without a valid axis direction' );
   }
 }
