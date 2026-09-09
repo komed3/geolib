@@ -88,6 +88,13 @@ export class DMS {
     };
   }
 
+  public toString ( {
+    format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
+    dirMap = DIRECTION_MAP_EN, notation = 'directional'
+  }: TDMSStringOptions = {} ) : string {
+    return '';
+  }
+
   public static fromDecimal ( value: number, direction: TDirection | null = null ) : DMS {
     return new DMS( value, 0, 0, direction );
   }
