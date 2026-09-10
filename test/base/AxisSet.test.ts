@@ -17,4 +17,32 @@ const latitude = new Axis( {
 } );
 
 
-describe( 'AxisSet', () => {} );
+describe( 'AxisSet', () => {
+  it( 'creates an immutable axis collection', () => {
+    const axes = new AxisSet( [ longitude, latitude ] );
+
+    expect( axes.dimension ).toBe( 2 );
+    expect( axes.get( 0 ) ).toBe( longitude );
+    expect( axes.get( 1 ) ).toBe( latitude );
+    expect( axes.toArray() ).toEqual( [ longitude, latitude ] );
+  } );
+
+  it( 'does not expose a mutable backing array', () => {
+    const source = [ longitude, latitude ];
+    const axes = new AxisSet( source );
+
+    source.reverse();
+
+    expect( axes.get( 0 ) ).toBe( longitude );
+    expect( axes.get( 1 ) ).toBe( latitude );
+  } );
+
+  it( 'finds and checks axes by equality', () => {
+    const axes = new AxisSet( [ longitude, latitude ] );
+
+    expect( axes.indexOf( latitude ) ).toBe( 1 );
+    expect( axes.indexOf( longitude.clone() ) ).toBe( 0 );
+    expect( axes.indexOf( new Axis( { name: 'height', direction: 'up', unit, range: new Range() } ) ) ).toBe( -1 );
+    expect( axes.has( latitude.clone() ) ).toBe( true );
+  } );
+} );
