@@ -30,8 +30,7 @@ const DMS_DIRMAP = { N: 'north', E: 'east', O: 'east', S: 'south', W: 'west' } a
 
 
 export class DMS {
-  private readonly value: number;
-
+  public readonly value: number;
   public readonly direction: TDirection | null;
   public readonly degrees: number;
   public readonly minutes: number;
