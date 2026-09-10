@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { Axis } from '../../src/base/Axis';
 import { DegreeValue } from '../../src/base/DegreeValue';
 import { Range } from '../../src/base/Range';
