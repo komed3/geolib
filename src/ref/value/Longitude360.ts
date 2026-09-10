@@ -14,6 +14,6 @@ export class Longitude360 extends DegreeValue {
   }
 
   public static fromDMS ( dms: DMS ) : Longitude360 {
-    return new Longitude360( dms.toDecimals() );
+    return new Longitude360( dms.value );
   }
 }

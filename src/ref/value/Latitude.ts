@@ -14,6 +14,6 @@ export class Latitude extends DegreeValue {
   }
 
   public static fromDMS ( dms: DMS ) : Latitude {
-    return new Latitude( dms.toDecimals() );
+    return new Latitude( dms.value );
   }
 }
