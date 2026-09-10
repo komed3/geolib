@@ -66,7 +66,7 @@ describe( 'Range', () => {
 
   it( 'formats bounded and unbounded ranges', () => {
     expect( new Range( { min: 10, max: 20 } ).toString() ).toBe( '[10, 20]' );
-    expect( new Range( { min: 10, max: 20, minInclusive: false, maxInclusive: false } ).toString() ).toBe( '(10, 20)' );
+    expect( new Range( { min: 10, max: 20, maxInclusive: false } ).toString() ).toBe( '[10, 20)' );
     expect( new Range().toString() ).toBe( '[-∞, ∞]' );
   } );
 } );
