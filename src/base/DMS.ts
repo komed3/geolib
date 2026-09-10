@@ -4,6 +4,12 @@ export type TNotation = 'signed' | 'directional';
 
 export type TDirectionMap = Partial< Record< TDirection, string > >;
 
+export type TDMS = [
+  degrees: number,
+  minutes: number,
+  seconds: number
+];
+
 export interface TDMSOptions {
   degrees: number;
   minutes?: number;
@@ -35,6 +41,13 @@ export class DMS {
   public readonly degrees: number;
   public readonly minutes: number;
   public readonly seconds: number;
+
+  private carry ( [ degrees, minutes, seconds ]: TDMS ) : TDMS {
+    minutes += Math.floor( seconds / 60 ), seconds %= 60;
+    degrees += Math.floor( minutes / 60 ), minutes %= 60;
+
+    return [ degrees, minutes, seconds ];
+  };
 
   public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {
     const value = degrees + minutes / 60 + seconds / 3600;
