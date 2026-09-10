@@ -124,4 +124,66 @@ describe( 'DMS', () => {
       expect( json.direction ).toBeNull();
     } );
   } );
+
+  describe( 'toString', () => {
+    it( 'formats DMS by default', () => {
+      expect( new DMS( 52, 30, 15, 'north' ).toString() ).toBe( '52° 30′ 15″ N' );
+    } );
+
+    it( 'formats degrees only', () => {
+      expect( new DMS( 52, 30, 15, 'north' ).toString( { format: 'dd' } ) ).toBe( '52.5° N' );
+    } );
+
+    it( 'formats degrees and minutes', () => {
+      expect( new DMS( 52, 30, 15, 'north' ).toString( { format: 'dm' } ) ).toBe( '52° 30.25′ N' );
+    } );
+
+    it( 'formats signed notation', () => {
+      expect( new DMS( 52, 30, 15, 'south' ).toString( { notation: 'signed' } ) ).toBe( '-52° 30′ 15″' );
+    } );
+
+    it( 'formats directional notation', () => {
+      expect( new DMS( 52, 30, 15, 'west' ).toString( { notation: 'directional' } ) ).toBe( '52° 30′ 15″ W' );
+    } );
+
+    it( 'uses a custom delimiter', () => {
+      expect( new DMS( 52, 30, 15, 'north' ).toString( { delimiter: '/' } ) ).toBe( '52°/30′/15″/N' );
+    } );
+
+    it( 'can hide units', () => {
+      expect( new DMS( 52, 30, 15, 'north' ).toString( { showUnit: false } ) ).toBe( '52 30 15 N' );
+    } );
+
+    it( 'uses a custom direction map', () => {
+      expect( new DMS( 52, 30, 15, 'east' ).toString( { dirMap: DIRECTION_MAP_DE } ) ).toBe( '52° 30′ 15″ O' );
+    } );
+
+    it( 'formats seconds with the requested precision', () => {
+      const dms = new DMS( 52, 30, 15.678 );
+
+      expect( dms.toString( { precision: 0 } ) ).toBe( '52° 30′ 16″' );
+      expect( dms.toString( { precision: 1 } ) ).toBe( '52° 30′ 15.7″' );
+      expect( dms.toString( { precision: 2 } ) ).toBe( '52° 30′ 15.68″' );
+    } );
+
+    it( 'carries rounded seconds into minutes', () => {
+      expect( new DMS( 52, 30, 59.999 ).toString( { precision: 0 } ) ).toBe( '52° 31′ 0″' );
+    } );
+
+    it( 'carries rounded minutes into degrees', () => {
+      expect( new DMS( 52, 59.999 ).toString( { format: 'dm', precision: 0 } ) ).toBe( '53° 0′' );
+    } );
+
+    it( 'omits the direction when no direction exists', () => {
+      expect( new DMS( 52, 30, 15 ).toString() ).toBe( '52° 30′ 15″' );
+    } );
+
+    it( 'uses the sign for negative values without direction', () => {
+      expect( new DMS( -52, 30, 15 ).toString() ).toBe( '-51° 29′ 45″' );
+    } );
+
+    it( 'uses the configured locale', () => {
+      expect( new DMS( 52, 30, 15.5, 'north' ).toString( { locale: 'de' } ) ).toBe( '52° 30′ 15,5″ N' );
+    } );
+  } );
 } );
