@@ -25,4 +25,12 @@ describe( 'Axis', () => {
   it( 'leaves values unchanged with no behavior', () => {
     expect( createAxis().initialize( 200 ) ).toBe( 200 );
   } );
+
+  it( 'clamps values', () => {
+    const axis = createAxis( 'clamp' );
+
+    expect( axis.initialize( -200 ) ).toBe( -180 );
+    expect( axis.initialize( 0 ) ).toBe( 0 );
+    expect( axis.initialize( 200 ) ).toBe( 180 );
+  } );
 } );
