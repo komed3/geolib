@@ -12,6 +12,9 @@ export type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from './base/Axi
 export type { TAxisSetStringOptions } from './base/AxisSet';
 export type { TCoordinateStringOptions } from './base/Coordinate';
 export type { TDirection, TDirectionMap, TDMS, TDMSFormat, TDMSOptions, TDMSStringOptions, TDMSUnits, TNotation } from './base/DMS';
+export type { TRangeOptions, TRangeStringOptions } from './base/Range';
+export type { TSystemStringOptions } from './base/System';
+export type { TValueStringOptions } from './base/Value';
 
 
 export {
