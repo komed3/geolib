@@ -49,4 +49,15 @@ describe( 'Axis', () => {
 
     expect( axis.initialize( 200 ) ).toBe( 200 );
   } );
+
+  it( 'compares axes by their properties', () => {
+    const axis = createAxis( 'clamp' );
+
+    expect( axis.equals( createAxis( 'clamp' ) ) ).toBe( true );
+    expect( axis.equals( createAxis( 'none' ) ) ).toBe( false );
+
+    expect( axis.equals( new Axis( {
+      name: 'latitude', direction: 'north', unit, range, behavior: 'clamp'
+    } ) ) ).toBe( false );
+  } );
 } );
