@@ -88,4 +88,21 @@ describe( 'DMS', () => {
       expect( new DMS( 52, 30, 15 ).equals( new DMS( 52, 30, 15, 'north' ) ) ).toBe( false );
     } );
   } );
+
+  describe( 'clone', () => {
+    it( 'creates an equal independent instance', () => {
+      const dms = new DMS( 52, 30, 15, 'south' );
+      const clone = dms.clone();
+
+      expect( clone ).not.toBe( dms );
+      expect( clone.equals( dms ) ).toBe( true );
+    } );
+
+    it( 'preserves all components', () => {
+      const clone = new DMS( 52, 30, 15, 'west' ).clone();
+
+      expectDMS( clone, 52, 30, 15, 'west' );
+      expect( clone.value ).toBeCloseTo( -52.50416666666667 );
+    } );
+  } );
 } );
