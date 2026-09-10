@@ -1,6 +1,6 @@
 import { DegreeValue } from '../../core/DegreeValue';
 import type { DMS } from '../../core/DMS';
-import { Geodesy } from '../../lib/Geodesy';
+import { Geodesy } from '../../lib/geodesy';
 import { LatitudeAxis } from '../axis/LatitudeAxis';
 
 

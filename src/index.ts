@@ -7,9 +7,9 @@ import { Range } from './core/Range';
 import { System } from './core/System';
 import { Value } from './core/Value';
 
-import { Geodesy } from './lib/Geodesy';
+import { Geodesy } from './lib/geodesy';
 import * as UNITS from './core/Units';
-import { Utils } from './lib/Utils';
+import { Utils } from './lib/utils';
 
 import { AltitudeAxis } from './ref/axis/AltitudeAxis';
 import { EastingAxis } from './ref/axis/EastingAxis';

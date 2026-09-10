@@ -1,4 +1,4 @@
-import { Utils } from '../lib/Utils';
+import { wrap } from '../lib/utils';
 import type { Range } from './Range';
 import type { TUnit } from './Units';
 
@@ -34,7 +34,7 @@ export class Axis {
     if ( this.behavior === 'clamp' ) return this.range.clamp( value );
 
     if ( this.behavior === 'wrap' && this.range.min !== null && this.range.max !== null )
-      return Utils.wrap( value, this.range.min, this.range.max );
+      return wrap( value, this.range.min, this.range.max );
 
     return value;
   }

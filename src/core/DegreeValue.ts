@@ -1,4 +1,4 @@
-import { Geodesy } from '../lib/Geodesy';
+import { deg2rad } from '../lib/geodesy';
 import type { Axis } from './Axis';
 import { DMS } from './DMS';
 import { Value } from './Value';
@@ -10,7 +10,7 @@ export class DegreeValue extends Value {
   }
 
   public toRadians () : number {
-    return Geodesy.deg2rad( this.value );
+    return deg2rad( this.value );
   }
 
   public toDMS () : DMS {

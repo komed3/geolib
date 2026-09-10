@@ -1,4 +1,4 @@
-import { Utils } from '../lib/Utils';
+import { clamp } from '../lib/utils';
 
 
 export interface TRangeOptions {
@@ -32,7 +32,7 @@ export class Range {
   }
 
   public clamp ( value: number ) : number {
-    return Utils.clamp( value, this.min ?? -Infinity, this.max ?? Infinity );
+    return clamp( value, this.min ?? -Infinity, this.max ?? Infinity );
   }
 
   public equals ( { min, max, minInclusive, maxInclusive }: Range ) : boolean {
