@@ -33,4 +33,20 @@ describe( 'Axis', () => {
     expect( axis.initialize( 0 ) ).toBe( 0 );
     expect( axis.initialize( 200 ) ).toBe( 180 );
   } );
+
+  it( 'wraps values when the range is bounded', () => {
+    const axis = createAxis( 'wrap' );
+
+    expect( axis.initialize( 190 ) ).toBe( -170 );
+    expect( axis.initialize( -190 ) ).toBe( 170 );
+  } );
+
+  it( 'does not wrap an unbounded range', () => {
+    const axis = new Axis( {
+      name: 'x', direction: 'east', unit, behavior: 'wrap',
+      range: new Range( { min: -180 } )
+    } );
+
+    expect( axis.initialize( 200 ) ).toBe( 200 );
+  } );
 } );
