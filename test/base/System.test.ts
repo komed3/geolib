@@ -50,4 +50,11 @@ describe( 'System', () => {
   it( 'serializes to JSON', () => {
     expect( new System( 'WGS84', axes ).toJSON() ).toEqual( { name: 'WGS84', axes: axes.toJSON() } );
   } );
+
+  it( 'formats the system', () => {
+    const system = new System( 'WGS84', axes );
+
+    expect( system.toString() ).toBe( 'WGS84 (longitude [°], latitude [°])' );
+    expect( system.toString( { showUnit: false, delimiter: ' / ' } ) ).toBe( 'WGS84 (longitude / latitude)' );
+  } );
 } );
