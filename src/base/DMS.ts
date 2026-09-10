@@ -88,16 +88,14 @@ export class DMS {
     format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
     dirMap = DIRECTION_MAP_EN, notation = 'directional'
   }: TDMSStringOptions = {} ) : string {
-    const values = [ Math.abs( this.degrees ), this.minutes, this.seconds ];
     const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2;
     const factor = 10 ** precision;
 
+    let values: TDMS = [ Math.abs( this.degrees ), this.minutes, this.seconds ];
     values[ last ] = Math.round( values[ last ] * factor ) / factor;
-    values[ 1 ] += Math.floor( values[ 2 ] / 60 ), values[ 2 ] %= 60;
-    values[ 0 ] += Math.floor( values[ 1 ] / 60 ), values[ 1 ] %= 60;
+    values = this.carry( values );
 
-    return [
-      notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '',
+    return ( notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '' ) + [
       ...values.slice( 0, last + 1 ).map( ( value, i ) => value.toLocaleString( locale, {
         maximumFractionDigits: i === last ? precision : 0
       } ) + ( showUnit ? '°′″'[ i ] : '' ) ),
