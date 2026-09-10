@@ -1,6 +1,6 @@
+import type { TUnit } from '../lib/units';
 import { wrap } from '../lib/utils';
 import type { Range } from './Range';
-import type { TUnit } from './Units';
 
 
 export type TAxisBehavior = 'none' | 'clamp' | 'wrap';

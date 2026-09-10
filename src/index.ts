@@ -7,8 +7,8 @@ import { Range } from './core/Range';
 import { System } from './core/System';
 import { Value } from './core/Value';
 
-import * as UNITS from './core/Units';
 import * as geodesy from './lib/geodesy';
+import * as units from './lib/units';
 import * as utils from './lib/utils';
 
 import { AltitudeAxis } from './ref/axis/AltitudeAxis';
@@ -58,7 +58,7 @@ export type { TRangeOptions, TRangeStringOptions } from './core/Range';
 export type { TSystemStringOptions } from './core/System';
 export type { TValueStringOptions } from './core/Value';
 
-export type { TUnit } from './core/Units';
+export type { TUnit } from './lib/units';
 
 
 export {
@@ -70,7 +70,7 @@ export {
   Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
   Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
   Projected3DSystem, Range, System,
-  UNITS, utils, Value
+  units, utils, Value
 };
 
 
@@ -83,7 +83,7 @@ export const geolib = {
   Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
   Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
   Projected3DSystem, Range, System,
-  UNITS, utils, Value
+  units, utils, Value
 } as const;
 
 
