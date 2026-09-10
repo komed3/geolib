@@ -4,6 +4,12 @@ export type TNotation = 'signed' | 'directional';
 
 export type TDirectionMap = Partial< Record< TDirection, string > >;
 
+export type TDMSUnits = [
+  degrees: string,
+  minutes: string,
+  seconds: string
+];
+
 export type TDMS = [
   degrees: number,
   minutes: number,
@@ -22,13 +28,14 @@ export interface TDMSStringOptions {
   locale?: string;
   precision?: number;
   delimiter?: string;
-  showUnit?: boolean;
-  dirMap?: TDirectionMap;
   notation?: TNotation;
+  showUnit?: boolean;
+  units?: TDMSUnits;
+  dirMap?: TDirectionMap;
 }
 
 
-export const DMS_UNIT_MAP = [ '°', '′', '″' ] as const;
+export const DMS_UNITS: TDMSUnits = [ '°', '′', '″' ] as const;
 export const DMS_DIRMAP_EN: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
 export const DMS_DIRMAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
 
@@ -89,8 +96,8 @@ export class DMS {
   }
 
   public toString ( {
-    format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
-    dirMap = DMS_DIRMAP_EN, notation = 'directional'
+    format = 'dms', locale = 'en', precision = 2, delimiter = ' ', notation = 'directional',
+    showUnit = true, units = DMS_UNITS, dirMap = DMS_DIRMAP_EN
   }: TDMSStringOptions = {} ) : string {
     const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2, factor = 10 ** precision;
     let values: TDMS = [ Math.abs( this.degrees ), this.minutes, this.seconds ];
@@ -104,7 +111,7 @@ export class DMS {
     return ( notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '' ) + [
       ...values.slice( 0, last + 1 ).map( ( value, i ) => value.toLocaleString( locale, {
         maximumFractionDigits: i === last ? precision : 0
-      } ) + ( showUnit ? DMS_UNIT_MAP[ i ] : '' ) ),
+      } ) + ( showUnit ? units[ i ] : '' ) ),
       notation === 'directional' && this.direction ? dirMap[ this.direction ] : ''
     ].filter( Boolean ).join( delimiter );
   }
