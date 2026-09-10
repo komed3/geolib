@@ -1,6 +1,6 @@
 import { DegreeValue } from '../../core/DegreeValue';
 import type { DMS } from '../../core/DMS';
-import { Geodesy } from '../../lib/geodesy';
+import { rad2deg } from '../../lib/geodesy';
 import { LatitudeAxis } from '../axis/LatitudeAxis';
 
 
@@ -10,7 +10,7 @@ export class Latitude extends DegreeValue {
   }
 
   public static fromRadians ( rad: number ) : Latitude {
-    return new Latitude( Geodesy.rad2deg( rad ) );
+    return new Latitude( rad2deg( rad ) );
   }
 
   public static fromDMS ( dms: DMS ) : Latitude {
