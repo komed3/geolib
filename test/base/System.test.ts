@@ -36,4 +36,18 @@ describe( 'System', () => {
     expect( system.equals( new System( 'ETRS89', axes ) ) ).toBe( false );
     expect( system.equals( new System( 'WGS84', new AxisSet( [ latitude, longitude ] ) ) ) ).toBe( false );
   } );
+
+  it( 'clones independently', () => {
+    const system = new System( 'WGS84', axes );
+    const clone = system.clone();
+
+    expect( clone ).not.toBe( system );
+    expect( clone.axes ).not.toBe( axes );
+    expect( clone.get( 0 ) ).not.toBe( longitude );
+    expect( clone.equals( system ) ).toBe( true );
+  } );
+
+  it( 'serializes to JSON', () => {
+    expect( new System( 'WGS84', axes ).toJSON() ).toEqual( { name: 'WGS84', axes: axes.toJSON() } );
+  } );
 } );
