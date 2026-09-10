@@ -186,4 +186,20 @@ describe( 'DMS', () => {
       expect( new DMS( 52, 30, 15.5, 'north' ).toString( { locale: 'de' } ) ).toBe( '52° 30′ 15,5″ N' );
     } );
   } );
+
+  describe( 'fromDecimals', () => {
+    it( 'creates a DMS from a decimal value', () => {
+      const dms = DMS.fromDecimals( 52.50416666666667 );
+
+      expectDMS( dms, 52, 30, 15, null );
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+    } );
+
+    it( 'creates a DMS with a direction', () => {
+      const dms = DMS.fromDecimals( 52.50416666666667, 'west' );
+
+      expectDMS( dms, 52, 30, 15, 'west' );
+      expect( dms.value ).toBeCloseTo( -52.50416666666667 );
+    } );
+  } );
 } );
