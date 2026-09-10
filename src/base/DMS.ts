@@ -29,8 +29,8 @@ export interface TDMSStringOptions {
 
 
 export const DMS_UNIT_MAP = [ '°', '′', '″' ] as const;
-export const DIRECTION_MAP_EN: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
-export const DIRECTION_MAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
+export const DMS_DIRMAP_EN: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
+export const DMS_DIRMAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
 
 const DMS_SEC_PRECISION = 1e10;
 
@@ -90,7 +90,7 @@ export class DMS {
 
   public toString ( {
     format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
-    dirMap = DIRECTION_MAP_EN, notation = 'directional'
+    dirMap = DMS_DIRMAP_EN, notation = 'directional'
   }: TDMSStringOptions = {} ) : string {
     const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2, factor = 10 ** precision;
     let values: TDMS = [ Math.abs( this.degrees ), this.minutes, this.seconds ];

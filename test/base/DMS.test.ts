@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DMS, DIRECTION_MAP_DE, type TDirection } from '../../src/base/DMS';
+import { DMS, DMS_DIRMAP_DE, type TDirection } from '../../src/base/DMS';
 
 
 const expectDMS = ( dms: DMS, deg: number, min: number, sec: number, dir: TDirection | null ) => {
@@ -155,7 +155,7 @@ describe( 'DMS', () => {
     } );
 
     it( 'uses a custom direction map', () => {
-      expect( new DMS( 52, 30, 15, 'east' ).toString( { dirMap: DIRECTION_MAP_DE } ) ).toBe( '52° 30′ 15″ O' );
+      expect( new DMS( 52, 30, 15, 'east' ).toString( { dirMap: DMS_DIRMAP_DE } ) ).toBe( '52° 30′ 15″ O' );
     } );
 
     it( 'formats seconds with the requested precision', () => {
