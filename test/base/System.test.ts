@@ -11,4 +11,12 @@ const latitude = new Axis( { name: 'latitude', direction: 'north', unit, range: 
 const axes = new AxisSet( [ longitude, latitude ] );
 
 
-describe( 'System', () => {} );
+describe( 'System', () => {
+  it( 'creates a system and exposes its dimension', () => {
+    const system = new System( 'WGS84', axes );
+
+    expect( system.name ).toBe( 'WGS84' );
+    expect( system.axes ).toBe( axes );
+    expect( system.dimension ).toBe( 2 );
+  } );
+} );
