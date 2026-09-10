@@ -20,4 +20,25 @@ describe( 'Range', () => {
     expect( range.contains( 20 ) ).toBe( false );
     expect( range.contains( 19.9 ) ).toBe( true );
   } );
+
+  it( 'supports unbounded ranges', () => {
+    expect( new Range().contains( -Infinity ) ).toBe( true );
+    expect( new Range( { min: 10 } ).contains( 100 ) ).toBe( true );
+    expect( new Range( { max: 10 } ).contains( -100 ) ).toBe( true );
+  } );
+
+  it( 'clamps values to the range', () => {
+    const range = new Range( { min: 10, max: 20 } );
+
+    expect( range.clamp( 5 ) ).toBe( 10 );
+    expect( range.clamp( 15 ) ).toBe( 15 );
+    expect( range.clamp( 25 ) ).toBe( 20 );
+  } );
+
+  it( 'clamps correctly with unbounded sides', () => {
+    expect( new Range( { min: 10 } ).clamp( 5 ) ).toBe( 10 );
+    expect( new Range( { min: 10 } ).clamp( 15 ) ).toBe( 15 );
+    expect( new Range( { max: 20 } ).clamp( 25 ) ).toBe( 20 );
+    expect( new Range( { max: 20 } ).clamp( 15 ) ).toBe( 15 );
+  } );
 } );
