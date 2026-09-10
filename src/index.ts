@@ -7,9 +7,9 @@ import { Range } from './core/Range';
 import { System } from './core/System';
 import { Value } from './core/Value';
 
-import { Geodesy } from './lib/geodesy';
 import * as UNITS from './core/Units';
-import { Utils } from './lib/utils';
+import * as geodesy from './lib/geodesy';
+import * as utils from './lib/utils';
 
 import { AltitudeAxis } from './ref/axis/AltitudeAxis';
 import { EastingAxis } from './ref/axis/EastingAxis';
@@ -65,12 +65,12 @@ export {
   Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
   DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, GeocentricCoordinate, GeocentricSystem,
   GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
-  Geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
+  geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
   Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
   Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
   Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
   Projected3DSystem, Range, System,
-  UNITS, Utils, Value
+  UNITS, utils, Value
 };
 
 
@@ -78,12 +78,12 @@ export const geolib = {
   Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
   DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, GeocentricCoordinate, GeocentricSystem,
   GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
-  Geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
+  geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
   Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
   Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
   Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
   Projected3DSystem, Range, System,
-  UNITS, Utils, Value
+  UNITS, utils, Value
 } as const;
 
 
