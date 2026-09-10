@@ -8,3 +8,66 @@ const expectDMS = ( dms: DMS, deg: number, min: number, sec: number, dir: TDirec
   expect( dms.seconds ).toBeCloseTo( sec );
   expect( dms.direction ).toBe( dir );
 };
+
+
+describe( 'DMS', () => {
+  describe( 'constructor', () => {
+    it( 'creates a value from degrees', () => {
+      const dms = new DMS( 52 );
+
+      expectDMS( dms, 52, 0, 0, null );
+      expect( dms.value ).toBeCloseTo( 52 );
+    } );
+
+    it( 'creates a value from degrees, minutes and seconds', () => {
+      const dms = new DMS( 52, 30, 15 );
+
+      expectDMS( dms, 52, 30, 15, null );
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+    } );
+
+    it( 'normalizes overflowing seconds', () => {
+      const dms = new DMS( 52, 30, 90 );
+
+      expectDMS( dms, 52, 31, 30, null );
+      expect( dms.value ).toBeCloseTo( 52.525 );
+    } );
+
+    it( 'normalizes overflowing minutes', () => {
+      const dms = new DMS( 52, 90 );
+
+      expectDMS( dms, 53, 30, 0, null );
+      expect( dms.value ).toBeCloseTo( 53.5 );
+    } );
+
+    it( 'normalizes overflowing minutes and seconds', () => {
+      const dms = new DMS( 52, 90, 120 );
+
+      expectDMS( dms, 53, 32, 0, null );
+      expect( dms.value ).toBeCloseTo( 53.53333333333333 );
+    } );
+
+    it( 'preserves a negative value without direction', () => {
+      const dms = new DMS( -52, 30, 15 );
+
+      expectDMS( dms, -51, 29, 45, null );
+      expect( dms.value ).toBeCloseTo( -51.49583333333333 );
+    } );
+
+    it.each( [
+      [ 'north', 52.50416666666667 ], [ 'east', 52.50416666666667 ],
+      [ 'south', -52.50416666666667 ], [ 'west', -52.50416666666667 ]
+    ] as const )( 'handles %s direction', ( direction, expected ) => {
+      const dms = new DMS( 52, 30, 15, direction );
+
+      expectDMS( dms, 52, 30, 15, direction );
+      expect( dms.value ).toBeCloseTo( expected );
+    } );
+
+    it( 'rejects a negative value with a direction', () => {
+      expect( () => new DMS( -52, 30, 15, 'north' ) ).toThrow(
+        'DMS value has conflicting sign and direction'
+      );
+    } );
+  } );
+} );
