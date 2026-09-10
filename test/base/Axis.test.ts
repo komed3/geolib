@@ -21,4 +21,8 @@ describe( 'Axis', () => {
     expect( axis.range ).toBe( range );
     expect( axis.behavior ).toBe( 'none' );
   } );
+
+  it( 'leaves values unchanged with no behavior', () => {
+    expect( createAxis().initialize( 200 ) ).toBe( 200 );
+  } );
 } );
