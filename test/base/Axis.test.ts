@@ -60,4 +60,19 @@ describe( 'Axis', () => {
       name: 'latitude', direction: 'north', unit, range, behavior: 'clamp'
     } ) ) ).toBe( false );
   } );
+
+  it( 'clones independently', () => {
+    const axis = createAxis( 'clamp' );
+    const clone = axis.clone();
+
+    expect( clone ).not.toBe( axis );
+    expect( clone.range ).not.toBe( axis.range );
+    expect( clone.equals( axis ) ).toBe( true );
+  } );
+
+  it( 'serializes to JSON', () => {
+    expect( createAxis( 'clamp' ).toJSON() ).toEqual( {
+      name: 'longitude', direction: 'east', unit, range, behavior: 'clamp'
+    } );
+  } );
 } );
