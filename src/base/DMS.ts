@@ -31,6 +31,8 @@ export interface TDMSStringOptions {
 export const DIRECTION_MAP_EN: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
 export const DIRECTION_MAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
 
+const DMS_SEC_PRECISION = 1e10;
+
 const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[′'])?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[″"])?(?:\s*([NSEOW]))?\s*$/i;
 const DMS_DIRMAP = { N: 'north', E: 'east', O: 'east', S: 'south', W: 'west' } as const;
 
@@ -59,8 +61,9 @@ export class DMS {
     this.direction = direction;
 
     const sign = value < 0 ? -1 : 1, abs = Math.abs( value );
-    let deg = Math.floor( abs ), min = Math.floor( ( abs - deg ) * 60 ),
-        sec = ( abs - deg - min / 60 ) * 3600;
+    let deg = Math.floor( abs ), min = Math.floor( ( abs - deg ) * 60 ), sec = Math.round(
+      ( abs - deg - min / 60 ) * 3600 * DMS_SEC_PRECISION
+    ) / DMS_SEC_PRECISION;
 
     [ deg, min, sec ] = this.carry( [ deg, min, sec ] );
 
