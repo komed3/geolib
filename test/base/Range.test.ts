@@ -41,4 +41,28 @@ describe( 'Range', () => {
     expect( new Range( { max: 20 } ).clamp( 25 ) ).toBe( 20 );
     expect( new Range( { max: 20 } ).clamp( 15 ) ).toBe( 15 );
   } );
+
+  it( 'compares ranges by all properties', () => {
+    const range = new Range( { min: 10, max: 20, maxInclusive: false } );
+
+    expect( range.equals( new Range( { min: 10, max: 20, maxInclusive: false } ) ) ).toBe( true );
+    expect( range.equals( new Range( { min: 10, max: 20 } ) ) ).toBe( false );
+    expect( range.equals( new Range( { min: 10, max: 21, maxInclusive: false } ) ) ).toBe( false );
+  } );
+
+  it( 'clones independently', () => {
+    const range = new Range( { min: 10, max: 20, minInclusive: false } );
+    const clone = range.clone();
+
+    expect( clone ).not.toBe( range );
+    expect( clone.equals( range ) ).toBe( true );
+  } );
+
+  it( 'serializes to JSON', () => {
+    const range = new Range( { min: 10, max: 20, maxInclusive: false } );
+
+    expect( range.toJSON() ).toEqual( {
+      min: 10, max: 20, minInclusive: true, maxInclusive: false
+    } );
+  } );
 } );
