@@ -69,16 +69,12 @@ export class DMS {
     this.seconds = sec;
   }
 
-  public equals ( { toDecimals, direction }: DMS ) : boolean {
-    return this.value === toDecimals() && this.direction === direction;
+  public equals ( { value, direction }: DMS ) : boolean {
+    return this.value === value && this.direction === direction;
   }
 
   public clone () : DMS {
     return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
-  }
-
-  public toDecimals () : number {
-    return this.value;
   }
 
   public toJSON () : TDMSOptions & { value: number } {
