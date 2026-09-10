@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { DMS, DMS_DIRMAP_DE, type TDirection } from '../../src/base/DMS';
+import { DMS, DMS_DIRMAP_DE, type TDirection } from '../../src/core/DMS';
 
 
 const expectDMS = ( dms: DMS, deg: number, min: number, sec: number, dir: TDirection | null ) => {

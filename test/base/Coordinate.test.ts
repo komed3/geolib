@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { Axis } from '../../src/base/Axis';
-import { AxisSet } from '../../src/base/AxisSet';
-import { Coordinate } from '../../src/base/Coordinate';
-import { Range } from '../../src/base/Range';
-import { System } from '../../src/base/System';
-import { Value } from '../../src/base/Value';
+import { Axis } from '../../src/core/Axis';
+import { AxisSet } from '../../src/core/AxisSet';
+import { Coordinate } from '../../src/core/Coordinate';
+import { Range } from '../../src/core/Range';
+import { System } from '../../src/core/System';
+import { Value } from '../../src/core/Value';
 
 
 const unit = { name: 'degree', symbol: '°' };
