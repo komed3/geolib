@@ -62,17 +62,27 @@ export type { TUnit } from './lib/Units';
 
 
 export {
-  AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN,
-  DMS_UNITS, EastingAxis, GeocentricXAxis, GeocentricYAxis, GeocentricZAxis, Geodesy,
-  HeightAxis, LatitudeAxis, Longitude360Axis, LongitudeAxis, NorthingAxis, Range, System,
+  Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
+  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, GeocentricCoordinate, GeocentricSystem,
+  GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
+  Geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
+  Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
+  Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
+  Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
+  Projected3DSystem, Range, System,
   UNITS, Utils, Value
 };
 
 
 export const geolib = {
-  AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN,
-  DMS_UNITS, EastingAxis, GeocentricXAxis, GeocentricYAxis, GeocentricZAxis, Geodesy,
-  HeightAxis, LatitudeAxis, Longitude360Axis, LongitudeAxis, NorthingAxis, Range, System,
+  Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
+  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, GeocentricCoordinate, GeocentricSystem,
+  GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
+  Geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
+  Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
+  Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
+  Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
+  Projected3DSystem, Range, System,
   UNITS, Utils, Value
 } as const;
 
