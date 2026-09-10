@@ -13,4 +13,18 @@ const latitude = new Axis( { name: 'latitude', direction: 'north', unit, range: 
 const system = new System( 'WGS84', new AxisSet( [ longitude, latitude ] ) );
 
 
-describe( 'Coordinate', () => {} );
+describe( 'Coordinate', () => {
+  it( 'creates an immutable coordinate', () => {
+    const values = [ new Value( 12.5, longitude ), new Value( 52.5, latitude ) ];
+    const coordinate = new Coordinate( system, values );
+
+    expect( coordinate.system ).toBe( system );
+    expect( coordinate.dimension ).toBe( 2 );
+    expect( coordinate.get( 0 ) ).toBe( values[ 0 ] );
+    expect( coordinate.get( 1 ) ).toBe( values[ 1 ] );
+
+    values.reverse();
+
+    expect( coordinate.get( 0 ) ).toBe( values[ 1 ] );
+  } );
+} );
