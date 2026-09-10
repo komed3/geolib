@@ -45,4 +45,33 @@ describe( 'AxisSet', () => {
     expect( axes.indexOf( new Axis( { name: 'height', direction: 'up', unit, range: new Range() } ) ) ).toBe( -1 );
     expect( axes.has( latitude.clone() ) ).toBe( true );
   } );
+
+  it( 'compares axis sets', () => {
+    const axes = new AxisSet( [ longitude, latitude ] );
+
+    expect( axes.equals( new AxisSet( [ longitude.clone(), latitude.clone() ] ) ) ).toBe( true );
+    expect( axes.equals( new AxisSet( [ latitude, longitude ] ) ) ).toBe( false );
+    expect( axes.equals( new AxisSet( [ longitude ] ) ) ).toBe( false );
+  } );
+
+  it( 'clones all axes independently', () => {
+    const axes = new AxisSet( [ longitude, latitude ] );
+    const clone = axes.clone();
+
+    expect( clone ).not.toBe( axes );
+    expect( clone.get( 0 ) ).not.toBe( longitude );
+    expect( clone.equals( axes ) ).toBe( true );
+  } );
+
+  it( 'serializes and formats the set', () => {
+    const axes = new AxisSet( [ longitude, latitude ] );
+
+    expect( axes.toJSON() ).toEqual( [ longitude.toJSON(), latitude.toJSON() ] );
+    expect( axes.toString() ).toBe( 'longitude [°], latitude [°]' );
+    expect( axes.toString( { showUnit: false, delimiter: ' / ' } ) ).toBe( 'longitude / latitude' );
+  } );
+
+  it( 'iterates over its axes', () => {
+    expect( [ ...new AxisSet( [ longitude, latitude ] ) ] ).toEqual( [ longitude, latitude ] );
+  } );
 } );
