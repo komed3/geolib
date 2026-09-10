@@ -28,6 +28,7 @@ export interface TDMSStringOptions {
 }
 
 
+export const DMS_UNIT_MAP = [ '°', '′', '″' ] as const;
 export const DIRECTION_MAP_EN: TDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
 export const DIRECTION_MAP_DE: TDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
 
@@ -103,7 +104,7 @@ export class DMS {
     return ( notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '' ) + [
       ...values.slice( 0, last + 1 ).map( ( value, i ) => value.toLocaleString( locale, {
         maximumFractionDigits: i === last ? precision : 0
-      } ) + ( showUnit ? '°′″'[ i ] : '' ) ),
+      } ) + ( showUnit ? DMS_UNIT_MAP[ i ] : '' ) ),
       notation === 'directional' && this.direction ? dirMap[ this.direction ] : ''
     ].filter( Boolean ).join( delimiter );
   }
