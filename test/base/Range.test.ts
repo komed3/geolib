@@ -59,10 +59,14 @@ describe( 'Range', () => {
   } );
 
   it( 'serializes to JSON', () => {
-    const range = new Range( { min: 10, max: 20, maxInclusive: false } );
-
-    expect( range.toJSON() ).toEqual( {
+    expect( new Range( { min: 10, max: 20, maxInclusive: false } ).toJSON() ).toEqual( {
       min: 10, max: 20, minInclusive: true, maxInclusive: false
     } );
+  } );
+
+  it( 'formats bounded and unbounded ranges', () => {
+    expect( new Range( { min: 10, max: 20 } ).toString() ).toBe( '[10, 20]' );
+    expect( new Range( { min: 10, max: 20, minInclusive: false, maxInclusive: false } ).toString() ).toBe( '(10, 20)' );
+    expect( new Range().toString() ).toBe( '[-∞, ∞]' );
   } );
 } );
