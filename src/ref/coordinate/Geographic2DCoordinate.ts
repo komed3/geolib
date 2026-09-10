@@ -1,4 +1,4 @@
-import { Coordinate } from '../../base/Coordinate';
+import { Coordinate } from '../../core/Coordinate';
 import { Geographic2DSystem } from '../system/Geographic2DSystem';
 import { Latitude } from '../value/Latitude';
 import { Longitude } from '../value/Longitude';

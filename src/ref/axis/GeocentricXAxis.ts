@@ -1,5 +1,5 @@
-import { Axis } from '../../base/Axis';
-import { Range } from '../../base/Range';
+import { Axis } from '../../core/Axis';
+import { Range } from '../../core/Range';
 import { METRE, type TUnit } from '../../lib/Units';
 
 

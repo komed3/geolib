@@ -1,4 +1,4 @@
-import { Coordinate } from '../../base/Coordinate';
+import { Coordinate } from '../../core/Coordinate';
 import { Geographic3DSystem } from '../system/Geographic3DSystem';
 import { Height } from '../value/Height';
 import { Latitude } from '../value/Latitude';

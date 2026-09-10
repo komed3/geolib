@@ -1,4 +1,4 @@
-import { Value } from '../../base/Value';
+import { Value } from '../../core/Value';
 import { GeocentricYAxis } from '../axis/GeocentricYAxis';
 
 

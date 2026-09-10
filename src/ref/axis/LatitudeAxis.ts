@@ -1,4 +1,4 @@
-import { Axis } from '../../base/Axis';
+import { Axis } from '../../core/Axis';
 import { DEGREE } from '../../lib/Units';
 import { LatitudeRange } from '../range/LatitudeRange';
 

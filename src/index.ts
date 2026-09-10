@@ -1,11 +1,11 @@
-import { Axis } from './base/Axis';
-import { AxisSet } from './base/AxisSet';
-import { Coordinate } from './base/Coordinate';
-import { DegreeValue } from './base/DegreeValue';
-import { DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN, DMS_UNITS } from './base/DMS';
-import { Range } from './base/Range';
-import { System } from './base/System';
-import { Value } from './base/Value';
+import { Axis } from './core/Axis';
+import { AxisSet } from './core/AxisSet';
+import { Coordinate } from './core/Coordinate';
+import { DegreeValue } from './core/DegreeValue';
+import { DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN, DMS_UNITS } from './core/DMS';
+import { Range } from './core/Range';
+import { System } from './core/System';
+import { Value } from './core/Value';
 
 import { Geodesy } from './lib/Geodesy';
 import * as UNITS from './lib/Units';
@@ -50,13 +50,13 @@ import { Longitude360 } from './ref/value/Longitude360';
 import { Northing } from './ref/value/Northing';
 
 
-export type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from './base/Axis';
-export type { TAxisSetStringOptions } from './base/AxisSet';
-export type { TCoordinateStringOptions } from './base/Coordinate';
-export type { TDirection, TDirectionMap, TDMS, TDMSFormat, TDMSOptions, TDMSStringOptions, TDMSUnits, TNotation } from './base/DMS';
-export type { TRangeOptions, TRangeStringOptions } from './base/Range';
-export type { TSystemStringOptions } from './base/System';
-export type { TValueStringOptions } from './base/Value';
+export type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from './core/Axis';
+export type { TAxisSetStringOptions } from './core/AxisSet';
+export type { TCoordinateStringOptions } from './core/Coordinate';
+export type { TDirection, TDirectionMap, TDMS, TDMSFormat, TDMSOptions, TDMSStringOptions, TDMSUnits, TNotation } from './core/DMS';
+export type { TRangeOptions, TRangeStringOptions } from './core/Range';
+export type { TSystemStringOptions } from './core/System';
+export type { TValueStringOptions } from './core/Value';
 
 export type { TUnit } from './lib/Units';
 

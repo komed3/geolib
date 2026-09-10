@@ -1,4 +1,4 @@
-import { Coordinate } from '../../base/Coordinate';
+import { Coordinate } from '../../core/Coordinate';
 import { Projected2DSystem } from '../system/Projected2DSystem';
 import { Easting } from '../value/Easting';
 import { Northing } from '../value/Northing';

@@ -1,4 +1,4 @@
-import { Coordinate } from '../../base/Coordinate';
+import { Coordinate } from '../../core/Coordinate';
 import { GeocentricSystem } from '../system/GeocentricSystem';
 import { GeocentricX } from '../value/GeocentricX';
 import { GeocentricY } from '../value/GeocentricY';

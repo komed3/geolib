@@ -1,5 +1,5 @@
-import { AxisSet } from '../../base/AxisSet';
-import { System } from '../../base/System';
+import { AxisSet } from '../../core/AxisSet';
+import { System } from '../../core/System';
 import { HeightAxis } from '../axis/HeightAxis';
 import { LatitudeAxis } from '../axis/LatitudeAxis';
 import { LongitudeAxis } from '../axis/LongitudeAxis';

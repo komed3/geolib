@@ -1,4 +1,4 @@
-import { Range } from '../../base/Range';
+import { Range } from '../../core/Range';
 
 
 export class Longitude360Range extends Range {

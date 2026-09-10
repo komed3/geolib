@@ -1,5 +1,5 @@
-import { AxisSet } from '../../base/AxisSet';
-import { System } from '../../base/System';
+import { AxisSet } from '../../core/AxisSet';
+import { System } from '../../core/System';
 import { GeocentricXAxis } from '../axis/GeocentricXAxis';
 import { GeocentricYAxis } from '../axis/GeocentricYAxis';
 import { GeocentricZAxis } from '../axis/GeocentricZAxis';

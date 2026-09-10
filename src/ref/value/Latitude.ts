@@ -1,5 +1,5 @@
-import { DegreeValue } from '../../base/DegreeValue';
-import type { DMS } from '../../base/DMS';
+import { DegreeValue } from '../../core/DegreeValue';
+import type { DMS } from '../../core/DMS';
 import { Geodesy } from '../../lib/Geodesy';
 import { LatitudeAxis } from '../axis/LatitudeAxis';
 
