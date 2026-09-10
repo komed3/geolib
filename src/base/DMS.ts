@@ -136,12 +136,9 @@ export class DMS {
     const match = value.match( DMS_REGEX );
     if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
 
-    const direction = DMS_DIRMAP[ match[ 4 ]?.toUpperCase() as keyof typeof DMS_DIRMAP ];
-    if ( ! direction ) throw new SyntaxError( 'Invalid DMS direction' );
-
     return new DMS(
-      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ),
-      Number( match[ 3 ] ?? 0), direction
+      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ), Number( match[ 3 ] ?? 0 ),
+      DMS_DIRMAP[ match[ 4 ]?.toUpperCase() as keyof typeof DMS_DIRMAP ]
     );
   }
 }
