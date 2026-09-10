@@ -306,13 +306,13 @@ describe( 'DMS', () => {
       expect( dms.direction ).toBe( 'north' );
     } );
 
+    it( 'parses without a direction', () => {
+      expectDMS( DMS.parse( '52° 30′ 15″' ), 52, 30, 15, null );
+    } );
+
     it( 'rejects invalid syntax', () => {
       expect( () => DMS.parse( 'invalid' ) ).toThrow( 'Invalid DMS value' );
       expect( () => DMS.parse( '52° X 15″ N' ) ).toThrow( 'Invalid DMS value' );
-    } );
-
-    it( 'rejects a missing direction', () => {
-      expect( () => DMS.parse( '52° 30′ 15″' ) ).toThrow( 'Invalid DMS direction' );
     } );
 
     it( 'rejects an unsupported direction', () => {
