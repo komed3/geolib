@@ -7,7 +7,9 @@ import { Range } from './base/Range';
 import { System } from './base/System';
 import { Value } from './base/Value';
 
+import { Geodesy } from './lib/Geodesy';
 import * as UNITS from './lib/Units';
+import { Utils } from './lib/Utils';
 
 
 export type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from './base/Axis';
@@ -23,13 +25,13 @@ export type { TUnit } from './lib/Units';
 
 export {
   Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN, DMS_UNITS,
-  Range, System, UNITS, Value
+  Geodesy, Range, System, UNITS, Utils, Value
 };
 
 
 export const geolib = {
   Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN, DMS_UNITS,
-  Range, System, UNITS, Value
+  Geodesy, Range, System, UNITS, Utils, Value
 } as const;
 
 
