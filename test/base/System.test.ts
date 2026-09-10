@@ -28,4 +28,12 @@ describe( 'System', () => {
     expect( system.indexOf( latitude.clone() ) ).toBe( 1 );
     expect( system.indexOf( new Axis( { name: 'height', direction: 'up', unit, range: new Range() } ) ) ).toBe( -1 );
   } );
+
+  it( 'compares systems', () => {
+    const system = new System( 'WGS84', axes );
+
+    expect( system.equals( new System( 'WGS84', axes.clone() ) ) ).toBe( true );
+    expect( system.equals( new System( 'ETRS89', axes ) ) ).toBe( false );
+    expect( system.equals( new System( 'WGS84', new AxisSet( [ latitude, longitude ] ) ) ) ).toBe( false );
+  } );
 } );
