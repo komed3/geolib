@@ -1,6 +1,6 @@
 import { Axis } from '../../core/Axis';
 import { Range } from '../../core/Range';
-import { METRE, type TUnit } from '../../lib/Units';
+import { METRE, type TUnit } from '../../core/Units';
 
 
 export class HeightAxis extends Axis {

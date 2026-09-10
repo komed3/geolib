@@ -1,5 +1,5 @@
 import { Axis } from '../../core/Axis';
-import { DEGREE } from '../../lib/Units';
+import { DEGREE } from '../../core/Units';
 import { Longitude360Range } from '../range/Longitude360Range';
 
 

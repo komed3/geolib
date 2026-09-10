@@ -8,7 +8,7 @@ import { System } from './core/System';
 import { Value } from './core/Value';
 
 import { Geodesy } from './lib/Geodesy';
-import * as UNITS from './lib/Units';
+import * as UNITS from './core/Units';
 import { Utils } from './lib/Utils';
 
 import { AltitudeAxis } from './ref/axis/AltitudeAxis';
@@ -58,7 +58,7 @@ export type { TRangeOptions, TRangeStringOptions } from './core/Range';
 export type { TSystemStringOptions } from './core/System';
 export type { TValueStringOptions } from './core/Value';
 
-export type { TUnit } from './lib/Units';
+export type { TUnit } from './core/Units';
 
 
 export {
