@@ -75,4 +75,11 @@ describe( 'Axis', () => {
       name: 'longitude', direction: 'east', unit, range, behavior: 'clamp'
     } );
   } );
+
+  it( 'formats with and without the unit', () => {
+    const axis = createAxis();
+
+    expect( axis.toString() ).toBe( 'longitude [°]' );
+    expect( axis.toString( { showUnit: false } ) ).toBe( 'longitude' );
+  } );
 } );
