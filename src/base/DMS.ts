@@ -91,10 +91,12 @@ export class DMS {
     format = 'dms', locale = 'en', precision = 2, delimiter = ' ', showUnit = true,
     dirMap = DIRECTION_MAP_EN, notation = 'directional'
   }: TDMSStringOptions = {} ) : string {
-    const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2;
-    const factor = 10 ** precision;
-
+    const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2, factor = 10 ** precision;
     let values: TDMS = [ Math.abs( this.degrees ), this.minutes, this.seconds ];
+
+    if ( last < 2 ) values[ 1 ] += values[ 2 ] / 60;
+    if ( last < 1 ) values[ 0 ] += values[ 1 ] / 60;
+
     values[ last ] = Math.round( values[ last ] * factor ) / factor;
     values = this.carry( values );
 
