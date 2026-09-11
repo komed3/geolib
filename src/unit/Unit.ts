@@ -7,6 +7,10 @@ export interface UnitOptions {
   factor?: number;
 }
 
+export interface UnitStringOptions {
+  format?: 'unit' | 'name';
+}
+
 
 export class Unit {
   public readonly name: string;
@@ -38,5 +42,9 @@ export class Unit {
 
   public toJSON () : UnitOptions {
     return { name: this.name, unit: this.unit, quantity: this.quantity, factor: this.factor };
+  }
+
+  public toString ( { format = 'unit' }: UnitStringOptions = {} ) : string {
+    return this[ format ];
   }
 }
