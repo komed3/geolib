@@ -1,5 +1,6 @@
-import { Range } from '../range';
-import { Unit } from '../unit';
+import type { Range } from '../range';
+import type { Unit } from '../unit';
+import { wrap } from '../utils';
 
 
 export type AxisBehavior = 'none' | 'clamp' | 'wrap';
@@ -29,5 +30,14 @@ export class Axis {
   public constructor ( { name, orientation, unit, range, behavior = 'none', abbr }: AxisOptions ) {
     this.name = name, this.orientation = orientation, this.unit = unit;
     this.range = range, this.behavior = behavior, this.abbr = abbr;
+  }
+
+  public normalize ( value: number ) : number {
+    if ( this.behavior === 'clamp' ) return this.range.clamp( value );
+
+    if ( this.behavior === 'wrap' && this.range.min !== null && this.range.max !== null )
+      return wrap( value, this.range.min, this.range.max );
+
+    return value;
   }
 }
