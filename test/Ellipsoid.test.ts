@@ -84,4 +84,21 @@ describe( 'Ellipsoid', () => {
     expect( ellipsoid.equals( diff1 ) ).toBe( false );
     expect( ellipsoid.equals( diff2 ) ).toBe( false );
   } );
+
+  it( 'clones an ellipsoid', () => {
+    const clone = ellipsoid.clone();
+
+    expect( clone ).not.toBe( ellipsoid );
+    expect( clone ).toEqual( ellipsoid );
+  } );
+
+  it( 'serializes an ellipsoid', () => {
+    expect( ellipsoid.toJSON() ).toEqual( { name: 'Test Ellipsoid', semiMajorAxis: 10, inverseFlattening: 5 } );
+  } );
+
+  it( 'formats an ellipsoid as a string', () => {
+    expect( ellipsoid.toString() ).toBe( 'Test Ellipsoid (a=10, 1/f=5)' );
+    expect( ellipsoid.toString( { precision: 2 } ) ).toBe( 'Test Ellipsoid (a=10, 1/f=5)' );
+    expect( sphere.toString() ).toBe( 'Test Sphere (a=10, 1/f=∞)' );
+  } );
 } );
