@@ -1,3 +1,6 @@
+import { clamp } from '../utils';
+
+
 export interface TRangeOptions {
   min?: number | null;
   max?: number | null;
@@ -21,5 +24,9 @@ export class Range {
     const maxValid = this.max === null || ( this.maxInclusive ? value <= this.max : value < this.max );
 
     return minValid && maxValid;
+  }
+
+  public clamp ( value: number ) : number {
+    return clamp( value, this.min ?? -Infinity, this.max ?? Infinity );
   }
 }
