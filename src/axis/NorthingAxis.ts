@@ -1,4 +1,4 @@
-import { Range } from '../range/Range';
+import { Range } from '../range';
 import { Metre, type Unit } from '../unit';
 import { Axis } from './Axis';
 
