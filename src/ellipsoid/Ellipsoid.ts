@@ -4,7 +4,7 @@ import type { Latitude } from '../value/Latitude';
 export interface TEllipsoidOptions {
   name: string;
   semiMajorAxis: number;
-  inverseFlattening: number;
+  inverseFlattening?: number;
 }
 
 export interface TEllipsoidStringOptions {
@@ -21,12 +21,12 @@ export class Ellipsoid {
     return typeof value === 'number' ? value : value.toRadians();
   }
 
-  public constructor ( { name, semiMajorAxis, inverseFlattening }: TEllipsoidOptions ) {
+  public constructor ( { name, semiMajorAxis, inverseFlattening = Infinity }: TEllipsoidOptions ) {
     if ( ! Number.isFinite( semiMajorAxis ) || semiMajorAxis <= 0 )
       throw new RangeError( 'Semi-major axis must be a positive finite number' );
 
-    if ( inverseFlattening < 0 || Number.isNaN( inverseFlattening ) )
-      throw new RangeError( 'Inverse flattening must be non-negative' );
+    if ( inverseFlattening <= 0 && inverseFlattening !== Infinity )
+      throw new RangeError( 'Inverse flattening must be positive or infinite' );
 
     this.name = name;
     this.semiMajorAxis = semiMajorAxis;
@@ -95,12 +95,11 @@ export class Ellipsoid {
   }
 
   public geocentricRadius ( latitude: number | Latitude ) : number {
-    const M = this.semiMajorAxis, m = this.semiMinorAxis;
-    const value = this.value( latitude );
-    const cos = Math.cos( value ), sin = Math.sin( value );
+    const a = this.semiMajorAxis, b = this.semiMinorAxis, v = this.value( latitude );
+    const cos = Math.cos( v ), sin = Math.sin( v );
 
-    return Math.sqrt( ( M ** 2 * cos ) ** 2 + ( m ** 2 * sin ) ** 2 ) /
-      Math.sqrt( ( M * cos ) ** 2 + ( m * sin ) ** 2 );
+    return Math.sqrt( ( a ** 2 * cos ) ** 2 + ( b ** 2 * sin ) ** 2 ) /
+      Math.sqrt( ( a * cos ) ** 2 + ( b * sin ) ** 2 );
   }
 
   public surfaceArea () : number {
