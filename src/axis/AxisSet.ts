@@ -28,4 +28,12 @@ export class AxisSet {
   public has ( axis: Axis ) : boolean {
     return this.indexOf( axis ) !== -1;
   }
+
+  public equals ( { axes }: AxisSet ) : boolean {
+    return this.axes.length === axes.length && this.axes.every( ( a, i ) => a.equals( axes[ i ] ) );
+  }
+
+  public clone () : AxisSet {
+    return new AxisSet( { axes: this.axes.map( a => a.clone() ) } );
+  }
 }
