@@ -76,8 +76,8 @@ export class Ellipsoid {
   public get authalicRadius () : number {
     if ( this.isSphere() ) return this.semiMajorAxis;
 
-    const e = this.eccentricity, s = this.eccentricitySquared;
-    return this.semiMajorAxis * Math.sqrt( 0.5 * ( 1 + ( 1 - s ) / e * Math.atanh( e ) ) );
+    const e = this.eccentricity;
+    return this.semiMajorAxis * Math.sqrt( 0.5 * ( 1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e ) ) );
   }
 
   public isSphere () : boolean {
@@ -100,5 +100,12 @@ export class Ellipsoid {
 
     return Math.sqrt( ( M ** 2 * cos ) ** 2 + ( m ** 2 * sin ) ** 2 ) /
       Math.sqrt( ( M * cos ) ** 2 + ( m * sin ) ** 2 );
+  }
+
+  public surfaceArea () : number {
+    if ( this.isSphere() ) return 4 * Math.PI * this.semiMajorAxis ** 2;
+
+    const e = this.eccentricity;
+    return 2 * Math.PI * this.semiMajorAxis ** 2 * ( 1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e ) );
   }
 }
