@@ -61,4 +61,8 @@ export class Ellipsoid {
   public get polarRadius () : number {
     return this.semiMinorAxis;
   }
+
+  public isSphere () : boolean {
+    return this.flattening === 0;
+  }
 }
