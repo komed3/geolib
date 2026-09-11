@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { Range } from '../../src/core/Range';
+import { Range } from '../src/range/Range';
 
 
 describe( 'Range', () => {

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import { Axis } from '../../src/core/Axis';
-import { Range } from '../../src/core/Range';
-import { Value } from '../../src/core/Value';
+import { Axis } from '../src/axis/Axis';
+import { Range } from '../src/range/Range';
+import { Value } from '../src/value/Value';
 
 
 const unit = { name: 'degree', symbol: '°' };
