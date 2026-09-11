@@ -29,4 +29,20 @@ export class Range {
   public clamp ( value: number ) : number {
     return clamp( value, this.min ?? -Infinity, this.max ?? Infinity );
   }
+
+  public equals ( { min, max, minInclusive, maxInclusive }: Range ) : boolean {
+    return this.min === min && this.max === max && this.minInclusive === minInclusive &&
+      this.maxInclusive === maxInclusive;
+  }
+
+  public clone () : Range {
+    return new Range( this.toJSON() );
+  }
+
+  public toJSON () : TRangeOptions {
+    return {
+      min: this.min, max: this.max, minInclusive: this.minInclusive,
+      maxInclusive: this.maxInclusive
+    };
+  }
 }
