@@ -76,4 +76,21 @@ export class Ellipsoid {
   public isSphere () : boolean {
     return this.flattening === 0;
   }
+
+  public primeVerticalRadius ( latitude: number ) : number {
+    return this.semiMajorAxis / Math.sqrt( 1 - this.eccentricitySquared * Math.sin( latitude ) ** 2 );
+  }
+
+  public meridionalRadius ( latitude: number ) : number {
+    const denominator = 1 - this.eccentricitySquared * Math.sin( latitude ) ** 2;
+    return this.semiMajorAxis * ( 1 - this.eccentricitySquared ) / denominator ** ( 3 / 2 );
+  }
+
+  public geocentricRadius ( latitude: number ) : number {
+    const M = this.semiMajorAxis, m = this.semiMinorAxis;
+    const cos = Math.cos( latitude ), sin = Math.sin( latitude );
+
+    return Math.sqrt( ( M ** 2 * cos ) ** 2 + ( m ** 2 * sin ) ** 2 ) /
+      Math.sqrt( ( M * cos ) ** 2 + ( m * sin ) ** 2 );
+  }
 }
