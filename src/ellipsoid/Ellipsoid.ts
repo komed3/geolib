@@ -25,7 +25,7 @@ export class Ellipsoid {
     if ( ! Number.isFinite( semiMajorAxis ) || semiMajorAxis <= 0 )
       throw new RangeError( 'Semi-major axis must be a positive finite number' );
 
-    if ( inverseFlattening <= 0 && inverseFlattening !== Infinity )
+    if ( Number.isNaN( inverseFlattening ) || ( inverseFlattening <= 0 && inverseFlattening !== Infinity ) )
       throw new RangeError( 'Inverse flattening must be positive or infinite' );
 
     this.name = name;
