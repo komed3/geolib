@@ -77,7 +77,10 @@ export class Ellipsoid {
     if ( this.isSphere() ) return this.semiMajorAxis;
 
     const e = this.eccentricity;
-    return this.semiMajorAxis * Math.sqrt( 0.5 * ( 1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e ) ) );
+
+    return this.semiMajorAxis * Math.sqrt( 0.5 * (
+      1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e )
+    ) );
   }
 
   public isSphere () : boolean {
@@ -85,7 +88,9 @@ export class Ellipsoid {
   }
 
   public primeVerticalRadius ( latitude: number | Latitude ) : number {
-    return this.semiMajorAxis / Math.sqrt( 1 - this.eccentricitySquared * Math.sin( this.value( latitude ) ) ** 2 );
+    return this.semiMajorAxis / Math.sqrt(
+      1 - this.eccentricitySquared * Math.sin( this.value( latitude ) ) ** 2
+    );
   }
 
   public meridionalRadius ( latitude: number | Latitude ) : number {
@@ -106,10 +111,29 @@ export class Ellipsoid {
     if ( this.isSphere() ) return 4 * Math.PI * this.semiMajorAxis ** 2;
 
     const e = this.eccentricity;
-    return 2 * Math.PI * this.semiMajorAxis ** 2 * ( 1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e ) );
+
+    return 2 * Math.PI * this.semiMajorAxis ** 2 * (
+      1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e )
+    );
   }
 
   public volume () : number {
     return 4 / 3 * Math.PI * this.semiMajorAxis ** 2 * this.semiMinorAxis;
+  }
+
+  public equals ( { name, semiMajorAxis, inverseFlattening }: Ellipsoid ) : boolean {
+    return this.name === name && this.semiMajorAxis === semiMajorAxis &&
+      this.inverseFlattening === inverseFlattening;
+  }
+
+  public clone () : Ellipsoid {
+    return new Ellipsoid( this.toJSON() );
+  }
+
+  public toJSON () : TEllipsoidOptions {
+    return {
+      name: this.name, semiMajorAxis: this.semiMajorAxis,
+      inverseFlattening: this.inverseFlattening
+    };
   }
 }
