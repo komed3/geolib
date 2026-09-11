@@ -23,7 +23,7 @@ export class Unit {
   }
 
   public toSI ( value: number ) : number {
-    return value / this.factor;
+    return value * this.factor;
   }
 
   public transform ( value: number, from: Unit ) : number {
@@ -31,7 +31,7 @@ export class Unit {
       `Cannot transform ${ from.name } (${ from.quantity }) to ${ this.name } (${ this.quantity })`
     );
 
-    return from.toSI( value ) * this.factor;
+    return from.toSI( value ) / this.factor;
   }
 
   public equals ( { name, unit, quantity, factor }: Unit ) : boolean {
