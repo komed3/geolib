@@ -18,6 +18,10 @@ export class Unit {
     this.name = name, this.unit = unit, this.quantity = quantity, this.factor = factor;
   }
 
+  public toSI ( value: number ) : number {
+    return value * this.factor;
+  }
+
   public transform ( value: number, { quantity, factor }: Unit ) : number {
     if ( this.quantity !== quantity )
       throw new Error( `Cannot transform ${ this.quantity } to ${ quantity }` );
