@@ -136,4 +136,9 @@ export class Ellipsoid {
       inverseFlattening: this.inverseFlattening
     };
   }
+
+  public toString ( { precision = 15 }: TEllipsoidStringOptions = {} ) : string {
+    const f = ( value: number ) => value.toLocaleString( 'en', { maximumFractionDigits: precision } );
+    return `${ this.name } (a=${ f( this.semiMajorAxis ) }, 1/f=${ f( this.inverseFlattening ) })`;
+  }
 }
