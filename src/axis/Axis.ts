@@ -1,5 +1,5 @@
 import type { Range } from '../range';
-import type { Unit } from '../unit';
+import type { Unit, UnitStringOptions } from '../unit';
 import { wrap } from '../utils';
 
 
@@ -14,7 +14,7 @@ export interface AxisOptions {
   abbr?: string;
 }
 
-export interface AxisStringOptions {
+export interface AxisStringOptions extends UnitStringOptions {
   displayUnit?: boolean;
 }
 
@@ -58,7 +58,7 @@ export class Axis {
     };
   }
 
-  public toString ( { displayUnit = true }: AxisStringOptions = {} ) : string {
-    return `${ this.name }${ displayUnit ? ` [${ this.unit.toString( { format: 'name' } ) }]` : '' }`;
+  public toString ( { displayUnit = true, ...options }: AxisStringOptions = {} ) : string {
+    return `${ this.name }${ displayUnit ? ` [${ this.unit.toString( options ) }]` : '' }`;
   }
 }
