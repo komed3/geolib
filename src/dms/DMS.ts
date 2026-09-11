@@ -1,3 +1,8 @@
+import type { Latitude } from '../value/Latitude';
+import type { Longitude } from '../value/Longitude';
+import type { Longitude360 } from '../value/Longitude360';
+
+
 export type TDirection = 'north' | 'east' | 'south' | 'west';
 export type TDMSFormat = 'dd' | 'dm' | 'dms';
 export type TNotation = 'signed' | 'directional';
@@ -120,12 +125,14 @@ export class DMS {
     return new DMS( value, 0, 0, direction );
   }
 
-  public static fromLongitude ( value: number ) : DMS {
-    return DMS.fromDecimals( Math.abs( value ), value < 0 ? 'west' : 'east' );
+  public static fromLongitude ( value: number | Longitude | Longitude360 ) : DMS {
+    const v = typeof value === 'number' ? value : value.value;
+    return DMS.fromDecimals( Math.abs( v ), v < 0 ? 'west' : 'east' );
   }
 
-  public static fromLatitude ( value: number ) : DMS {
-    return DMS.fromDecimals( Math.abs( value ), value < 0 ? 'south' : 'north' );
+  public static fromLatitude ( value: number | Latitude ) : DMS {
+    const v = typeof value === 'number' ? value : value.value;
+    return DMS.fromDecimals( Math.abs( v ), v < 0 ? 'south' : 'north' );
   }
 
   public static fromObject ( { degrees, minutes, seconds, direction }: TDMSOptions ) : DMS {
