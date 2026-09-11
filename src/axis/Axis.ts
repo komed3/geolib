@@ -18,4 +18,11 @@ export interface AxisStringOptions {
 }
 
 
-export class Axis {}
+export class Axis {
+  public readonly name: string;
+  public readonly orientation: string;
+  public readonly unit: Unit;
+  public readonly range: Range;
+  public readonly behavior: AxisBehavior;
+  public readonly abbr?: string;
+}
