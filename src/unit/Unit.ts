@@ -26,4 +26,17 @@ export class Unit {
     if ( this.quantity !== quantity ) throw new Error( `Cannot transform ${ this.name } to ${ name }` );
     return value / factor * this.factor;
   }
+
+  public equals ( { name, unit, quantity, factor }: Unit ) : boolean {
+    return this.name === name && this.unit === unit && this.quantity === quantity &&
+      this.factor === factor;
+  }
+
+  public clone () : Unit {
+    return new Unit( this.toJSON() );
+  }
+
+  public toJSON () : UnitOptions {
+    return { name: this.name, unit: this.unit, quantity: this.quantity, factor: this.factor };
+  }
 }
