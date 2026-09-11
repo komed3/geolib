@@ -36,4 +36,8 @@ export class AxisSet {
   public clone () : AxisSet {
     return new AxisSet( { axes: this.axes.map( a => a.clone() ) } );
   }
+
+  public toArray () : ReadonlyArray< Axis > {
+    return [ ...this.axes ];
+  }
 }
