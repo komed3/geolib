@@ -6,11 +6,11 @@ import { Unit } from '../src/unit';
 
 const latitude = new LatitudeAxis(), longitude = new LongitudeAxis();
 const axes = new AxisSet( { axes: [ longitude, latitude ] } );
-const unit = new Unit( { name: 'metre', unit: 'm', quantity: 'length' } );
+const unit = new Unit( { name: 'degree', unit: '°', quantity: 'angle' } );
 const range = new Range( { min: -180, max: 180 } );
 
 const createAxis = ( behavior?: 'none' | 'clamp' | 'wrap' ) => new Axis( {
-  name: 'longitude', orientation: 'east', unit, range, behavior
+  name: 'Longitude', abbr: 'Lon', orientation: 'east', unit, range, behavior
 } );
 
 
@@ -18,7 +18,8 @@ describe( 'Axis', () => {
   it( 'creates an axis with default behavior', () => {
     const axis = createAxis();
 
-    expect( axis.name ).toBe( 'longitude' );
+    expect( axis.name ).toBe( 'Longitude' );
+    expect( axis.abbr ).toBe( 'Lon' );
     expect( axis.orientation ).toBe( 'east' );
     expect( axis.unit ).toBe( unit );
     expect( axis.range ).toBe( range );
@@ -69,6 +70,19 @@ describe( 'Axis', () => {
     expect( clone ).not.toBe( axis );
     expect( clone.range ).not.toBe( axis.range );
     expect( clone.equals( axis ) ).toBe( true );
+  } );
+
+  it( 'serializes to JSON', () => {
+    expect( createAxis( 'clamp' ).toJSON() ).toEqual( {
+      name: 'Longitude', orientation: 'east', unit, range, behavior: 'clamp', abbr: 'Lon'
+    } );
+  } );
+
+  it( 'formats with and without the unit', () => {
+    const axis = createAxis();
+
+    expect( axis.toString() ).toBe( 'Longitude [°]' );
+    expect( axis.toString( { displayUnit: false } ) ).toBe( 'Longitude' );
   } );
 } );
 
