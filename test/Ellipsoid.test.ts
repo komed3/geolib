@@ -36,4 +36,15 @@ describe( 'Ellipsoid', () => {
     expect( ellipsoid.secondEccentricity ).toBeCloseTo( 0.75 );
     expect( ellipsoid.thirdFlattening ).toBeCloseTo( 0.1111111111111111 );
   } );
+
+  it( 'calculates volumetric radius', () => {
+    expect( ellipsoid.volumetricRadius ).toBeCloseTo( Math.cbrt( 10 ** 2 * 8 ) );
+    expect( sphere.volumetricRadius ).toBeCloseTo( 10 );
+  } );
+
+  it( 'calculates the prime vertical radius', () => {
+    expect( ellipsoid.primeVerticalRadius( 0 ) ).toBeCloseTo( 10 );
+    expect( ellipsoid.primeVerticalRadius( Math.PI / 2 ) ).toBeCloseTo( 12.5 );
+    expect( ellipsoid.primeVerticalRadius( new Latitude( 90, latitude ) ) ).toBeCloseTo( 12.5 );
+  } );
 } );
