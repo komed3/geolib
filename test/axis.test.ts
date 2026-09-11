@@ -15,7 +15,15 @@ const createAxis = ( behavior?: 'none' | 'clamp' | 'wrap' ) => new Axis( {
 
 
 describe( 'Axis', () => {
-  it( '', () => {} );
+  it( 'creates an axis with default behavior', () => {
+    const axis = createAxis();
+
+    expect( axis.name ).toBe( 'longitude' );
+    expect( axis.orientation ).toBe( 'east' );
+    expect( axis.unit ).toBe( unit );
+    expect( axis.range ).toBe( range );
+    expect( axis.behavior ).toBe( 'none' );
+  } );
 } );
 
 describe( 'AxisSet', () => {
