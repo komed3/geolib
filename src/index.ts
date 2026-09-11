@@ -20,6 +20,9 @@ import { Projected3DCoordinate } from './coord/Projected3DCoordinate';
 
 import { DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN, DMS_UNITS } from './dms/DMS';
 
+import { Ellipsoid } from './ellipsoid/Ellipsoid';
+import { WGS84Ellipsoid } from './ellipsoid/WGS84Ellipsoid';
+
 import * as geodesy from './lib/geodesy';
 import * as units from './lib/units';
 import * as utils from './lib/utils';
@@ -54,6 +57,7 @@ export type { TAxisBehavior, TAxisOptions, TAxisStringOptions } from './axis/Axi
 export type { TAxisSetStringOptions } from './axis/AxisSet';
 export type { TCoordinateStringOptions } from './coord/Coordinate';
 export type { TDirection, TDirectionMap, TDMS, TDMSFormat, TDMSOptions, TDMSStringOptions, TDMSUnits, TNotation } from './dms/DMS';
+export type { TEllipsoidOptions, TEllipsoidStringOptions } from './ellipsoid/Ellipsoid';
 export type { TUnit } from './lib/units';
 export type { TRangeOptions, TRangeStringOptions } from './range/Range';
 export type { TSystemStringOptions } from './system/System';
@@ -62,27 +66,25 @@ export type { TValueStringOptions } from './value/Value';
 
 export {
   Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
-  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, GeocentricCoordinate, GeocentricSystem,
-  GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
-  geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
+  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate,
+  GeocentricSystem, GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ,
+  GeocentricZAxis, geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
   Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
   Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
   Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
-  Projected3DSystem, Range, System,
-  units, utils, Value
+  Projected3DSystem, Range, System, units, utils, Value, WGS84Ellipsoid
 };
 
 
 export const geolib = {
   Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
-  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, GeocentricCoordinate, GeocentricSystem,
-  GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
-  geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
+  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate,
+  GeocentricSystem, GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ,
+  GeocentricZAxis, geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
   Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
   Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
   Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
-  Projected3DSystem, Range, System,
-  units, utils, Value
+  Projected3DSystem, Range, System, units, utils, Value, WGS84Ellipsoid
 } as const;
 
 
