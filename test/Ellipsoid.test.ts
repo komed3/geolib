@@ -12,4 +12,10 @@ const ellipsoid = new Ellipsoid( { name: 'Test Ellipsoid', semiMajorAxis: 10, in
 const sphere = new Ellipsoid( { name: 'Test Sphere', semiMajorAxis: 10 } );
 
 
-describe( 'Ellipsoid', () => {} );
+describe( 'Ellipsoid', () => {
+  it( 'creates an ellipsoid from its defining parameters', () => {
+    expect( ellipsoid.name ).toBe( 'Test Ellipsoid' );
+    expect( ellipsoid.semiMajorAxis ).toBe( 10 );
+    expect( ellipsoid.inverseFlattening ).toBe( 5 );
+  } );
+} );
