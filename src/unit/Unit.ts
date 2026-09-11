@@ -19,13 +19,11 @@ export class Unit {
   }
 
   public toSI ( value: number ) : number {
-    return value * this.factor;
+    return value / this.factor;
   }
 
-  public transform ( value: number, { quantity, factor }: Unit ) : number {
-    if ( this.quantity !== quantity )
-      throw new Error( `Cannot transform ${ this.quantity } to ${ quantity }` );
-
-    return value * factor / this.factor;
+  public transform ( value: number, { name, quantity, factor }: Unit ) : number {
+    if ( this.quantity !== quantity ) throw new Error( `Cannot transform ${ this.name } to ${ name }` );
+    return value / factor * this.factor;
   }
 }
