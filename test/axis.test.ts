@@ -5,8 +5,13 @@ import { Unit } from '../src/unit';
 
 
 const latitude = new LatitudeAxis(), longitude = new LongitudeAxis();
-const unit = new Unit( { name: 'metre', unit: 'm', quantity: 'length' } ), range = new Range();
 const axes = new AxisSet( { axes: [ longitude, latitude ] } );
+const unit = new Unit( { name: 'metre', unit: 'm', quantity: 'length' } );
+const range = new Range( { min: -180, max: 180 } );
+
+const createAxis = ( behavior?: 'none' | 'clamp' | 'wrap' ) => new Axis( {
+  name: 'longitude', orientation: 'east', unit, range, behavior
+} );
 
 
 describe( 'Axis', () => {
