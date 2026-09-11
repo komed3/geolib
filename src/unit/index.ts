@@ -10,3 +10,6 @@ export { Foot } from './length/Foot';
 export { Kilometre } from './length/Kilometre';
 export { Metre } from './length/Metre';
 export { USSurveyFoot } from './length/USSurveyFoot';
+
+export { Second } from './time/Second';
+export { Year } from './time/Year';
