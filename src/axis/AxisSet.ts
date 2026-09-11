@@ -1,4 +1,4 @@
-import { Axis } from './Axis';
+import type { Axis, AxisOptions } from './Axis';
 
 
 export interface AxisSetOptions {
@@ -39,5 +39,17 @@ export class AxisSet {
 
   public toArray () : ReadonlyArray< Axis > {
     return [ ...this.axes ];
+  }
+
+  public toJSON () : ReadonlyArray< AxisOptions > {
+    return this.axes.map( axis => axis.toJSON() );
+  }
+
+  public toString ( { delimiter = ', ', ...options }: AxisSetStringOptions = {} ) : string {
+    return this.axes.map( a => a.toString( options ) ).join( delimiter );
+  }
+
+  public [ Symbol.iterator ] () : Iterator< Axis > {
+    return this.axes[ Symbol.iterator ]();
   }
 }
