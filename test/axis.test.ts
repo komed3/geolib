@@ -24,6 +24,25 @@ describe( 'Axis', () => {
     expect( axis.range ).toBe( range );
     expect( axis.behavior ).toBe( 'none' );
   } );
+
+  it( 'leaves values unchanged with no behavior', () => {
+    expect( createAxis().normalize( 200 ) ).toBe( 200 );
+  } );
+
+  it( 'clamps values', () => {
+    const axis = createAxis( 'clamp' );
+
+    expect( axis.normalize( -200 ) ).toBe( -180 );
+    expect( axis.normalize( 0 ) ).toBe( 0 );
+    expect( axis.normalize( 200 ) ).toBe( 180 );
+  } );
+
+  it( 'wraps values when the range is bounded', () => {
+    const axis = createAxis( 'wrap' );
+
+    expect( axis.normalize( 190 ) ).toBe( -170 );
+    expect( axis.normalize( -190 ) ).toBe( 170 );
+  } );
 } );
 
 describe( 'AxisSet', () => {
