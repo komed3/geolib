@@ -41,4 +41,14 @@ describe( 'AxisSet', () => {
     expect( clone.get( 0 ) ).not.toBe( longitude );
     expect( clone.equals( axes ) ).toBe( true );
   } );
+
+  it( 'serializes and formats the set', () => {
+    expect( axes.toJSON() ).toEqual( [ longitude.toJSON(), latitude.toJSON() ] );
+    expect( axes.toString() ).toBe( 'Longitude [°], Latitude [°]' );
+    expect( axes.toString( { displayUnit: false, delimiter: ' / ' } ) ).toBe( 'Longitude / Latitude' );
+  } );
+
+  it( 'iterates over its axes', () => {
+    expect( [ ...axes ] ).toEqual( [ longitude, latitude ] );
+  } );
 } );
