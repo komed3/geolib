@@ -23,12 +23,12 @@ export class Unit {
   }
 
   public toSI ( value: number ) : number {
-    return value / this.factor;
+    return value * this.factor;
   }
 
-  public transform ( value: number, { name, quantity, factor }: Unit ) : number {
-    if ( this.quantity !== quantity ) throw new Error( `Cannot transform ${ this.name } to ${ name }` );
-    return value / factor * this.factor;
+  public transform ( value: number, { quantity, name, factor }: Unit ) : number {
+    if ( this.quantity !== quantity ) throw new Error( `Cannot transform ${ name } to ${ this.name }` );
+    return value * factor / this.factor;
   }
 
   public equals ( { name, unit, quantity, factor }: Unit ) : boolean {
