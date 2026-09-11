@@ -11,5 +11,7 @@ export { Kilometre } from './length/Kilometre';
 export { Metre } from './length/Metre';
 export { USSurveyFoot } from './length/USSurveyFoot';
 
+export { Unity } from './scale/Unity';
+
 export { Second } from './time/Second';
 export { Year } from './time/Year';
