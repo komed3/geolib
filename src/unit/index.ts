@@ -9,6 +9,7 @@ export { Centimetre } from './length/Centimetre';
 export { Foot } from './length/Foot';
 export { Kilometre } from './length/Kilometre';
 export { Metre } from './length/Metre';
+export { Millimetre } from './length/Millimetre';
 export { USSurveyFoot } from './length/USSurveyFoot';
 
 export { Unity } from './scale/Unity';
