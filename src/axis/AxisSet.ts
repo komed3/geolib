@@ -1,8 +1,12 @@
-import type { Axis, AxisOptions } from './Axis';
+import type { Axis, AxisOptions, AxisStringOptions } from './Axis';
 
 
 export interface AxisSetOptions {
   axes: ReadonlyArray< Axis >;
+}
+
+export interface AxisSetStringOptions extends AxisStringOptions {
+  delimiter?: string;
 }
 
 
