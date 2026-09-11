@@ -43,6 +43,13 @@ describe( 'Axis', () => {
     expect( axis.normalize( 190 ) ).toBe( -170 );
     expect( axis.normalize( -190 ) ).toBe( 170 );
   } );
+
+  it( 'does not wrap an unbounded range', () => {
+    expect( new Axis( {
+      name: 'x', orientation: 'east', unit, behavior: 'wrap',
+      range: new Range( { min: -180 } )
+    } ).normalize( 200 ) ).toBe( 200 );
+  } );
 } );
 
 describe( 'AxisSet', () => {
