@@ -18,7 +18,7 @@ export class Ellipsoid {
   public readonly inverseFlattening: number;
 
   private value ( value: number | Latitude ) : number {
-    return typeof value === 'number' ? value : value.value;
+    return typeof value === 'number' ? value : value.toRadians();
   }
 
   public constructor ( { name, semiMajorAxis, inverseFlattening }: TEllipsoidOptions ) {
@@ -65,26 +65,22 @@ export class Ellipsoid {
     return this.flattening / ( 2 - this.flattening );
   }
 
-  public get polarRadius () : number {
-    return this.semiMinorAxis;
-  }
-
    public get volumetricRadius () : number {
     return ( this.semiMajorAxis ** 2 * this.semiMinorAxis ) ** ( 1 / 3 );
   }
 
+  public get isSphere () : boolean {
+    return this.flattening === 0;
+  }
+
   public get authalicRadius () : number {
-    if ( this.isSphere() ) return this.semiMajorAxis;
+    if ( this.isSphere ) return this.semiMajorAxis;
 
     const e = this.eccentricity;
 
     return this.semiMajorAxis * Math.sqrt( 0.5 * (
       1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e )
     ) );
-  }
-
-  public isSphere () : boolean {
-    return this.flattening === 0;
   }
 
   public primeVerticalRadius ( latitude: number | Latitude ) : number {
@@ -108,7 +104,7 @@ export class Ellipsoid {
   }
 
   public surfaceArea () : number {
-    if ( this.isSphere() ) return 4 * Math.PI * this.semiMajorAxis ** 2;
+    if ( this.isSphere ) return 4 * Math.PI * this.semiMajorAxis ** 2;
 
     const e = this.eccentricity;
 
