@@ -20,8 +20,14 @@ import { Projected3DCoordinate } from './coord/Projected3DCoordinate';
 
 import { DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN, DMS_UNITS } from './dms/DMS';
 
+import { Airy1830Ellipsoid } from './ellipsoid/Airy1830Ellipsoid';
+import { Airy1849Ellipsoid } from './ellipsoid/Airy1849Ellipsoid';
+import { AustralianNationalSpheroidEllipsoid } from './ellipsoid/AustralianNationalSpheroidEllipsoid';
+import { CGCS2000Ellipsoid } from './ellipsoid/CGCS2000Ellipsoid';
 import { Ellipsoid } from './ellipsoid/Ellipsoid';
+import { GSK2011Ellipsoid } from './ellipsoid/GSK2011Ellipsoid';
 import { WGS84Ellipsoid } from './ellipsoid/WGS84Ellipsoid';
+import { Zach1812Ellipsoid } from './ellipsoid/Zach1812Ellipsoid';
 
 import * as geodesy from './lib/geodesy';
 import * as units from './lib/units';
@@ -65,26 +71,28 @@ export type { TValueStringOptions } from './value/Value';
 
 
 export {
-  Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
-  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate,
-  GeocentricSystem, GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ,
-  GeocentricZAxis, geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
-  Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
-  Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
-  Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
-  Projected3DSystem, Range, System, units, utils, Value, WGS84Ellipsoid
+  Airy1830Ellipsoid, Airy1849Ellipsoid, Altitude, AltitudeAxis, AustralianNationalSpheroidEllipsoid,
+  Axis, AxisSet, CGCS2000Ellipsoid, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN,
+  DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate, GeocentricSystem, GeocentricX,
+  GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis, geodesy,
+  Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate, Geographic3DSystem,
+  GSK2011Ellipsoid, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
+  Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange, Northing,
+  NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate, Projected3DSystem,
+  Range, System, units, utils, Value, WGS84Ellipsoid, Zach1812Ellipsoid
 };
 
 
 export const geolib = {
-  Altitude, AltitudeAxis, Axis, AxisSet, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE,
-  DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate,
-  GeocentricSystem, GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ,
-  GeocentricZAxis, geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate,
-  Geographic3DSystem, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
-  Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
-  Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
-  Projected3DSystem, Range, System, units, utils, Value, WGS84Ellipsoid
+  Airy1830Ellipsoid, Airy1849Ellipsoid, Altitude, AltitudeAxis, AustralianNationalSpheroidEllipsoid,
+  Axis, AxisSet, CGCS2000Ellipsoid, Coordinate, DegreeValue, DMS, DMS_DIRMAP_DE, DMS_DIRMAP_EN,
+  DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate, GeocentricSystem, GeocentricX,
+  GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis, geodesy,
+  Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate, Geographic3DSystem,
+  GSK2011Ellipsoid, Height, HeightAxis, Latitude, LatitudeAxis, LatitudeRange, Longitude,
+  Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange, Northing,
+  NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate, Projected3DSystem,
+  Range, System, units, utils, Value, WGS84Ellipsoid, Zach1812Ellipsoid
 } as const;
 
 
