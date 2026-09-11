@@ -2,10 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { Degree, Kilometre, Metre, Radian, Second, Year } from '../src/unit';
 
 
-describe( 'Unit', () => {
-  const metre = new Metre(), kilometre = new Kilometre(), second = new Second(),
-    year = new Year(), degree = new Degree(), radian = new Radian();
+const metre = new Metre(), kilometre = new Kilometre(),
+      second = new Second(), year = new Year(),
+      degree = new Degree(), radian = new Radian();
 
+
+describe( 'Unit', () => {
   it( 'creates a new Unit', () => {
     expect( metre.name ).toBe( 'metre' );
     expect( metre.unit ).toBe( 'm' );
