@@ -50,4 +50,15 @@ export class Axis {
   public clone () : Axis {
     return new Axis( { ...this.toJSON(), range: this.range.clone() } );
   }
+
+  public toJSON () : AxisOptions {
+    return {
+      name: this.name, orientation: this.orientation, unit: this.unit,
+      range: this.range, behavior: this.behavior, abbr: this.abbr
+    };
+  }
+
+  public toString ( { displayUnit = true }: AxisStringOptions = {} ) : string {
+    return `${ this.name }${ displayUnit ? ` [${ this.unit.toString( { format: 'name' } ) }]` : '' }`;
+  }
 }
