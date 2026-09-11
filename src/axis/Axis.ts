@@ -40,4 +40,14 @@ export class Axis {
 
     return value;
   }
+
+  public equals ( { name, orientation, unit, range, behavior, abbr }: Axis ) : boolean {
+    return this.name === name && this.orientation === orientation &&
+      this.unit.name === unit.name && this.behavior === behavior && this.abbr === abbr &&
+      this.unit.equals( unit ) && this.range.equals( range );
+  }
+
+  public clone () : Axis {
+    return new Axis( { ...this.toJSON(), range: this.range.clone() } );
+  }
 }
