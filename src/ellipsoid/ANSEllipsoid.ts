@@ -1,7 +1,7 @@
 import { Ellipsoid } from './Ellipsoid';
 
 
-export class AustralianNationalSpheroidEllipsoid extends Ellipsoid {
+export class ANSEllipsoid extends Ellipsoid {
   public constructor () {
     super( {
       name: 'Australian National Spheroid',
