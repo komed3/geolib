@@ -101,4 +101,28 @@ describe( 'Ellipsoid', () => {
     expect( ellipsoid.toString( { precision: 2 } ) ).toBe( 'Test Ellipsoid (a=10, 1/f=5)' );
     expect( sphere.toString() ).toBe( 'Test Sphere (a=10, 1/f=∞)' );
   } );
+
+  it( 'rejects invalid semi-major axes', () => {
+    expect( () => new Ellipsoid( { name: 'Invalid', semiMajorAxis: 0 } ) ).toThrow(
+      'Semi-major axis must be a positive finite number'
+    );
+
+    expect( () => new Ellipsoid( { name: 'Invalid', semiMajorAxis: Infinity } ) ).toThrow(
+      'Semi-major axis must be a positive finite number'
+    );
+  } );
+
+  it( 'rejects invalid inverse flattening', () => {
+    expect( () => new Ellipsoid( { name: 'Invalid', semiMajorAxis: 10, inverseFlattening: 0 } ) ).toThrow(
+      'Inverse flattening must be positive or infinite'
+    );
+
+    expect( () => new Ellipsoid( { name: 'Invalid', semiMajorAxis: 10, inverseFlattening: -1 } ) ).toThrow(
+      'Inverse flattening must be positive or infinite'
+    );
+
+    expect( () => new Ellipsoid( { name: 'Invalid', semiMajorAxis: 10, inverseFlattening: NaN } ) ).toThrow(
+      'Inverse flattening must be positive or infinite'
+    );
+  } );
 } );
