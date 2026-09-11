@@ -74,4 +74,14 @@ describe( 'Ellipsoid', () => {
     expect( sphere.volume() ).toBeCloseTo( 4 / 3 * Math.PI * 1000 );
     expect( ellipsoid.volume() ).toBeCloseTo( 4 / 3 * Math.PI * 800 );
   } );
+
+  it( 'compares ellipsoids', () => {
+    const equal = new Ellipsoid( { name: 'Test Ellipsoid', semiMajorAxis: 10, inverseFlattening: 5 } );
+    const diff1 = new Ellipsoid( { name: 'Other Ellipsoid', semiMajorAxis: 10, inverseFlattening: 5 } );
+    const diff2 = new Ellipsoid( { name: 'Test Ellipsoid', semiMajorAxis: 8 } );
+
+    expect( ellipsoid.equals( equal ) ).toBe( true );
+    expect( ellipsoid.equals( diff1 ) ).toBe( false );
+    expect( ellipsoid.equals( diff2 ) ).toBe( false );
+  } );
 } );
