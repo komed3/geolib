@@ -25,4 +25,9 @@ export class Axis {
   public readonly range: Range;
   public readonly behavior: AxisBehavior;
   public readonly abbr?: string;
+
+  public constructor ( { name, orientation, unit, range, behavior = 'none', abbr }: AxisOptions ) {
+    this.name = name, this.orientation = orientation, this.unit = unit;
+    this.range = range, this.behavior = behavior, this.abbr = abbr;
+  }
 }
