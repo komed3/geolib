@@ -62,6 +62,17 @@ export class Ellipsoid {
     return this.semiMinorAxis;
   }
 
+   public get volumetricRadius () : number {
+    return ( this.semiMajorAxis ** 2 * this.semiMinorAxis ) ** ( 1 / 3 );
+  }
+
+  public get authalicRadius () : number {
+    if ( this.isSphere() ) return this.semiMajorAxis;
+
+    const e = this.eccentricity, s = this.eccentricitySquared;
+    return this.semiMajorAxis * Math.sqrt( 0.5 * ( 1 + ( 1 - s ) / e * Math.atanh( e ) ) );
+  }
+
   public isSphere () : boolean {
     return this.flattening === 0;
   }
