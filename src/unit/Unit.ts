@@ -8,7 +8,7 @@ export interface UnitOptions {
 }
 
 export interface UnitStringOptions {
-  format?: 'unit' | 'name';
+  unitFormat?: 'unit' | 'name';
 }
 
 
@@ -47,7 +47,7 @@ export class Unit {
     return { name: this.name, unit: this.unit, quantity: this.quantity, factor: this.factor };
   }
 
-  public toString ( { format = 'unit' }: UnitStringOptions = {} ) : string {
+  public toString ( { unitFormat: format = 'unit' }: UnitStringOptions = {} ) : string {
     return this[ format ];
   }
 }
