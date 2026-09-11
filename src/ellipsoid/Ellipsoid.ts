@@ -1,3 +1,6 @@
+import type { Latitude } from '../value/Latitude';
+
+
 export interface TEllipsoidOptions {
   name: string;
   semiMajorAxis: number;
@@ -13,6 +16,10 @@ export class Ellipsoid {
   public readonly name: string;
   public readonly semiMajorAxis: number;
   public readonly inverseFlattening: number;
+
+  private value ( value: number | Latitude ) : number {
+    return typeof value === 'number' ? value : value.value;
+  }
 
   public constructor ( { name, semiMajorAxis, inverseFlattening }: TEllipsoidOptions ) {
     if ( ! Number.isFinite( semiMajorAxis ) || semiMajorAxis <= 0 )
@@ -77,18 +84,19 @@ export class Ellipsoid {
     return this.flattening === 0;
   }
 
-  public primeVerticalRadius ( latitude: number ) : number {
-    return this.semiMajorAxis / Math.sqrt( 1 - this.eccentricitySquared * Math.sin( latitude ) ** 2 );
+  public primeVerticalRadius ( latitude: number | Latitude ) : number {
+    return this.semiMajorAxis / Math.sqrt( 1 - this.eccentricitySquared * Math.sin( this.value( latitude ) ) ** 2 );
   }
 
-  public meridionalRadius ( latitude: number ) : number {
-    const denominator = 1 - this.eccentricitySquared * Math.sin( latitude ) ** 2;
+  public meridionalRadius ( latitude: number | Latitude ) : number {
+    const denominator = 1 - this.eccentricitySquared * Math.sin( this.value( latitude ) ) ** 2;
     return this.semiMajorAxis * ( 1 - this.eccentricitySquared ) / denominator ** ( 3 / 2 );
   }
 
-  public geocentricRadius ( latitude: number ) : number {
+  public geocentricRadius ( latitude: number | Latitude ) : number {
     const M = this.semiMajorAxis, m = this.semiMinorAxis;
-    const cos = Math.cos( latitude ), sin = Math.sin( latitude );
+    const value = this.value( latitude );
+    const cos = Math.cos( value ), sin = Math.sin( value );
 
     return Math.sqrt( ( M ** 2 * cos ) ** 2 + ( m ** 2 * sin ) ** 2 ) /
       Math.sqrt( ( M * cos ) ** 2 + ( m * sin ) ** 2 );
