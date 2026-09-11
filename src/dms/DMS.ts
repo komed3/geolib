@@ -62,7 +62,7 @@ export class DMS {
     degrees += Math.floor( minutes / 60 ), minutes %= 60;
 
     return [ degrees, minutes, seconds ];
-  };
+  }
 
   public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction: TDirection | null = null ) {
     const value = degrees + minutes / 60 + seconds / 3600;
@@ -121,17 +121,21 @@ export class DMS {
     ].filter( Boolean ).join( delimiter );
   }
 
-  public static fromDecimals ( value: number, direction: TDirection | null = null ) : DMS {
-    return new DMS( value, 0, 0, direction );
+  private static getValue ( value: number | Latitude | Longitude | Longitude360 ) : number {
+    return typeof value === 'number' ? value : value.value;
+  }
+
+  public static fromDecimals ( value: number | Latitude | Longitude | Longitude360, direction: TDirection | null = null ) : DMS {
+    return new DMS( DMS.getValue( value ), 0, 0, direction );
   }
 
   public static fromLongitude ( value: number | Longitude | Longitude360 ) : DMS {
-    const v = typeof value === 'number' ? value : value.value;
+    const v = DMS.getValue( value );
     return DMS.fromDecimals( Math.abs( v ), v < 0 ? 'west' : 'east' );
   }
 
   public static fromLatitude ( value: number | Latitude ) : DMS {
-    const v = typeof value === 'number' ? value : value.value;
+    const v = DMS.getValue( value );
     return DMS.fromDecimals( Math.abs( v ), v < 0 ? 'south' : 'north' );
   }
 
