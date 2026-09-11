@@ -27,7 +27,9 @@ import { CGCS2000Ellipsoid } from './ellipsoid/CGCS2000Ellipsoid';
 import { Clarke1866Ellipsoid } from './ellipsoid/Clarke1866Ellipsoid';
 import { Ellipsoid } from './ellipsoid/Ellipsoid';
 import { GRS1967Ellipsoid } from './ellipsoid/GRS1967Ellipsoid';
+import { GRS1980Ellipsoid } from './ellipsoid/GRS1980Ellipsoid';
 import { GSK2011Ellipsoid } from './ellipsoid/GSK2011Ellipsoid';
+import { Helmert1906Ellipsoid } from './ellipsoid/Helmert1906Ellipsoid';
 import { International1924Ellipsoid } from './ellipsoid/International1924Ellipsoid';
 import { Krassowsky1940Ellipsoid } from './ellipsoid/Krassowsky1940Ellipsoid';
 import { WGS72Ellipsoid } from './ellipsoid/WGS72Ellipsoid';
@@ -80,11 +82,11 @@ export {
   DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate, GeocentricSystem,
   GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
   geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate, Geographic3DSystem,
-  GRS1967Ellipsoid, GSK2011Ellipsoid, Height, HeightAxis, International1924Ellipsoid,
-  Krassowsky1940Ellipsoid, Latitude, LatitudeAxis, LatitudeRange, Longitude, Longitude360,
-  Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange, Northing, NorthingAxis,
-  Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate, Projected3DSystem, Range,
-  System, units, utils, Value, WGS72Ellipsoid, WGS84Ellipsoid
+  GRS1967Ellipsoid, GRS1980Ellipsoid, GSK2011Ellipsoid, Height, HeightAxis, Helmert1906Ellipsoid,
+  International1924Ellipsoid, Krassowsky1940Ellipsoid, Latitude, LatitudeAxis, LatitudeRange,
+  Longitude, Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
+  Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
+  Projected3DSystem, Range, System, units, utils, Value, WGS72Ellipsoid, WGS84Ellipsoid
 };
 
 
@@ -94,11 +96,11 @@ export const geolib = {
   DMS_DIRMAP_EN, DMS_UNITS, Easting, EastingAxis, Ellipsoid, GeocentricCoordinate, GeocentricSystem,
   GeocentricX, GeocentricXAxis, GeocentricY, GeocentricYAxis, GeocentricZ, GeocentricZAxis,
   geodesy, Geographic2DCoordinate, Geographic2DSystem, Geographic3DCoordinate, Geographic3DSystem,
-  GRS1967Ellipsoid, GSK2011Ellipsoid, Height, HeightAxis, International1924Ellipsoid,
-  Krassowsky1940Ellipsoid, Latitude, LatitudeAxis, LatitudeRange, Longitude, Longitude360,
-  Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange, Northing, NorthingAxis,
-  Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate, Projected3DSystem, Range,
-  System, units, utils, Value, WGS72Ellipsoid, WGS84Ellipsoid
+  GRS1967Ellipsoid, GRS1980Ellipsoid, GSK2011Ellipsoid, Height, HeightAxis, Helmert1906Ellipsoid,
+  International1924Ellipsoid, Krassowsky1940Ellipsoid, Latitude, LatitudeAxis, LatitudeRange,
+  Longitude, Longitude360, Longitude360Axis, Longitude360Range, LongitudeAxis, LongitudeRange,
+  Northing, NorthingAxis, Projected2DCoordinate, Projected2DSystem, Projected3DCoordinate,
+  Projected3DSystem, Range, System, units, utils, Value, WGS72Ellipsoid, WGS84Ellipsoid
 } as const;
 
 
