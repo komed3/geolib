@@ -108,4 +108,8 @@ export class Ellipsoid {
     const e = this.eccentricity;
     return 2 * Math.PI * this.semiMajorAxis ** 2 * ( 1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e ) );
   }
+
+  public volume () : number {
+    return 4 / 3 * Math.PI * this.semiMajorAxis ** 2 * this.semiMinorAxis;
+  }
 }
