@@ -50,6 +50,13 @@ const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\
 const DMS_DIRMAP = { N: 'north', E: 'east', O: 'east', S: 'south', W: 'west' } as const;
 
 
+const c = ( [ degrees, minutes, seconds ]: DMSTuple ) : DMSTuple => {
+  minutes += Math.floor( seconds / 60 ), seconds %= 60;
+  degrees += Math.floor( minutes / 60 ), minutes %= 60;
+
+  return [ degrees, minutes, seconds ];
+}
+
 const v = ( value: number | Latitude | Longitude | Longitude360 ) : number =>
   typeof value === 'number' ? value : value.value;
 
@@ -60,13 +67,6 @@ export class DMS {
   public readonly degrees: number;
   public readonly minutes: number;
   public readonly seconds: number;
-
-  private carry ( [ degrees, minutes, seconds ]: DMSTuple ) : DMSTuple {
-    minutes += Math.floor( seconds / 60 ), seconds %= 60;
-    degrees += Math.floor( minutes / 60 ), minutes %= 60;
-
-    return [ degrees, minutes, seconds ];
-  }
 
   public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction?: DMSDirection ) {
     const value = degrees + minutes / 60 + seconds / 3600;
@@ -82,7 +82,7 @@ export class DMS {
       ( abs - deg - min / 60 ) * 3600 * DMS_SEC_PRECISION
     ) / DMS_SEC_PRECISION;
 
-    [ deg, min, sec ] = this.carry( [ deg, min, sec ] );
+    [ deg, min, sec ] = c( [ deg, min, sec ] );
 
     this.degrees = direction != null ? deg : sign * deg;
     this.minutes = min;
@@ -119,7 +119,7 @@ export class DMS {
     if ( last < 1 ) values[ 0 ] += values[ 1 ] / 60;
 
     values[ last ] = Math.round( values[ last ] * factor ) / factor;
-    values = this.carry( values );
+    values = c( values );
 
     return ( notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '' ) + [
       ...values.slice( 0, last + 1 ).map( ( value, i ) => value!.toLocaleString( locale, {
