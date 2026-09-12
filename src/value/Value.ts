@@ -1,8 +1,17 @@
 import type { Axis, AxisOptions } from '../axis';
+import type { UnitStringOptions } from '../unit';
 
 
 export interface ValueOptions {
   axis: Axis;
+}
+
+export interface ValueStringOptions extends UnitStringOptions {
+  maxPrecision?: number;
+  minPrecision?: number;
+  locale?: string;
+  displayUnit?: boolean;
+  unitDelimiter?: string;
 }
 
 
@@ -24,5 +33,17 @@ export class Value {
 
   public toJSON () : { value: number, axis: AxisOptions } {
     return { value: this.value, axis: this.axis.toJSON() };
+  }
+
+  public toString ( {
+    maxPrecision = 22, minPrecision = 0, locale = 'en', displayUnit = true,
+    unitDelimiter = '', ...options
+  }: ValueStringOptions = {} ) : string {
+    const value = this.value.toLocaleString( locale, {
+      minimumFractionDigits: minPrecision,
+      maximumFractionDigits: maxPrecision
+    } );
+
+    return `${ value }${ displayUnit ? unitDelimiter + this.axis.unit.toString( options ) : '' }`;
   }
 }
