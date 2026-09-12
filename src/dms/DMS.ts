@@ -1,4 +1,14 @@
-export type Direction = 'north' | 'east' | 'south' | 'west';
+export type DMSDirection = 'north' | 'east' | 'south' | 'west';
+export type DMSFormat = 'dd' | 'dm' | 'dms';
+export type DMSNotation = 'signed' | 'directional';
+
+export type DMSDirectionMap = Partial< Record< DMSDirection, string > >;
+
+export type DMSUnitMap = [
+  degrees: string,
+  minutes: string,
+  seconds: string
+];
 
 export type DMSTuple = [
   degrees: number,
@@ -11,7 +21,19 @@ export interface DMSObject {
   degrees: number;
   minutes?: number;
   seconds?: number;
-  direction?: Direction
+  direction?: DMSDirection
+}
+
+export interface DMSStringOptions {
+  format?: DMSFormat;
+  notation?: DMSNotation;
+  maxPrecision?: number;
+  minPrecision?: number;
+  locale?: string;
+  delimiter?: string;
+  displayUnit?: boolean;
+  directions?: DMSDirectionMap;
+  units?: DMSUnitMap;
 }
 
 
@@ -20,7 +42,7 @@ const DMS_SEC_PRECISION = 1e10;
 
 export class DMS {
   public readonly value: number;
-  public readonly direction?: Direction;
+  public readonly direction?: DMSDirection;
   public readonly degrees: number;
   public readonly minutes: number;
   public readonly seconds: number;
@@ -32,7 +54,7 @@ export class DMS {
     return [ degrees, minutes, seconds ];
   }
 
-  public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction?: Direction ) {
+  public constructor ( degrees: number, minutes: number = 0, seconds: number = 0, direction?: DMSDirection ) {
     const value = degrees + minutes / 60 + seconds / 3600;
 
     if ( direction !== undefined && value < 0 )
