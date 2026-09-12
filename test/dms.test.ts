@@ -252,4 +252,24 @@ describe( 'DMS', () => {
       expect( dms.value ).toBeCloseTo( 0 );
     } );
   } );
+
+  describe( 'fromObject', () => {
+    it( 'creates a DMS from an object', () => {
+      const dms = DMS.fromObject( { degrees: 52, minutes: 30, seconds: 15, direction: 'south' } );
+
+      expectDMS( dms, 52, 30, 15, 'south' );
+      expect( dms.value ).toBeCloseTo( -52.50416666666667 );
+    } );
+
+    it( 'uses zero for omitted components', () => {
+      expectDMS( DMS.fromObject( { degrees: 52 } ), 52, 0, 0 );
+    } );
+  } );
+
+  describe( 'fromTuple', () => {
+    it( 'creates a DMS from an tuple', () => {
+      expectDMS( DMS.fromTuple( [ 52, 30, 15 ] ), 52, 30, 15 );
+      expectDMS( DMS.fromTuple( [ 52, 30, 15, 'east' ] ), 52, 30, 15, 'east' );
+    } );
+  } );
 } );
