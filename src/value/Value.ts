@@ -1,4 +1,4 @@
-import { Axis } from '../axis';
+import type { Axis, AxisOptions } from '../axis';
 
 
 export interface ValueOptions {
@@ -12,5 +12,17 @@ export class Value {
 
   public constructor ( value: number, { axis }: ValueOptions ) {
     this.axis = axis, this.value = axis.normalize( value );
+  }
+
+  public equals ( { value, axis }: Value ) : boolean {
+    return this.value === value && this.axis.equals( axis );
+  }
+
+  public clone () : Value {
+    return new Value( this.value, { axis: this.axis.clone() } );
+  }
+
+  public toJSON () : { value: number, axis: AxisOptions } {
+    return { value: this.value, axis: this.axis.toJSON() };
   }
 }
