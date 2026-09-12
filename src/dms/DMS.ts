@@ -37,6 +37,10 @@ export interface DMSStringOptions {
 }
 
 
+export const DMS_UNITMAP: DMSUnitMap = [ '°', '′', '″' ] as const;
+export const DMS_DIRMAP_EN: DMSDirectionMap = { north: 'N', east: 'E', south: 'S', west: 'W' };
+export const DMS_DIRMAP_DE: DMSDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
+
 const DMS_SEC_PRECISION = 1e10;
 
 
