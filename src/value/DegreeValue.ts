@@ -11,6 +11,10 @@ export class DegreeValue extends Value {
     super( value, axis );
   }
 
+  public override clone () : DegreeValue {
+    return new DegreeValue( this.value, this.axis.clone() );
+  }
+
   public toRadians () : number {
     return deg2rad( this.value );
   }
