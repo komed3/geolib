@@ -32,4 +32,14 @@ describe( 'Coordinate', () => {
     expect( coordinate.equals( Coordinate.fromTuple( [ 12.5, 52.5 ], system.clone() ) ) ).toBe( true );
     expect( coordinate.equals( Coordinate.fromTuple( [ 13.5, 52.5 ], system ) ) ).toBe( false );
   } );
+
+  it( 'clones system and values independently', () => {
+    const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
+    const clone = coordinate.clone();
+
+    expect( clone ).not.toBe( coordinate );
+    expect( clone.system ).not.toBe( system );
+    expect( clone.get( 0 ) ).not.toBe( coordinate.get( 0 ) );
+    expect( clone.equals( coordinate ) ).toBe( true );
+  } );
 } );
