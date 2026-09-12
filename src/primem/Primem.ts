@@ -1,11 +1,13 @@
 import type { AxisOptions } from '../axis';
-import { DegreeValue } from '../value';
+import { DegreeValue, type ValueStringOptions } from '../value';
 
 
 export interface PrimemOptions {
   name: string;
   value: DegreeValue;
 }
+
+export interface PrimemStringOptions extends ValueStringOptions {}
 
 
 export class Primem {
@@ -26,5 +28,9 @@ export class Primem {
 
   public toJSON () : { name: string, value: { value: number, axis: AxisOptions } } {
     return { name: this.name, value: this.value.toJSON() };
+  }
+
+  public toString ( { ...options }: PrimemStringOptions ) : string {
+    return `${ this.name }: ${ this.value.toString( options ) }`;
   }
 }
