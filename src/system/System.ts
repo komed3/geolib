@@ -14,4 +14,8 @@ export class System {
   public constructor ( { name, axes }: SystemOptions ) {
     this.name = name, this.axes = axes;
   }
+
+  public get dimension () : number {
+    return this.axes.dimension;
+  }
 }
