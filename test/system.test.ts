@@ -39,4 +39,15 @@ describe( 'System', () => {
     expect( clone.get( 0 ) ).not.toBe( longitude );
     expect( clone.equals( system ) ).toBe( true );
   } );
+
+  it( 'serializes to JSON', () => {
+    expect( system.toJSON() ).toEqual( { name: 'Geographic 2D', axes: axes.toJSON() } );
+  } );
+
+  it( 'formats the system', () => {
+    expect( system.toString() ).toBe( 'Geographic 2D (Longitude [°], Latitude [°])' );
+    expect( system.toString( { displayUnit: false, delimiter: ' / ' } ) ).toBe(
+      'Geographic 2D (Longitude / Latitude)'
+    );
+  } );
 } );
