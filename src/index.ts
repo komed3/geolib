@@ -10,11 +10,15 @@ import * as value from './value';
 
 export * from './axis';
 export * from './coord';
+export * from './crs';
+export * from './datum';
 export * from './dms';
 export * from './ellipsoid';
+export * from './math';
 export * from './primem';
 export * from './range';
 export * from './system';
+export * from './tile';
 export * from './unit';
 export * from './value';
 
