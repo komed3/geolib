@@ -105,4 +105,27 @@ describe( 'DMS', () => {
       expect( clone.value ).toBeCloseTo( -52.50416666666667 );
     } );
   } );
+
+  describe( 'toJSON / toTuple', () => {
+    it( 'returns all components and the decimal value', () => {
+      const json = new DMS( 52, 30, 15, 'north' ).toJSON();
+
+      expect( json.value ).toBeCloseTo( 52.50416666666667 );
+      expect( json.degrees ).toBe( 52 );
+      expect( json.minutes ).toBe( 30 );
+      expect( json.seconds ).toBeCloseTo( 15 );
+      expect( json.direction ).toBe( 'north' );
+    } );
+
+    it( 'returns a null direction when no direction was provided', () => {
+      const json = new DMS( 52, 30, 15 ).toJSON();
+
+      expect( json.value ).toBeCloseTo( 52.50416666666667 );
+      expect( json.direction ).toBeUndefined();
+    } );
+
+    it( 'returns a tuple of all components', () => {
+      expect( new DMS( 52, 30, 15, 'east' ).toTuple() ).toEqual( [ 52, 30, 15, 'east' ] );
+    } );
+  } );
 } );
