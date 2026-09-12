@@ -36,4 +36,8 @@ export class Coordinate {
       values: this.values.map( v => v.clone() )
     } );
   }
+
+  public toTuple () : number[] {
+    return this.values.map( v => v.value );
+  }
 }
