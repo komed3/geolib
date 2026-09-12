@@ -70,4 +70,22 @@ describe( 'DMS', () => {
       );
     } );
   } );
+
+  describe( 'equals', () => {
+    it( 'returns true for equal values', () => {
+      expect( new DMS( 52, 30, 15 ).equals( new DMS( 52, 30, 15 ) ) ).toBe( true );
+    } );
+
+    it( 'returns false for different values', () => {
+      expect( new DMS( 52, 30, 15 ).equals( new DMS( 52, 30, 16 ) ) ).toBe( false );
+    } );
+
+    it( 'returns false for different directions', () => {
+      expect( new DMS( 52, 30, 15, 'north' ).equals( new DMS( 52, 30, 15, 'south' ) ) ).toBe( false );
+    } );
+
+    it( 'returns false when only one value has a direction', () => {
+      expect( new DMS( 52, 30, 15 ).equals( new DMS( 52, 30, 15, 'north' ) ) ).toBe( false );
+    } );
+  } );
 } );
