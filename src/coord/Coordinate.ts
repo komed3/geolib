@@ -35,6 +35,12 @@ export class Coordinate {
     return this.values.map( v => v.value === 0 ? 0 : v.value < 0 ? -1 : 1 );
   }
 
+  public orthantIndex () : number {
+    return this.orthant().reduce< number >( ( i, sign, axis ) => {
+      return i | ( sign === -1 ? 0 : 1 << ( this.dimension - axis - 1 ) );
+    }, 0 );
+  }
+
   public equals ( { system, values }: Coordinate ) : boolean {
     return this.system.equals( system ) && this.values.length === values.length &&
       this.values.every( ( value, i ) => value.equals( values[ i ] ) );
