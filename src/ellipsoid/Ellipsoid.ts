@@ -78,4 +78,23 @@ export class Ellipsoid {
       1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e )
     ) );
   }
+
+  public primeVerticalRadius ( latitude: number | Latitude ) : number {
+    return this.semiMajorAxis / Math.sqrt(
+      1 - this.eccentricitySquared * Math.sin( v( latitude ) ) ** 2
+    );
+  }
+
+  public meridionalRadius ( latitude: number | Latitude ) : number {
+    const denominator = 1 - this.eccentricitySquared * Math.sin( v( latitude ) ) ** 2;
+    return this.semiMajorAxis * ( 1 - this.eccentricitySquared ) / denominator ** ( 3 / 2 );
+  }
+
+  public geocentricRadius ( latitude: number | Latitude ) : number {
+    const a = this.semiMajorAxis, b = this.semiMinorAxis, value = v( latitude );
+    const cos = Math.cos( value ), sin = Math.sin( value );
+
+    return Math.sqrt( ( a ** 2 * cos ) ** 2 + ( b ** 2 * sin ) ** 2 ) /
+      Math.sqrt( ( a * cos ) ** 2 + ( b * sin ) ** 2 );
+  }
 }
