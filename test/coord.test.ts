@@ -42,4 +42,11 @@ describe( 'Coordinate', () => {
     expect( clone.get( 0 ) ).not.toBe( coordinate.get( 0 ) );
     expect( clone.equals( coordinate ) ).toBe( true );
   } );
+
+  it( 'converts to a tuple and JSON', () => {
+    const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
+
+    expect( coordinate.toTuple() ).toEqual( [ 12.5, 52.5 ] );
+    expect( coordinate.toJSON() ).toEqual( { system: 'Geographic 2D', values: [ 12.5, 52.5 ] } );
+  } );
 } );
