@@ -272,4 +272,67 @@ describe( 'DMS', () => {
       expectDMS( DMS.fromTuple( [ 52, 30, 15, 'east' ] ), 52, 30, 15, 'east' );
     } );
   } );
+
+  describe( 'parse', () => {
+    it( 'parses a full DMS value', () => {
+      expectDMS( DMS.parse( '52° 30′ 15″ N' ), 52, 30, 15, 'north' );
+    } );
+
+    it( 'parses ASCII symbols', () => {
+      expectDMS( DMS.parse( '52° 30\' 15" W' ), 52, 30, 15, 'west' );
+    } );
+
+    it( 'parses a compact value', () => {
+      expectDMS( DMS.parse( '52°30′15″E' ), 52, 30, 15, 'east' );
+    } );
+
+    it( 'parses a value without symbols', () => {
+      expectDMS( DMS.parse( '52 30 15 N' ), 52, 30, 15, 'north' );
+    } );
+
+    it( 'parses decimal degrees', () => {
+      const dms = DMS.parse( '52.50416666666667 N' );
+
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+      expect( dms.direction ).toBe( 'north' );
+    } );
+
+    it( 'parses lowercase directions', () => {
+      expectDMS( DMS.parse( '52° 30′ 15″ n' ), 52, 30, 15, 'north' );
+    } );
+
+    it( 'parses the German east direction', () => {
+      expectDMS( DMS.parse( '52° 30′ 15″ O' ), 52, 30, 15, 'east' );
+    } );
+
+    it( 'ignores surrounding whitespace', () => {
+      expectDMS( DMS.parse( '  52° 30′ 15″ N  ' ), 52, 30, 15, 'north' );
+    } );
+
+    it( 'parses signed input with a compatible direction', () => {
+      const dms = DMS.parse( '+52° 30′ 15″ N' );
+
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+      expect( dms.direction ).toBe( 'north' );
+    } );
+
+    it( 'parses without a direction', () => {
+      expectDMS( DMS.parse( '52° 30′ 15″' ), 52, 30, 15 );
+    } );
+
+    it( 'rejects invalid syntax', () => {
+      expect( () => DMS.parse( 'invalid' ) ).toThrow( 'Invalid DMS value' );
+      expect( () => DMS.parse( '52° X 15″ N' ) ).toThrow( 'Invalid DMS value' );
+    } );
+
+    it( 'rejects an unsupported direction', () => {
+      expect( () => DMS.parse( '52° 30′ 15″ Q' ) ).toThrow( 'Invalid DMS value' );
+    } );
+
+    it( 'rejects a conflicting sign and direction', () => {
+      expect( () => DMS.parse( '-52° 30′ 15″ S' ) ).toThrow(
+        'DMS value has conflicting sign and direction'
+      );
+    } );
+  } );
 } );
