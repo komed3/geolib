@@ -7,6 +7,13 @@ export type DMSTuple = [
   direction?: string
 ];
 
+export interface DMSObject {
+  degrees: number;
+  minutes?: number;
+  seconds?: number;
+  direction?: Direction
+}
+
 
 const DMS_SEC_PRECISION = 1e10;
 
@@ -44,5 +51,20 @@ export class DMS {
     this.degrees = direction != null ? deg : sign * deg;
     this.minutes = min;
     this.seconds = sec;
+  }
+
+  public equals ( { value, direction }: DMS ) : boolean {
+    return this.value === value && this.direction === direction;
+  }
+
+  public clone () : DMS {
+    return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
+  }
+
+  public toJSON () : DMSObject & { value: number } {
+    return {
+      value: this.value, direction: this.direction, degrees: this.degrees,
+      minutes: this.minutes, seconds: this.seconds
+    };
   }
 }
