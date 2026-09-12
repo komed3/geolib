@@ -126,4 +126,18 @@ export class DMS {
       notation === 'directional' && this.direction ? directions[ this.direction ] : ''
     ].filter( Boolean ).join( delimiter );
   }
+
+  public static fromDecimals ( value: number | Latitude | Longitude | Longitude360, direction?: DMSDirection ) : DMS {
+    return new DMS( v( value ), 0, 0, direction );
+  }
+
+  public static fromLongitude ( value: number | Longitude | Longitude360 ) : DMS {
+    const parsed = v( value );
+    return DMS.fromDecimals( Math.abs( parsed ), parsed < 0 ? 'west' : 'east' );
+  }
+
+  public static fromLatitude ( value: number | Latitude ) : DMS {
+    const parsed = v( value );
+    return DMS.fromDecimals( Math.abs( parsed ), parsed < 0 ? 'south' : 'north' );
+  }
 }
