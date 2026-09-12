@@ -25,4 +25,11 @@ describe( 'Coordinate', () => {
 
     expect( coordinate.get( 0 ) ).toBe( values[ 1 ] );
   } );
+
+  it( 'compares coordinates', () => {
+    const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
+
+    expect( coordinate.equals( Coordinate.fromTuple( [ 12.5, 52.5 ], system.clone() ) ) ).toBe( true );
+    expect( coordinate.equals( Coordinate.fromTuple( [ 13.5, 52.5 ], system ) ) ).toBe( false );
+  } );
 } );
