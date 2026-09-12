@@ -1,3 +1,6 @@
+import type { Latitude, Longitude, Longitude360 } from '../value';
+
+
 export type DMSDirection = 'north' | 'east' | 'south' | 'west';
 export type DMSFormat = 'dd' | 'dm' | 'dms';
 export type DMSNotation = 'signed' | 'directional';
@@ -42,6 +45,10 @@ export const DMS_DIRMAP_EN: DMSDirectionMap = { north: 'N', east: 'E', south: 'S
 export const DMS_DIRMAP_DE: DMSDirectionMap = { north: 'N', east: 'O', south: 'S', west: 'W' };
 
 const DMS_SEC_PRECISION = 1e10;
+
+
+const v = ( value: number | Latitude | Longitude | Longitude360 ) : number =>
+  typeof value === 'number' ? value : value.value;
 
 
 export class DMS {
