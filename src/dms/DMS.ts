@@ -87,6 +87,10 @@ export class DMS {
     return new DMS( this.degrees, this.minutes, this.seconds, this.direction );
   }
 
+  public toTuple () : DMSTuple {
+    return [ this.degrees, this.minutes, this.seconds, this.direction ];
+  }
+
   public toJSON () : DMSObject & { value: number } {
     return {
       value: this.value, direction: this.direction, degrees: this.degrees,
