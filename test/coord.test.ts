@@ -49,4 +49,20 @@ describe( 'Coordinate', () => {
     expect( coordinate.toTuple() ).toEqual( [ 12.5, 52.5 ] );
     expect( coordinate.toJSON() ).toEqual( { system: 'Geographic 2D', values: [ 12.5, 52.5 ] } );
   } );
+
+  it( 'formats coordinate values', () => {
+    const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
+
+    expect( coordinate.toString() ).toBe( '12.5°, 52.5°' );
+    expect( coordinate.toString( { maxPrecision: 2, displayUnit: false, delimiter: ' / ' } ) ).toBe( '12.5 / 52.5' );
+  } );
+
+  it( 'creates coordinates from tuples', () => {
+    const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
+
+    expect( coordinate.get( 0 ).value ).toBe( 12.5 );
+    expect( coordinate.get( 1 ).value ).toBe( 52.5 );
+    expect( coordinate.get( 0 ).axis ).toBe( longitude );
+    expect( coordinate.get( 1 ).axis ).toBe( latitude );
+  } );
 } );
