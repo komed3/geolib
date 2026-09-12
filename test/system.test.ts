@@ -1,20 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { Axis, AxisSet } from '../src/axis';
-import { Range } from '../src/range';
+import { AxisSet, HeightAxis, LatitudeAxis, LongitudeAxis } from '../src/axis';
 import { System } from '../src/system';
-import { Degree } from '../src/unit';
 
 
-const longitude = new Axis( {
-  name: 'longitude', orientation: 'east', unit: new Degree(),
-  range: new Range( { min: -180, max: 180 } )
-} );
-
-const latitude = new Axis( {
-  name: 'latitude', orientation: 'north', unit: new Degree(),
-  range: new Range( { min: -90, max: 90 } )
-} );
-
+const longitude = new LongitudeAxis();
+const latitude = new LatitudeAxis();
 const axes = new AxisSet( { axes: [ longitude, latitude ] } );
 const system = new System( { name: 'Geographic 2D', axes } );
 
@@ -24,5 +14,12 @@ describe( 'System', () => {
     expect( system.name ).toBe( 'Geographic 2D' );
     expect( system.axes ).toBe( axes );
     expect( system.dimension ).toBe( 2 );
+  } );
+
+  it( 'accesses and finds axes', () => {
+    expect( system.get( 0 ) ).toBe( longitude );
+    expect( system.get( 1 ) ).toBe( latitude );
+    expect( system.indexOf( latitude.clone() ) ).toBe( 1 );
+    expect( system.indexOf( new HeightAxis() ) ).toBe( -1 );
   } );
 } );
