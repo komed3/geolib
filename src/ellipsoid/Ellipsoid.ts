@@ -111,4 +111,20 @@ export class Ellipsoid {
   public volume () : number {
     return 4 / 3 * Math.PI * this.semiMajorAxis ** 2 * this.semiMinorAxis;
   }
+
+  public equals ( { name, semiMajorAxis, inverseFlattening }: Ellipsoid ) : boolean {
+    return this.name === name && this.semiMajorAxis === semiMajorAxis &&
+      this.inverseFlattening === inverseFlattening;
+  }
+
+  public clone () : Ellipsoid {
+    return new Ellipsoid( this.toJSON() );
+  }
+
+  public toJSON () : EllipsoidOptions {
+    return {
+      name: this.name, semiMajorAxis: this.semiMajorAxis,
+      inverseFlattening: this.inverseFlattening
+    };
+  }
 }
