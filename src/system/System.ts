@@ -1,10 +1,12 @@
-import type { Axis, AxisOptions, AxisSet } from '../axis';
+import type { Axis, AxisOptions, AxisSet, AxisSetStringOptions } from '../axis';
 
 
 export interface SystemOptions {
   name: string;
   axes: AxisSet;
 }
+
+export interface SystemStringOptions extends AxisSetStringOptions {}
 
 
 export class System {
@@ -37,5 +39,9 @@ export class System {
 
   public toJSON () : { name: string, axes: ReadonlyArray< AxisOptions > } {
     return { name: this.name, axes: this.axes.toJSON() };
+  }
+
+  public toString ( { ...options }: SystemStringOptions = {} ) : string {
+    return `${ this.name } (${ this.axes.toString( options ) })`;
   }
 }
