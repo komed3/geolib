@@ -1,8 +1,15 @@
+import type { Latitude } from '../value';
+
+
 export interface EllipsoidOptions {
   name: string;
   semiMajorAxis: number;
   inverseFlattening?: number;
 }
+
+
+const v = ( value: number | Latitude ) : number =>
+  typeof value === 'number' ? value : value.toRadians();
 
 
 export class Ellipsoid {
