@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
+import { LatitudeAxis } from '../src/axis';
 import { Ellipsoid } from '../src/ellipsoid';
+import { Latitude } from '../src/value';
 
 
+const latitude = new LatitudeAxis();
 const ellipsoid = new Ellipsoid( { name: 'Test Ellipsoid', semiMajorAxis: 10, inverseFlattening: 5 } );
 const sphere = new Ellipsoid( { name: 'Test Sphere', semiMajorAxis: 10 } );
 
@@ -29,5 +32,43 @@ describe( 'Ellipsoid', () => {
     expect( ellipsoid.secondEccentricitySquared ).toBeCloseTo( 0.5625 );
     expect( ellipsoid.secondEccentricity ).toBeCloseTo( 0.75 );
     expect( ellipsoid.thirdFlattening ).toBeCloseTo( 0.1111111111111111 );
+  } );
+
+  it( 'calculates volumetric radius', () => {
+    expect( ellipsoid.volumetricRadius ).toBeCloseTo( Math.cbrt( 10 ** 2 * 8 ) );
+    expect( sphere.volumetricRadius ).toBeCloseTo( 10 );
+  } );
+
+  it( 'calculates authalic radius', () => {
+    expect( sphere.authalicRadius ).toBe( 10 );
+    expect( ellipsoid.authalicRadius ).toBeCloseTo( 9.3256554531 );
+  } );
+
+  it( 'calculates the prime vertical radius', () => {
+    expect( ellipsoid.primeVerticalRadius( 0 ) ).toBeCloseTo( 10 );
+    expect( ellipsoid.primeVerticalRadius( Math.PI / 2 ) ).toBeCloseTo( 12.5 );
+    expect( ellipsoid.primeVerticalRadius( new Latitude( 90, latitude ) ) ).toBeCloseTo( 12.5 );
+  } );
+
+  it( 'calculates the meridional radius', () => {
+    expect( ellipsoid.meridionalRadius( 0 ) ).toBeCloseTo( 6.4 );
+    expect( ellipsoid.meridionalRadius( Math.PI / 2 ) ).toBeCloseTo( 12.5 );
+    expect( ellipsoid.meridionalRadius( new Latitude( 90, latitude ) ) ).toBeCloseTo( 12.5 );
+  } );
+
+  it( 'calculates the geocentric radius', () => {
+    expect( ellipsoid.geocentricRadius( 0 ) ).toBeCloseTo( 10 );
+    expect( ellipsoid.geocentricRadius( Math.PI / 2 ) ).toBeCloseTo( 8 );
+    expect( ellipsoid.geocentricRadius( new Latitude( 90, latitude ) ) ).toBeCloseTo( 8 );
+  } );
+
+  it( 'calculates surface area', () => {
+    expect( sphere.surfaceArea() ).toBeCloseTo( 4 * Math.PI * 100 );
+    expect( ellipsoid.surfaceArea() ).toBeCloseTo( 1092.87022998 );
+  } );
+
+  it( 'calculates volume', () => {
+    expect( sphere.volume() ).toBeCloseTo( 4 / 3 * Math.PI * 1000 );
+    expect( ellipsoid.volume() ).toBeCloseTo( 4 / 3 * Math.PI * 800 );
   } );
 } );
