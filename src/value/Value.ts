@@ -40,8 +40,7 @@ export class Value {
     unitDelimiter = '', ...options
   }: ValueStringOptions = {} ) : string {
     const value = this.value.toLocaleString( locale, {
-      minimumFractionDigits: minPrecision,
-      maximumFractionDigits: maxPrecision
+      minimumFractionDigits: minPrecision, maximumFractionDigits: maxPrecision
     } );
 
     return `${ value }${ displayUnit ? unitDelimiter + this.axis.unit.toString( options ) : '' }`;
