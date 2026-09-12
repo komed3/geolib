@@ -2,10 +2,6 @@ import type { Axis, AxisOptions } from '../axis';
 import type { UnitStringOptions } from '../unit';
 
 
-export interface ValueOptions {
-  axis: Axis;
-}
-
 export interface ValueStringOptions extends UnitStringOptions {
   maxPrecision?: number;
   minPrecision?: number;
@@ -19,7 +15,7 @@ export class Value {
   public readonly value: number;
   public readonly axis: Axis;
 
-  public constructor ( value: number, { axis }: ValueOptions ) {
+  public constructor ( value: number, axis: Axis ) {
     this.axis = axis, this.value = axis.normalize( value );
   }
 
@@ -28,7 +24,7 @@ export class Value {
   }
 
   public clone () : Value {
-    return new Value( this.value, { axis: this.axis.clone() } );
+    return new Value( this.value, this.axis.clone() );
   }
 
   public toJSON () : { value: number, axis: AxisOptions } {
