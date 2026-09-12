@@ -32,8 +32,9 @@ export {
 };
 
 export const geolib = {
-  ...axis, ...coord, ...dms, ...ellipsoid, ...primem,
-  ...range, ...system, ...unit, ...value
+  ...axis, ...coord, ...crs, ...datum, ...dms,
+  ...ellipsoid, ...math, ...primem, ...range,
+  ...system, ...tile, ...unit, ...value
 } as const;
 
 export default geolib;
