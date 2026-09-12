@@ -1,4 +1,4 @@
-import type { AxisSet } from '../axis';
+import type { Axis, AxisSet } from '../axis';
 
 
 export interface SystemOptions {
@@ -17,5 +17,13 @@ export class System {
 
   public get dimension () : number {
     return this.axes.dimension;
+  }
+
+  public get ( index: number ) : Axis | undefined {
+    return this.axes.get( index );
+  }
+
+  public indexOf ( axis: Axis ) : number {
+    return this.axes.indexOf( axis );
   }
 }
