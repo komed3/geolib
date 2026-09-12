@@ -7,6 +7,11 @@ export interface EllipsoidOptions {
   inverseFlattening?: number;
 }
 
+export interface EllipsoidStringOptions {
+  maxPrecision?: number;
+  minPrecision?: number;
+}
+
 
 const v = ( value: number | Latitude ) : number =>
   typeof value === 'number' ? value : value.toRadians();
@@ -126,5 +131,13 @@ export class Ellipsoid {
       name: this.name, semiMajorAxis: this.semiMajorAxis,
       inverseFlattening: this.inverseFlattening
     };
+  }
+
+  public toString ( { maxPrecision = 22, minPrecision = 0 }: EllipsoidStringOptions = {} ) : string {
+    const f = ( value: number ) => value.toLocaleString( 'en', {
+      maximumFractionDigits: maxPrecision, minimumFractionDigits: minPrecision
+    } );
+
+    return `${ this.name } (a=${ f( this.semiMajorAxis ) }, 1/f=${ f( this.inverseFlattening ) })`;
   }
 }
