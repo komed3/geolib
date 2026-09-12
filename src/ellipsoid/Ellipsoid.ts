@@ -97,4 +97,18 @@ export class Ellipsoid {
     return Math.sqrt( ( a ** 2 * cos ) ** 2 + ( b ** 2 * sin ) ** 2 ) /
       Math.sqrt( ( a * cos ) ** 2 + ( b * sin ) ** 2 );
   }
+
+  public surfaceArea () : number {
+    if ( this.isSphere ) return 4 * Math.PI * this.semiMajorAxis ** 2;
+
+    const e = this.eccentricity;
+
+    return 2 * Math.PI * this.semiMajorAxis ** 2 * (
+      1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e )
+    );
+  }
+
+  public volume () : number {
+    return 4 / 3 * Math.PI * this.semiMajorAxis ** 2 * this.semiMinorAxis;
+  }
 }
