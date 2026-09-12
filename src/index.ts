@@ -1,4 +1,5 @@
 import * as axis from './axis';
+import * as coord from './coord';
 import * as dms from './dms';
 import * as ellipsoid from './ellipsoid';
 import * as primem from './primem';
@@ -8,6 +9,7 @@ import * as unit from './unit';
 import * as value from './value';
 
 export * from './axis';
+export * from './coord';
 export * from './dms';
 export * from './ellipsoid';
 export * from './primem';
@@ -17,12 +19,13 @@ export * from './unit';
 export * from './value';
 
 export {
-  axis, dms, ellipsoid, primem, range, system, unit, value
+  axis, coord, dms, ellipsoid, primem,
+  range, system, unit, value
 };
 
 export const geolib = {
-  ...axis, ...dms, ...ellipsoid, ...primem, ...range, ...system,
-  ...unit, ...value
+  ...axis, ...coord, ...dms, ...ellipsoid, ...primem,
+  ...range, ...system, ...unit, ...value
 } as const;
 
 export default geolib;
