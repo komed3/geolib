@@ -190,4 +190,66 @@ describe( 'DMS', () => {
       expect( new DMS( 52, 30, 15.5, 'north' ).toString( { locale: 'de' } ) ).toBe( '52° 30′ 15,5″ N' );
     } );
   } );
+
+  describe( 'fromDecimals', () => {
+    it( 'creates a DMS from a decimal value', () => {
+      const dms = DMS.fromDecimals( 52.50416666666667 );
+
+      expectDMS( dms, 52, 30, 15 );
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+    } );
+
+    it( 'creates a DMS with a direction', () => {
+      const dms = DMS.fromDecimals( 52.50416666666667, 'west' );
+
+      expectDMS( dms, 52, 30, 15, 'west' );
+      expect( dms.value ).toBeCloseTo( -52.50416666666667 );
+    } );
+  } );
+
+  describe( 'fromLongitude', () => {
+    it( 'creates an east longitude from a positive value', () => {
+      const dms = DMS.fromLongitude( 52.50416666666667 );
+
+      expectDMS( dms, 52, 30, 15, 'east' );
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+    } );
+
+    it( 'creates a west longitude from a negative value', () => {
+      const dms = DMS.fromLongitude( -52.50416666666667 );
+
+      expectDMS( dms, 52, 30, 15, 'west' );
+      expect( dms.value ).toBeCloseTo( -52.50416666666667 );
+    } );
+
+    it( 'creates east for zero', () => {
+      const dms = DMS.fromLongitude( 0 );
+
+      expectDMS( dms, 0, 0, 0, 'east' );
+      expect( dms.value ).toBeCloseTo( 0 );
+    } );
+  } );
+
+  describe( 'fromLatitude', () => {
+    it( 'creates a north latitude from a positive value', () => {
+      const dms = DMS.fromLatitude( 52.50416666666667 );
+
+      expectDMS( dms, 52, 30, 15, 'north' );
+      expect( dms.value ).toBeCloseTo( 52.50416666666667 );
+    } );
+
+    it( 'creates a south latitude from a negative value', () => {
+      const dms = DMS.fromLatitude( -52.50416666666667 );
+
+      expectDMS( dms, 52, 30, 15, 'south' );
+      expect( dms.value ).toBeCloseTo( -52.50416666666667 );
+    } );
+
+    it( 'creates north for zero', () => {
+      const dms = DMS.fromLatitude( 0 );
+
+      expectDMS( dms, 0, 0, 0, 'north' );
+      expect( dms.value ).toBeCloseTo( 0 );
+    } );
+  } );
 } );
