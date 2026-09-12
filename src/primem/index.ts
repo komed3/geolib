@@ -1,4 +1,4 @@
-export type { PrimemOptions } from './Primem';
+export type { PrimemOptions, PrimemStringOptions } from './Primem';
 
 export { Primem } from './Primem';
 
