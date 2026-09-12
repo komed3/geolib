@@ -1,10 +1,14 @@
 import type { System } from '../system';
-import type { Value } from '../value';
+import type { Value, ValueStringOptions } from '../value';
 
 
 export interface CoordinateOptions {
   system: System;
   values: ReadonlyArray< Value >;
+}
+
+export interface CoordinateStringOptions extends ValueStringOptions {
+  delimiter?: string;
 }
 
 
@@ -39,5 +43,13 @@ export class Coordinate {
 
   public toTuple () : number[] {
     return this.values.map( v => v.value );
+  }
+
+  public toJSON () : { system: string, values: readonly number[] } {
+    return { system: this.system.name, values: this.toTuple() };
+  }
+
+  public toString ( { delimiter = ', ', ...options }: CoordinateStringOptions = {} ) : string {
+    return this.values.map( v => v.toString( options ) ).join( delimiter );
   }
 }
