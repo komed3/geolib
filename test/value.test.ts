@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { LongitudeAxis } from '../src/axis';
-import { Value } from '../src/value/Value';
+import { DegreeValue, Value } from '../src/value';
 
 
 const axis = new LongitudeAxis();
@@ -39,5 +39,9 @@ describe( 'Value', () => {
     expect( value.toString( { maxPrecision: 2 } ) ).toBe( '42.5°' );
     expect( value.toString( { maxPrecision: 2, displayUnit: false } ) ).toBe( '42.5' );
     expect( value.toString( { locale: 'de-DE', maxPrecision: 2 } ) ).toBe( '42,5°' );
+  } );
+
+  it ( 'convert degree value to radian', () => {
+    expect( new DegreeValue( 90, axis ).toRadians() ).toBe( Math.PI / 2 );
   } );
 } );
