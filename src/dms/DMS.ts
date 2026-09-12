@@ -46,6 +46,9 @@ export const DMS_DIRMAP_DE: DMSDirectionMap = { north: 'N', east: 'O', south: 'S
 
 const DMS_SEC_PRECISION = 1e10;
 
+const DMS_REGEX = /^\s*([+-]?\d+(?:\.\d+)?)(?:\s*°)?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[′'])?(?:\s*(\d+(?:\.\d+)?))?(?:\s*[″"])?(?:\s*([NSEOW]))?\s*$/i;
+const DMS_DIRMAP = { N: 'north', E: 'east', O: 'east', S: 'south', W: 'west' } as const;
+
 
 const v = ( value: number | Latitude | Longitude | Longitude360 ) : number =>
   typeof value === 'number' ? value : value.value;
@@ -147,5 +150,15 @@ export class DMS {
 
   public static fromObject ( { degrees, minutes, seconds, direction }: DMSObject ) : DMS {
     return new DMS( degrees, minutes, seconds, direction );
+  }
+
+  public static parse ( value: string ) : DMS {
+    const match = value.match( DMS_REGEX );
+    if ( ! match ) throw new SyntaxError( 'Invalid DMS value' );
+
+    return new DMS(
+      Number( match[ 1 ] ), Number( match[ 2 ] ?? 0 ), Number( match[ 3 ] ?? 0 ),
+      DMS_DIRMAP[ match[ 4 ]?.toUpperCase() as keyof typeof DMS_DIRMAP ]
+    );
   }
 }
