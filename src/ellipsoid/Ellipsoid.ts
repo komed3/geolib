@@ -61,4 +61,14 @@ export class Ellipsoid {
   public get isSphere () : boolean {
     return this.flattening === 0;
   }
+
+  public get authalicRadius () : number {
+    if ( this.isSphere ) return this.semiMajorAxis;
+
+    const e = this.eccentricity;
+
+    return this.semiMajorAxis * Math.sqrt( 0.5 * (
+      1 + ( 1 - this.eccentricitySquared ) / e * Math.atanh( e )
+    ) );
+  }
 }
