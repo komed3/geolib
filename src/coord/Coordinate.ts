@@ -24,4 +24,16 @@ export class Coordinate {
   public get ( index: number ) : Value {
     return this.values[ index ];
   }
+
+  public equals ( { system, values }: Coordinate ) : boolean {
+    return this.system.equals( system ) && this.values.length === values.length &&
+      this.values.every( ( value, i ) => value.equals( values[ i ] ) );
+  }
+
+  public clone () : Coordinate {
+    return new Coordinate( {
+      system: this.system.clone(),
+      values: this.values.map( v => v.clone() )
+    } );
+  }
 }
