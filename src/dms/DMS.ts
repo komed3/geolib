@@ -17,7 +17,7 @@ export type DMSTuple = [
   degrees: number,
   minutes: number,
   seconds: number,
-  direction?: string
+  direction?: DMSDirection
 ];
 
 export interface DMSObject {
@@ -139,5 +139,13 @@ export class DMS {
   public static fromLatitude ( value: number | Latitude ) : DMS {
     const parsed = v( value );
     return DMS.fromDecimals( Math.abs( parsed ), parsed < 0 ? 'south' : 'north' );
+  }
+
+  public static fromTuple ( [ degrees, minutes, seconds, direction ]: DMSTuple ) : DMS {
+    return new DMS( degrees, minutes, seconds, direction );
+  }
+
+  public static fromObject ( { degrees, minutes, seconds, direction }: DMSObject ) : DMS {
+    return new DMS( degrees, minutes, seconds, direction );
   }
 }
