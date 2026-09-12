@@ -2,6 +2,8 @@ import type { System } from '../system';
 import type { Value, ValueStringOptions } from '../value';
 
 
+export type CoordinateOrthant = Array< 1 | 0 | -1 >;
+
 export interface CoordinateOptions {
   system: System;
   values: ReadonlyArray< Value >;
@@ -27,6 +29,10 @@ export class Coordinate {
 
   public get ( index: number ) : Value {
     return this.values[ index ];
+  }
+
+  public orthant () : CoordinateOrthant {
+    return this.values.map( v => v.value === 0 ? 0 : v.value < 0 ? -1 : 1 );
   }
 
   public equals ( { system, values }: Coordinate ) : boolean {
