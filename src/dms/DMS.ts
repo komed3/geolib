@@ -93,4 +93,26 @@ export class DMS {
       minutes: this.minutes, seconds: this.seconds
     };
   }
+
+  public toString ( {
+    format = 'dms', notation = 'directional', maxPrecision = 2, minPrecision = 0, locale = 'en',
+    delimiter = ' ', displayUnit = true, units = DMS_UNITMAP, directions = DMS_DIRMAP_EN
+  }: DMSStringOptions = {} ) : string {
+    const last = format === 'dd' ? 0 : format === 'dm' ? 1 : 2, factor = 10 ** maxPrecision;
+    let values: DMSTuple = [ Math.abs( this.degrees ), this.minutes, this.seconds ];
+
+    if ( last < 2 ) values[ 1 ] += values[ 2 ] / 60;
+    if ( last < 1 ) values[ 0 ] += values[ 1 ] / 60;
+
+    values[ last ] = Math.round( values[ last ] * factor ) / factor;
+    values = this.carry( values );
+
+    return ( notation === 'signed' || ! this.direction ? this.value < 0 ? '-' : '' : '' ) + [
+      ...values.slice( 0, last + 1 ).map( ( value, i ) => value!.toLocaleString( locale, {
+        maximumFractionDigits: i === last ? maxPrecision : 0,
+        minimumFractionDigits: i === last ? minPrecision : 0
+      } ) + ( displayUnit ? units[ i ] : '' ) ),
+      notation === 'directional' && this.direction ? directions[ this.direction ] : ''
+    ].filter( Boolean ).join( delimiter );
+  }
 }
