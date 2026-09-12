@@ -22,4 +22,21 @@ describe( 'System', () => {
     expect( system.indexOf( latitude.clone() ) ).toBe( 1 );
     expect( system.indexOf( new HeightAxis() ) ).toBe( -1 );
   } );
+
+  it( 'compares systems', () => {
+    expect( system.equals( new System( { name: 'Geographic 2D', axes: axes.clone() } ) ) ).toBe( true );
+    expect( system.equals( new System( { name: 'Other', axes } ) ) ).toBe( false );
+    expect( system.equals( new System( { name: 'Geographic 2D', axes: new AxisSet(
+      { axes: [ latitude, longitude ] }
+    ) } ) ) ).toBe( false );
+  } );
+
+  it( 'clones independently', () => {
+    const clone = system.clone();
+
+    expect( clone ).not.toBe( system );
+    expect( clone.axes ).not.toBe( axes );
+    expect( clone.get( 0 ) ).not.toBe( longitude );
+    expect( clone.equals( system ) ).toBe( true );
+  } );
 } );
