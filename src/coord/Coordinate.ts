@@ -1,5 +1,5 @@
 import type { System } from '../system';
-import type { Value, ValueStringOptions } from '../value';
+import { Value, type ValueStringOptions } from '../value';
 
 
 export type CoordinateOrthant = Array< 1 | 0 | -1 >;
@@ -57,12 +57,17 @@ export class Coordinate {
     return this.values.map( v => v.value );
   }
 
-  public toJSON () : { system: string, values: readonly number[] } {
+  public toJSON () : { system: string, values: ReadonlyArray< number > } {
     return { system: this.system.name, values: this.toTuple() };
   }
 
   public toString ( { delimiter = ', ', ...options }: CoordinateStringOptions = {} ) : string {
     return this.values.map( v => v.toString( options ) ).join( delimiter );
+  }
+
+  public static fromTuple ( tuple: ReadonlyArray< number >, system: System ) : Coordinate {
+    const values = tuple.map( ( value, i ) => new Value( value, system.axes.get( i ) ) );
+    return new Coordinate( { system, values } );
   }
 
   public static orthantFromIndex ( index: number, dimension: number ) : CoordinateOrthant {
