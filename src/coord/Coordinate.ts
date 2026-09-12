@@ -16,4 +16,12 @@ export class Coordinate {
     if ( system.dimension !== values.length ) throw new TypeError( 'Coordinate dimension mismatch' );
     this.system = system, this.values = Object.freeze( [ ...values ] );
   }
+
+  public get dimension () : number {
+    return this.values.length;
+  }
+
+  public get ( index: number ) : Value {
+    return this.values[ index ];
+  }
 }
