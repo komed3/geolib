@@ -64,4 +64,13 @@ export class Coordinate {
   public toString ( { delimiter = ', ', ...options }: CoordinateStringOptions = {} ) : string {
     return this.values.map( v => v.toString( options ) ).join( delimiter );
   }
+
+  public static orthantFromIndex ( index: number, dimension: number ) : CoordinateOrthant {
+    const orthant: CoordinateOrthant = [];
+
+    for ( let i = dimension - 1; i >= 0; i-- )
+      orthant.push( ( ( index >> i ) & 1 ) === 0 ? -1 : 1 );
+
+    return orthant;
+  }
 }
