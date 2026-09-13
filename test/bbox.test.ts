@@ -2,8 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { BBox } from '../src/bbox';
 import { Coordinate } from '../src/coord';
 import { Geographic2DSystem, Projected2DSystem } from '../src/system';
-import { Longitude } from '../src/value/Longitude';
-import { Latitude } from '../src/value/Latitude';
 
 
 const system = new Geographic2DSystem();
@@ -41,5 +39,19 @@ describe( 'BBox', () => {
 
     expect( bbox.contains( Coordinate.fromTuple( [ -10, -20 ], system ) ) ).toBe( true );
     expect( bbox.contains( Coordinate.fromTuple( [ 30, 40 ], system ) ) ).toBe( true );
+  } );
+
+  it ( 'rejects coordinates outside the bounds', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+
+    expect( bbox.contains( Coordinate.fromTuple( [ -11, 0 ], system ) ) ).toBe( false );
+    expect( bbox.contains( Coordinate.fromTuple( [ 0, 41 ], system ) ) ).toBe( false );
+  } );
+
+  it ( 'rejects coordinates from another system', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const coordinate = Coordinate.fromTuple( [ 0, 0 ], new Projected2DSystem() );
+
+    expect( bbox.contains( coordinate ) ).toBe( false );
   } );
 } );
