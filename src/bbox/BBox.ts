@@ -13,6 +13,8 @@ export interface BBoxStringOptions extends CoordinateStringOptions {
 
 
 export class BBox< T extends Coordinate = Coordinate > {
+  protected static readonly factory = Coordinate.fromTuple.bind( Coordinate );
+
   public readonly min: T;
   public readonly max: T;
 
@@ -53,9 +55,11 @@ export class BBox< T extends Coordinate = Coordinate > {
 
     if ( min.some( ( value, i ) => value > max[ i ] ) ) return null;
 
-    return new BBox< T >( {
-      min: ( this.min.constructor as any ).fromTuple( min, this.system ) as T,
-      max: ( this.max.constructor as any ).fromTuple( max, this.system ) as T
+    const BBoxClass = this.constructor as new ( options: BBoxOptions< T > ) => BBox< T >;
+
+    return new BBoxClass( {
+      min: ( this.min.constructor as typeof Coordinate ).fromTuple( min, this.system ) as T,
+      max: ( this.max.constructor as typeof Coordinate ).fromTuple( max, this.system ) as T
     } );
   }
 
@@ -64,7 +68,8 @@ export class BBox< T extends Coordinate = Coordinate > {
   }
 
   public clone () : BBox< T > {
-    return new BBox< T >( { min: this.min.clone() as T, max: this.max.clone() as T } );
+    const BBoxClass = this.constructor as new ( options: BBoxOptions< T > ) => BBox< T >;
+    return new BBoxClass( { min: this.min.clone() as T, max: this.max.clone() as T } );
   }
 
   public toTuple () : [ number[], number[] ] {
@@ -80,10 +85,7 @@ export class BBox< T extends Coordinate = Coordinate > {
       .replaceAll( '{max}', this.max.toString( options ) );
   }
 
-  public static fromTuple ( [ min, max ]: ReadonlyArray< ReadonlyArray< number > >, system: System ) : BBox {
-    return new BBox( {
-      min: Coordinate.fromTuple( min, system ),
-      max: Coordinate.fromTuple( max, system )
-    } );
+  public static fromTuple ( this: typeof BBox, [ min, max ]: [ number[], number[] ], system: System ) : BBox {
+    return new this( { min: this.factory( min, system ), max: this.factory( max, system ) } );
   }
 }
