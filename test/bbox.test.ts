@@ -105,8 +105,8 @@ describe( 'BBox', () => {
 
     const intersection = bbox.intersect( other );
 
-    /*expect( intersection?.min ).toBeInstanceOf( Geographic2DCoordinate );
-    expect( intersection?.max ).toBeInstanceOf( Geographic2DCoordinate );*/
+    expect( intersection?.min ).toBeInstanceOf( Geographic2DCoordinate );
+    expect( intersection?.max ).toBeInstanceOf( Geographic2DCoordinate );
     expect( intersection?.toTuple() ).toEqual( [ [ 0, 10 ], [ 30, 40 ] ] );
   } );
 
