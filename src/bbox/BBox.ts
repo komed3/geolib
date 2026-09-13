@@ -1,4 +1,5 @@
 import type { Coordinate } from '../coord';
+import type { System } from '../system';
 
 
 export interface BBoxOptions< T extends Coordinate = Coordinate > {
@@ -16,5 +17,13 @@ export class BBox< T extends Coordinate = Coordinate > {
       throw new TypeError( 'Bounding box system mismatch' );
 
     this.min = min, this.max = max;
+  }
+
+  public get system () : System {
+    return this.min.system;
+  }
+
+  public get dimension () : number {
+    return this.min.dimension;
   }
 }
