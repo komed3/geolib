@@ -1,4 +1,5 @@
 import type { Axis } from '../axis';
+import { DMS } from '../dms';
 import { deg2rad } from '../utils';
 import { Value } from './Value';
 
@@ -17,5 +18,12 @@ export class DegreeValue extends Value {
 
   public toRadians () : number {
     return deg2rad( this.value );
+  }
+
+  public toDMS () : DMS {
+    if ( this.axis.orientation === 'east' ) return DMS.fromLongitude( this.value );
+    if ( this.axis.orientation === 'north' ) return DMS.fromLatitude( this.value );
+
+    throw new TypeError( 'Cannot convert to DMS without a valid axis orientation' );
   }
 }
