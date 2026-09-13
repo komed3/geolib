@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BBox } from '../src/bbox';
+import { BBox, Geographic2DBBox } from '../src/bbox';
 import { Coordinate, Geographic2DCoordinate } from '../src/coord';
 import { Geographic2DSystem, Projected2DSystem } from '../src/system';
 import { Latitude, Longitude } from '../src/value';
@@ -155,5 +155,15 @@ describe( 'BBox', () => {
   it ( 'supports a custom string format', () => {
     expect( create( [ -10, -20 ], [ 30, 40 ] ).toString( { format: '{min} / {max}' } ) )
       .toBe( '-10°, -20° / 30°, 40°' );
+  } );
+
+  it ( 'creates a geographic 2D bounding box', () => {
+    const bbox = Geographic2DBBox.fromTuple( [ [ -180, -90 ], [ 180, 90 ] ] );
+
+    expect( bbox ).toBeInstanceOf( Geographic2DBBox );
+    expect( bbox.min ).toBeInstanceOf( Geographic2DCoordinate );
+    expect( bbox.max ).toBeInstanceOf( Geographic2DCoordinate );
+    expect( bbox.dimension ).toBe( 2 );
+    expect( bbox.toTuple() ).toEqual( [ [ -180, -90 ], [ 180, 90 ] ] );
   } );
 } );
