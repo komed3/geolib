@@ -55,9 +55,9 @@ export class BBox< T extends Coordinate = Coordinate > {
 
     if ( min.some( ( value, i ) => value > max[ i ] ) ) return null;
 
-    const BBoxClass = this.constructor as new ( options: BBoxOptions< T > ) => BBox< T >;
+    const cls = this.constructor as new ( options: BBoxOptions< T > ) => BBox< T >;
 
-    return new BBoxClass( {
+    return new cls( {
       min: ( this.min.constructor as typeof Coordinate ).fromTuple( min, this.system ) as T,
       max: ( this.max.constructor as typeof Coordinate ).fromTuple( max, this.system ) as T
     } );
@@ -67,9 +67,9 @@ export class BBox< T extends Coordinate = Coordinate > {
     return this.min.equals( min ) && this.max.equals( max );
   }
 
-  public clone () : BBox< T > {
-    const BBoxClass = this.constructor as new ( options: BBoxOptions< T > ) => BBox< T >;
-    return new BBoxClass( { min: this.min.clone() as T, max: this.max.clone() as T } );
+  public clone () : this {
+    const cls = this.constructor as new ( options: BBoxOptions< T > ) => this;
+    return new cls( { min: this.min.clone() as T, max: this.max.clone() as T } );
   }
 
   public toTuple () : [ number[], number[] ] {
