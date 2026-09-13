@@ -1,4 +1,4 @@
-import type { Coordinate, CoordinateStringOptions } from '../coord';
+import { Coordinate, type CoordinateStringOptions } from '../coord';
 import type { System } from '../system';
 
 
@@ -78,5 +78,12 @@ export class BBox< T extends Coordinate = Coordinate > {
   public toString ( { format = '[{min}] – [{max}]', ...options }: BBoxStringOptions = {} ) : string {
     return format.replaceAll( '{min}', this.min.toString( options ) )
       .replaceAll( '{max}', this.max.toString( options ) );
+  }
+
+  public static fromTuple ( [ min, max ]: ReadonlyArray< ReadonlyArray< number > >, system: System ) : BBox {
+    return new BBox( {
+      min: Coordinate.fromTuple( min, system ),
+      max: Coordinate.fromTuple( max, system )
+    } );
   }
 }
