@@ -7,5 +7,5 @@ export const clamp = ( value: number, min: number, max: number ) : number => {
 
 export const wrap = ( value: number, min: number, max: number ) : number => {
   const range = max - min;
-  return range === 0 ? min : ( ( value - min ) % range + range ) % range + min;
-}
+  return value === max ? max : ( ( value - min ) % range + range ) % range + min;
+};
