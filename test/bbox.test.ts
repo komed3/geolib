@@ -147,4 +147,13 @@ describe( 'BBox', () => {
     expect( create( [ -10, -20 ], [ 30, 40 ] ).toJSON() )
       .toEqual( { min: [ -10, -20 ], max: [ 30, 40 ], system: system.name } );
   } );
+
+  it ( 'converts to a string', () => {
+    expect( create( [ -10, -20 ], [ 30, 40 ] ).toString() ).toBe( '[-10°, -20°] – [30°, 40°]' );
+  } );
+
+  it ( 'supports a custom string format', () => {
+    expect( create( [ -10, -20 ], [ 30, 40 ] ).toString( { format: '{min} / {max}' } ) )
+      .toBe( '-10°, -20° / 30°, 40°' );
+  } );
 } );
