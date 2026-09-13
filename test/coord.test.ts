@@ -26,6 +26,13 @@ describe( 'Coordinate', () => {
     expect( coordinate.get( 0 ) ).toBe( values[ 1 ] );
   } );
 
+  it( 'get orthant and orthant index', () => {
+    const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
+
+    expect( coordinate.orthant() ).toEqual( [ 1, 1 ] );
+    expect( coordinate.orthantIndex() ).toBe( 3 );
+  } );
+
   it( 'compares coordinates', () => {
     const coordinate = Coordinate.fromTuple( [ 12.5, 52.5 ], system );
 
@@ -64,5 +71,12 @@ describe( 'Coordinate', () => {
     expect( coordinate.get( 1 ).value ).toBe( 52.5 );
     expect( coordinate.get( 0 ).axis ).toBe( longitude );
     expect( coordinate.get( 1 ).axis ).toBe( latitude );
+  } );
+
+  it( 'creates orthants from indices', () => {
+    expect( Coordinate.orthantFromIndex( 0, 2 ) ).toEqual( [ -1, -1 ] );
+    expect( Coordinate.orthantFromIndex( 1, 2 ) ).toEqual( [ -1, 1 ] );
+    expect( Coordinate.orthantFromIndex( 2, 2 ) ).toEqual( [ 1, -1 ] );
+    expect( Coordinate.orthantFromIndex( 3, 2 ) ).toEqual( [ 1, 1 ] );
   } );
 } );
