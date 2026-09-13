@@ -1,4 +1,3 @@
-import type { AxisOptions } from '../axis';
 import type { Coordinate, CoordinateStringOptions } from '../coord';
 import type { System } from '../system';
 
@@ -51,11 +50,12 @@ export class BBox< T extends Coordinate = Coordinate > {
     return new BBox< T >( { min: this.min.clone() as T, max: this.max.clone() as T } );
   }
 
-  public toJSON () : { min: number[], max: number[], system: { name: string, axes: readonly AxisOptions[] } } {
-    return { min: this.min.toTuple(), max: this.max.toTuple(), system: this.system.toJSON() };
+  public toJSON () : { min: number[], max: number[], system: string } {
+    return { min: this.min.toTuple(), max: this.max.toTuple(), system: this.system.name };
   }
 
-  public toString ( { format = '[$1] – [$2]', ...options }: BBoxStringOptions = {} ) : string {
-    return format.replaceAll( '$1', this.min.toString( options ) ).replaceAll( '$2', this.max.toString( options ) );
+  public toString ( { format = '[{min}] – [{max}]', ...options }: BBoxStringOptions = {} ) : string {
+    return format.replaceAll( '{min}', this.min.toString( options ) )
+      .replaceAll( '{max}', this.max.toString( options ) );
   }
 }
