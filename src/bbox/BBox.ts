@@ -37,4 +37,12 @@ export class BBox< T extends Coordinate = Coordinate > {
       return value.value >= min && value.value <= max;
     } );
   }
+
+  public equals ( { min, max }: BBox< T > ) : boolean {
+    return this.min.equals( min ) && this.max.equals( max );
+  }
+
+  public clone () : BBox< T > {
+    return new BBox< T >( { min: this.min.clone() as T, max: this.max.clone() as T } );
+  }
 }
