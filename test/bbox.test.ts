@@ -29,4 +29,17 @@ describe( 'BBox', () => {
 
     expect( () => new BBox( { min, max } ) ).toThrow( 'Bounding box system mismatch' );
   } );
+
+  it ( 'contains coordinates inside the bounds', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+
+    expect( bbox.contains( Coordinate.fromTuple( [ 0, 0 ], system ) ) ).toBe( true );
+  } );
+
+  it ( 'contains coordinates on the bounds', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+
+    expect( bbox.contains( Coordinate.fromTuple( [ -10, -20 ], system ) ) ).toBe( true );
+    expect( bbox.contains( Coordinate.fromTuple( [ 30, 40 ], system ) ) ).toBe( true );
+  } );
 } );
