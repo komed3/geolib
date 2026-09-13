@@ -67,6 +67,10 @@ export class BBox< T extends Coordinate = Coordinate > {
     return new BBox< T >( { min: this.min.clone() as T, max: this.max.clone() as T } );
   }
 
+  public toTuple () : [ number[], number[] ] {
+    return [ this.min.toTuple(), this.max.toTuple() ];
+  }
+
   public toJSON () : { min: number[], max: number[], system: string } {
     return { min: this.min.toTuple(), max: this.max.toTuple(), system: this.system.name };
   }
