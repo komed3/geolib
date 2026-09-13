@@ -133,4 +133,18 @@ describe( 'BBox', () => {
     expect( clone.max ).not.toBe( bbox.max );
     expect( clone.equals( bbox ) ).toBe( true );
   } );
+
+  it ( 'converts to a tuple', () => {
+    expect( create( [ -10, -20 ], [ 30, 40 ] ).toTuple() ).toEqual( [ [ -10, -20 ], [ 30, 40 ] ] );
+  } );
+
+  it ( 'creates a bounding box from a tuple', () => {
+    expect( BBox.fromTuple( [ [ -10, -20 ], [ 30, 40 ] ], system ).toTuple() )
+      .toEqual( [ [ -10, -20 ], [ 30, 40 ] ] );
+  } );
+
+  it ( 'converts to JSON', () => {
+    expect( create( [ -10, -20 ], [ 30, 40 ] ).toJSON() )
+      .toEqual( { min: [ -10, -20 ], max: [ 30, 40 ], system: system.name } );
+  } );
 } );
