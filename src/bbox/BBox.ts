@@ -40,6 +40,25 @@ export class BBox< T extends Coordinate = Coordinate > {
     );
   }
 
+  public intersect ( bbox: BBox< T > ) : BBox< T > | null {
+    if ( ! this.system.equals( bbox.system ) ) return null;
+
+    const min = this.min.values.map( ( value, i ) =>
+      Math.max( value.value, bbox.min.values[ i ].value )
+    );
+
+    const max = this.max.values.map( ( value, i ) =>
+      Math.min( value.value, bbox.max.values[ i ].value )
+    );
+
+    if ( min.some( ( value, i ) => value > max[ i ] ) ) return null;
+
+    return new BBox< T >( {
+      min: ( this.min.constructor as any ).fromTuple( min, this.system ) as T,
+      max: ( this.max.constructor as any ).fromTuple( max, this.system ) as T
+    } );
+  }
+
   public equals ( { min, max }: BBox< T > ) : boolean {
     return this.min.equals( min ) && this.max.equals( max );
   }
