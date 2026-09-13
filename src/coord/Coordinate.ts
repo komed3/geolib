@@ -19,7 +19,12 @@ export class Coordinate {
   public readonly values: ReadonlyArray< Value >;
 
   public constructor ( { system, values }: CoordinateOptions ) {
-    if ( system.dimension !== values.length ) throw new TypeError( 'Coordinate dimension mismatch' );
+    if ( system.dimension !== values.length )
+      throw new TypeError( 'Coordinate dimension mismatch' );
+
+    if ( ! values.every( ( value, i ) => value.axis.equals( system.axes.get( i ) ) ) )
+      throw new TypeError( 'Coordinate axis mismatch' );
+
     this.system = system, this.values = Object.freeze( [ ...values ] );
   }
 
