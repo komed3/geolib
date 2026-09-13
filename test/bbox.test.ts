@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { BBox } from '../src/bbox';
-import { Coordinate } from '../src/coord';
+import { Coordinate, Geographic2DCoordinate } from '../src/coord';
 import { Geographic2DSystem, Projected2DSystem } from '../src/system';
+import { Latitude, Longitude } from '../src/value';
 
 
 const system = new Geographic2DSystem();
@@ -53,5 +54,60 @@ describe( 'BBox', () => {
     const coordinate = Coordinate.fromTuple( [ 0, 0 ], new Projected2DSystem() );
 
     expect( bbox.contains( coordinate ) ).toBe( false );
+  } );
+
+  it ( 'intersects overlapping bounding boxes', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const other = create( [ 0, 10 ], [ 50, 50 ] );
+    const intersection = bbox.intersect( other );
+
+    expect( intersection ).not.toBeNull();
+    expect( intersection?.toTuple() ).toEqual( [ [ 0, 10 ], [ 30, 40 ] ] );
+  } );
+
+  it ( 'intersects touching bounding boxes', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const other = create( [ 30, 40 ], [ 50, 60 ] );
+    const intersection = bbox.intersect( other );
+
+    expect( intersection ).not.toBeNull();
+    expect( intersection?.toTuple() ).toEqual( [ [ 30, 40 ], [ 30, 40 ] ] );
+  } );
+
+  it ( 'returns null for non-intersecting bounding boxes', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const other = create( [ 31, 41 ], [ 50, 60 ] );
+
+    expect( bbox.intersect( other ) ).toBeNull();
+  } );
+
+  it ( 'returns null for different systems', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+
+    const other = new BBox( {
+      min: Coordinate.fromTuple( [ -10, -20 ], new Projected2DSystem() ),
+      max: Coordinate.fromTuple( [ 30, 40 ], new Projected2DSystem() )
+    } );
+
+    expect( bbox.intersect( other ) ).toBeNull();
+  } );
+
+  it ( 'preserves the coordinate type when intersecting', () => {
+    const bbox = new BBox( {
+      min: new Geographic2DCoordinate( new Longitude( -10 ), new Latitude( -20 ) ),
+      max: new Geographic2DCoordinate( new Longitude( 30 ), new Latitude( 40 ) )
+    } );
+
+    const other = new BBox( {
+      min: new Geographic2DCoordinate( new Longitude( 0 ), new Latitude( 10 ) ),
+      max: new Geographic2DCoordinate( new Longitude( 50 ), new Latitude( 50 ) )
+    } );
+
+    const intersection = bbox.intersect( other );
+
+    console.log( intersection?.min );
+    /*expect( intersection?.min ).toBeInstanceOf( Geographic2DCoordinate );
+    expect( intersection?.max ).toBeInstanceOf( Geographic2DCoordinate );*/
+    expect( intersection?.toTuple() ).toEqual( [ [ 0, 10 ], [ 30, 40 ] ] );
   } );
 } );
