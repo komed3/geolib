@@ -1,4 +1,5 @@
 import * as axis from './axis';
+import * as bbox from './bbox';
 import * as coord from './coord';
 import * as crs from './crs';
 import * as datum from './datum';
@@ -13,6 +14,7 @@ import * as unit from './unit';
 import * as value from './value';
 
 export * from './axis';
+export * from './bbox';
 export * from './coord';
 export * from './crs';
 export * from './datum';
@@ -27,14 +29,14 @@ export * from './unit';
 export * from './value';
 
 export {
-  axis, coord, crs, datum, dms, ellipsoid, math,
+  axis, bbox, coord, crs, datum, dms, ellipsoid, math,
   primem, range, system, tile, unit, value
 };
 
 export const geolib = {
-  ...axis, ...coord, ...crs, ...datum, ...dms,
-  ...ellipsoid, ...math, ...primem, ...range,
-  ...system, ...tile, ...unit, ...value
+  ...axis, ...bbox, ...coord, ...crs, ...datum, ...dms,
+  ...ellipsoid, ...math, ...primem, ...range, ...system,
+  ...tile, ...unit, ...value
 } as const;
 
 export default geolib;
