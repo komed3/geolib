@@ -105,9 +105,32 @@ describe( 'BBox', () => {
 
     const intersection = bbox.intersect( other );
 
-    console.log( intersection?.min );
     /*expect( intersection?.min ).toBeInstanceOf( Geographic2DCoordinate );
     expect( intersection?.max ).toBeInstanceOf( Geographic2DCoordinate );*/
     expect( intersection?.toTuple() ).toEqual( [ [ 0, 10 ], [ 30, 40 ] ] );
+  } );
+
+  it ( 'compares equal bounding boxes', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const other = create( [ -10, -20 ], [ 30, 40 ] );
+
+    expect( bbox.equals( other ) ).toBe( true );
+  } );
+
+  it ( 'rejects different bounding boxes', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const other = create( [ -10, -20 ], [ 30, 41 ] );
+
+    expect( bbox.equals( other ) ).toBe( false );
+  } );
+
+  it ( 'clones a bounding box', () => {
+    const bbox = create( [ -10, -20 ], [ 30, 40 ] );
+    const clone = bbox.clone();
+
+    expect( clone ).not.toBe( bbox );
+    expect( clone.min ).not.toBe( bbox.min );
+    expect( clone.max ).not.toBe( bbox.max );
+    expect( clone.equals( bbox ) ).toBe( true );
   } );
 } );
