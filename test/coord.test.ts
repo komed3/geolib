@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { AxisSet, LatitudeAxis, LongitudeAxis } from '../src/axis';
 import { Coordinate } from '../src/coord';
-import { System } from '../src/system';
-import { Value } from '../src/value';
+import { Geographic2DSystem, Projected2DSystem, System } from '../src/system';
+import { Longitude, Value } from '../src/value';
 
 
 const longitude = new LongitudeAxis();
@@ -78,5 +78,20 @@ describe( 'Coordinate', () => {
     expect( Coordinate.orthantFromIndex( 1, 2 ) ).toEqual( [ -1, 1 ] );
     expect( Coordinate.orthantFromIndex( 2, 2 ) ).toEqual( [ 1, -1 ] );
     expect( Coordinate.orthantFromIndex( 3, 2 ) ).toEqual( [ 1, 1 ] );
+  } );
+
+  it ( 'rejects values with mismatching system axes', () => {
+    const system = new Geographic2DSystem();
+    const values = [ new Longitude( 10 ), new Longitude( 20 ) ];
+
+    expect( () => new Coordinate( { system, values } ) ).toThrow( 'Coordinate axis mismatch' );
+  } );
+
+  it ( 'rejects values from another system', () => {
+    const system = new Geographic2DSystem();
+    const other = new Projected2DSystem();
+    const values = other.axes.toArray().map( axis => new Value( 0, axis ) );
+
+    expect( () => new Coordinate( { system, values } ) ).toThrow( 'Coordinate axis mismatch' );
   } );
 } );
