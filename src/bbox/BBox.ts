@@ -26,4 +26,15 @@ export class BBox< T extends Coordinate = Coordinate > {
   public get dimension () : number {
     return this.min.dimension;
   }
+
+  public contains ( coordinate: T ) : boolean {
+    if ( ! this.system.equals( coordinate.system ) ) return false;
+
+    return coordinate.values.every( ( value, i ) => {
+      const min = this.min.values[ i ].value;
+      const max = this.max.values[ i ].value;
+
+      return value.value >= min && value.value <= max;
+    } );
+  }
 }
