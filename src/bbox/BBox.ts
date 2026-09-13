@@ -1,11 +1,15 @@
 import type { AxisOptions } from '../axis';
-import type { Coordinate } from '../coord';
+import type { Coordinate, CoordinateStringOptions } from '../coord';
 import type { System } from '../system';
 
 
 export interface BBoxOptions< T extends Coordinate = Coordinate > {
   min: T;
   max: T;
+}
+
+export interface BBoxStringOptions extends CoordinateStringOptions {
+  format?: string;
 }
 
 
@@ -49,5 +53,9 @@ export class BBox< T extends Coordinate = Coordinate > {
 
   public toJSON () : { min: number[], max: number[], system: { name: string, axes: readonly AxisOptions[] } } {
     return { min: this.min.toTuple(), max: this.max.toTuple(), system: this.system.toJSON() };
+  }
+
+  public toString ( { format = '[$1] – [$2]', ...options }: BBoxStringOptions = {} ) : string {
+    return format.replaceAll( '$1', this.min.toString( options ) ).replaceAll( '$2', this.max.toString( options ) );
   }
 }
