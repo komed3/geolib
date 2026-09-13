@@ -70,9 +70,13 @@ export class Coordinate {
     return this.values.map( v => v.toString( options ) ).join( delimiter );
   }
 
-  public static fromTuple ( tuple: ReadonlyArray< number >, system: System ) : Coordinate {
+  public static fromTuple < T extends Coordinate > (
+    this: { prototype: T }, tuple: ReadonlyArray< number >, system: System
+  ) : T {
     const values = tuple.map( ( value, i ) => new Value( value, system.axes.get( i ) ) );
-    return new Coordinate( { system, values } );
+    const coordinate = new Coordinate( { system, values } );
+
+    return Object.setPrototypeOf( coordinate, this.prototype ) as T;
   }
 
   public static orthantFromIndex ( index: number, dimension: number ) : CoordinateOrthant {
